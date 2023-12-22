@@ -11,6 +11,8 @@ public class ProductService {
     }
 
     public Product create(Product newProduct) {
-        return productRepository.create(newProduct);
+        Product createdProduct = productRepository.create(newProduct);
+        System.out.println(createdProduct.countPriceWithDiscount());
+        return createdProduct;
     }
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 public class ProductRepository {
 
     public Product create(Product newProduct) {
-        return new Product((long) 101, newProduct.getName(), newProduct.getPrice());
+        return new Product((long) 101, newProduct.getName(), newProduct.getPrice(), newProduct.getDiscount());
     }
 }
