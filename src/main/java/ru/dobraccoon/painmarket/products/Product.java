@@ -13,29 +13,31 @@ public class Product {
     public Product(Long id, String name, float price, int discount) {
         this.id = id;
         this.name = name;
+
         if (price > 0) {
             this.price = price;
         } else {
-            try {
-                throw new Exception(String.format("Price can`t be %s", price));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            throwValidationException("Price", Float.toString(price));
         }
         if (discount >= 0 && discount <= 100) {
             this.discount = discount;
         } else {
-            try {
-                throw new Exception(String.format("Discount can`t be %s", discount));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            throwValidationException("Discount", Integer.toString(discount));
         }
     }
 
     public float countPriceWithDiscount() {
         return price - price / 100 * discount;
     }
+
+    private void throwValidationException(String valueName, String value) {
+        try {
+            throw new Exception(String.format("%s can`t be %s", valueName, value));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 
 
