@@ -1,9 +1,13 @@
-# Use postgres/example user/password credentials
-version: '3.1'
-
+version: "3.8"
 services:
-  pain-db:
-    image: postgres
+  outwayvpn-db:
+    image: postgres:10.5
     restart: always
-    environment:
-      POSTGRES_PASSWORD: example
+    container_name: pain-db
+    ports:
+      - "5432:5432"
+    networks:
+      - pain-network
+networks:
+  pain-network:
+    driver: bridge
