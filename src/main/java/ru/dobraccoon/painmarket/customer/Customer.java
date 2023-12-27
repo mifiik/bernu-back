@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Customer {
-    Long id;
-    String email;
+    private Long id;
+    private String email;
 }
