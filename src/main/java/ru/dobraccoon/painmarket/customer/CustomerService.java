@@ -13,4 +13,8 @@ public class CustomerService {
     public Customer create(Customer newCustomer) {
         return customerRepository.create(newCustomer);
     }
+
+    public Customer loadById(long customerId){
+        return customerRepository.loadById(customerId);
+    }
 }
