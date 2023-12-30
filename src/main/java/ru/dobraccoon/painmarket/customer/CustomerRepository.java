@@ -14,8 +14,14 @@ public class CustomerRepository {
 
     public Customer create(Customer newCustomer) {
         String createSQL = String.format("INSERT INTO customer(id, email) VALUES (%s, '%s')",
-                Math.random(), newCustomer.getEmail());
+                "nextval('my_sequence')", newCustomer.getEmail());
         jdbcTemplate.execute(createSQL);
         return null;
+    }
+
+    public Customer loadById(long customerId){
+        String sqlLoadById = String.format("SELECT * FROM customer WHERE id = %s", customerId);
+
+        return jdbcTemplate.queryForObject(sqlLoadById, new CustomerRowMapper());
     }
 }
