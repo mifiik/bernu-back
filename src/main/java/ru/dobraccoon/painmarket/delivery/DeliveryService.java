@@ -13,4 +13,8 @@ public class DeliveryService {
     public void create(Delivery delivery) {
         deliveryRepository.create(delivery);
     }
+
+    public Delivery loadById(long deliveryId) {
+        return deliveryRepository.loadById(deliveryId);
+    }
 }

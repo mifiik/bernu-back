@@ -1,9 +1,6 @@
 package ru.dobraccoon.painmarket.products;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("products")
@@ -17,5 +14,10 @@ public class ProductController {
     @PostMapping
     public Product create(@RequestBody Product newProduct) {
         return productService.create(newProduct);
+    }
+
+    @GetMapping("/{productId}")
+    public Product loadById(@PathVariable long productId) {
+        return productService.loadById(productId);
     }
 }

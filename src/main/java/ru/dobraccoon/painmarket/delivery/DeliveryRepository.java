@@ -12,8 +12,18 @@ public class DeliveryRepository {
     }
 
     public void create(Delivery delivery) {
-        String sqlInsert = String.format("INSERT INTO delivery(id, order_id, customer_id, address) VALUES(%s,%s,%s,'%s');", Math.random(), delivery.getOrderId(), delivery.getCustomerId(), delivery.getAddress());
+        String sqlInsert = String.format("INSERT INTO delivery(id, order_id, customer_id, address) VALUES(%s,%s,%s,'%s');",
+                "nextval('pain_sequence')",
+                delivery.getOrderId(), delivery.getCustomerId(),
+                delivery.getAddress());
+
         jdbcTemplate.execute(sqlInsert);
+    }
+
+    public Delivery loadById(long deliveryId) {
+        String sqlLoadById = String.format("SELECT * FROM delivery WHERE id = %s", deliveryId);
+
+        return jdbcTemplate.queryForObject(sqlLoadById, new DeliveryRowMapper());
     }
 }
 

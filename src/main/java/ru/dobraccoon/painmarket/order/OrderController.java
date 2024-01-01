@@ -1,10 +1,7 @@
 package ru.dobraccoon.painmarket.order;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("orders")
@@ -19,5 +16,10 @@ public class OrderController {
     @PostMapping
     public void create(@RequestBody Order order) {
         orderService.create(order);
+    }
+
+    @GetMapping("/{orderId}")
+    public Order loadById(@PathVariable long orderId) {
+        return orderService.loadById(orderId);
     }
 }
