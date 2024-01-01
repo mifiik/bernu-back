@@ -14,4 +14,8 @@ public class OrderService {
     public void create(Order order) {
         orderRepository.create(order);
     }
+
+    public Order loadById(long orderId) {
+        return orderRepository.loadById(orderId);
+    }
 }

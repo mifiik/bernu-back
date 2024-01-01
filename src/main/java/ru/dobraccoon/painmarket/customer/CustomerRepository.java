@@ -19,7 +19,7 @@ public class CustomerRepository {
         return null;
     }
 
-    public Customer loadById(long customerId){
+    public Customer loadById(long customerId) {
         String sqlLoadById = String.format("SELECT * FROM customer WHERE id = %s", customerId);
 
         return jdbcTemplate.queryForObject(sqlLoadById, new CustomerRowMapper());

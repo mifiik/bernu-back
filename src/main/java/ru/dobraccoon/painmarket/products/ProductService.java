@@ -13,4 +13,8 @@ public class ProductService {
     public Product create(Product newProduct) {
         return productRepository.create(newProduct);
     }
+
+    public Product loadById(long productId) {
+        return productRepository.loadById(productId);
+    }
 }

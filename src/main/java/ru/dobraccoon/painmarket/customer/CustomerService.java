@@ -14,7 +14,7 @@ public class CustomerService {
         return customerRepository.create(newCustomer);
     }
 
-    public Customer loadById(long customerId){
+    public Customer loadById(long customerId) {
         return customerRepository.loadById(customerId);
     }
 }
