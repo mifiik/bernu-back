@@ -2,6 +2,8 @@ package ru.dobraccoon.painmarket.customer;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("customer")
 public class CustomerController {
@@ -19,6 +21,11 @@ public class CustomerController {
     @GetMapping("/{customerId}")
     public Customer loadById(@PathVariable long customerId) {
         return customerService.loadById(customerId);
+    }
+
+    @GetMapping("/load-all")
+    public List<Customer> loadAll(){
+        return  customerService.loadAll();
     }
 
 }

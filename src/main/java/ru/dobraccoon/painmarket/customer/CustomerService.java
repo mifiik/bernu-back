@@ -2,6 +2,8 @@ package ru.dobraccoon.painmarket.customer;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     private CustomerRepository customerRepository;
@@ -16,5 +18,9 @@ public class CustomerService {
 
     public Customer loadById(long customerId) {
         return customerRepository.loadById(customerId);
+    }
+
+    public List<Customer> loadAll(){
+        return  customerRepository.loadAll();
     }
 }
