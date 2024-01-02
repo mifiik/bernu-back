@@ -2,6 +2,8 @@ package ru.dobraccoon.painmarket.products;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -16,5 +18,14 @@ public class ProductService {
 
     public Product loadById(long productId) {
         return productRepository.loadById(productId);
+    }
+
+    public List<Product> loadAll() {
+        return productRepository.loadAll();
+    }
+
+    public List<Product> loadByDiscount(int discount) {
+
+        return productRepository.loadByDiscount(discount);
     }
 }
