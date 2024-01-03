@@ -2,6 +2,8 @@ package ru.dobraccoon.painmarket.order;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -17,5 +19,13 @@ public class OrderService {
 
     public Order loadById(long orderId) {
         return orderRepository.loadById(orderId);
+    }
+
+    public List<Order> loadAll() {
+        return orderRepository.loadAll();
+    }
+
+    public List<Order> loadByClientId(long clientId) {
+        return orderRepository.loadByClientId(clientId);
     }
 }
