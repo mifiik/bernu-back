@@ -30,7 +30,7 @@ public class OrderController {
         return orderService.loadAll();
     }
 
-    @GetMapping("/load-by-clientId/{clientId}")
+    @GetMapping("/load-by-client-id/{clientId}")
     public List<Order> loadByClientId(@PathVariable long clientId) {
         return orderService.loadByClientId(clientId);
     }

@@ -27,7 +27,7 @@ public class CustomerRepository {
         return jdbcTemplate.queryForObject(sqlLoadById, new CustomerRowMapper());
     }
 
-    public List<Customer> loadAll(){
+    public List<Customer> loadAll() {
         String sqlLoadAll = "SELECT * FROM customer;";
 
         return jdbcTemplate.query(sqlLoadAll, new CustomerRowMapper());

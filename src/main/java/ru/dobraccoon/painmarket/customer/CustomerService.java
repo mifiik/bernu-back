@@ -20,7 +20,7 @@ public class CustomerService {
         return customerRepository.loadById(customerId);
     }
 
-    public List<Customer> loadAll(){
-        return  customerRepository.loadAll();
+    public List<Customer> loadAll() {
+        return customerRepository.loadAll();
     }
 }

@@ -28,7 +28,7 @@ public class ProductController {
         return productService.loadAll();
     }
 
-    @GetMapping("/load-discount")
+    @GetMapping("/load-by-discount/{discount}")
     public List<Product> loadByDiscount(@PathVariable int discount) {
 
         return productService.loadByDiscount(discount);

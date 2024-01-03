@@ -35,7 +35,7 @@ public class DeliveryRepository {
     }
 
     public List<Delivery> loadByAddress(String address) {
-        String sqlLoadByAddress = String.format("SELECT * FROM delivery WHERE address = %s", address);
+        String sqlLoadByAddress = String.format("SELECT * FROM delivery WHERE address = '%s'", address);
 
         return jdbcTemplate.query(sqlLoadByAddress, new DeliveryRowMapper());
     }

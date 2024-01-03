@@ -24,8 +24,8 @@ public class CustomerController {
     }
 
     @GetMapping("/load-all")
-    public List<Customer> loadAll(){
-        return  customerService.loadAll();
+    public List<Customer> loadAll() {
+        return customerService.loadAll();
     }
 
 }

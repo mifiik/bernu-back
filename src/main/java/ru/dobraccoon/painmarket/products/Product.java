@@ -19,7 +19,7 @@ public class Product {
         } else {
             throwValidationException("Price", Float.toString(price));
         }
-        if (discount >= 0 && discount <= 600) {
+        if (discount >= 0 && discount <= 100) {
             this.discount = discount;
         } else {
             throwValidationException("Discount", Integer.toString(discount));

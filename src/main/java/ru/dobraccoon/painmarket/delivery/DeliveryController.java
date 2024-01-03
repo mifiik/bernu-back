@@ -28,7 +28,7 @@ public class DeliveryController {
         return deliveryService.loadAll();
     }
 
-    @GetMapping("load-by-address/{address}")
+    @GetMapping("/load-by-address/{address}")
     public List<Delivery> loadByAddress(@PathVariable String address) {
         return deliveryService.loadByAddress(address);
     }
