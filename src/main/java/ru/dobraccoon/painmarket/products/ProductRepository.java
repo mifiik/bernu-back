@@ -24,6 +24,23 @@ public class ProductRepository {
         return null;
     }
 
+    public void update(Product product) {
+        String sqlUpdate = String.format(
+                """
+                        UPDATE product
+                        SET name     = '%s',
+                            price    = %s,
+                            discount = %s
+                        WHERE id = %s;""",
+                product.getName(),
+                product.getPrice(),
+                product.getDiscount(),
+                product.getId()
+        );
+
+        jdbcTemplate.update(sqlUpdate);
+    }
+
     public Product loadById(long productId) {
         String sqlLoadById = String.format("SELECT * FROM product WHERE id = %s", productId);
 
