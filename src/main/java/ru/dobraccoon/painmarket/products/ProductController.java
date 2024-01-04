@@ -33,6 +33,16 @@ public class ProductController {
         productService.deleteByPriceAndDiscount(price, discount);
     }
 
+    @DeleteMapping("/delete-by-name/{name}")
+    public void deleteByName(@PathVariable String name) {
+        productService.deleteByName(name);
+    }
+
+    @DeleteMapping("/delete-by-discount/{discount}")
+    public void deleteByDiscount(@PathVariable int discount) {
+        productService.deleteByDiscount(discount);
+    }
+
     @GetMapping("/{productId}")
     public Product loadById(@PathVariable long productId) {
         return productService.loadById(productId);

@@ -28,6 +28,14 @@ public class ProductService {
         productRepository.deleteByPriceAndDiscount(price, discount);
     }
 
+    public void deleteByName(String name) {
+        productRepository.deleteByName(name);
+    }
+
+    public void deleteByDiscount(int discount) {
+        productRepository.deleteByDiscount(discount);
+    }
+
     public Product loadById(long productId) {
         return productRepository.loadById(productId);
     }

@@ -18,6 +18,16 @@ public class CustomerController {
         return customerService.create(newCustomer);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable long id) {
+        customerService.deleteById(id);
+    }
+
+    @DeleteMapping("/delete-by-email/{email}")
+    public void deleteByEmail(@PathVariable String email) {
+        customerService.deleteByEmail(email);
+    }
+
     @GetMapping("/{customerId}")
     public Customer loadById(@PathVariable long customerId) {
         return customerService.loadById(customerId);
