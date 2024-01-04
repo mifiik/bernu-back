@@ -22,6 +22,22 @@ public class DeliveryRepository {
         jdbcTemplate.execute(sqlInsert);
     }
 
+    public void update(Delivery delivery) {
+        String sqlUpdate = String.format("""
+                        UPDATE delivery 
+                        SET order_id = %s, 
+                        customer_id = %s, 
+                        address = '%s'
+                        WHERE id = %s;""",
+                delivery.getOrderId(),
+                delivery.getCustomerId(),
+                delivery.getAddress(),
+                delivery.getId()
+        );
+
+        jdbcTemplate.update(sqlUpdate);
+    }
+
     public Delivery loadById(long deliveryId) {
         String sqlLoadById = String.format("SELECT * FROM delivery WHERE id = %s", deliveryId);
 

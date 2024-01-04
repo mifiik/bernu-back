@@ -20,6 +20,11 @@ public class OrderController {
         orderService.create(order);
     }
 
+    @PutMapping
+    public void update(@RequestBody Order order) {
+        orderService.update(order);
+    }
+
     @GetMapping("/{orderId}")
     public Order loadById(@PathVariable long orderId) {
         return orderService.loadById(orderId);

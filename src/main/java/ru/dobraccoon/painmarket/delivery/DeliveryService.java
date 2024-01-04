@@ -16,6 +16,10 @@ public class DeliveryService {
         deliveryRepository.create(delivery);
     }
 
+    public void update(Delivery delivery) {
+        deliveryRepository.update(delivery);
+    }
+
     public Delivery loadById(long deliveryId) {
         return deliveryRepository.loadById(deliveryId);
     }

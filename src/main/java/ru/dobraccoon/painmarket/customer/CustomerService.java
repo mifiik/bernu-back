@@ -16,6 +16,10 @@ public class CustomerService {
         return customerRepository.create(newCustomer);
     }
 
+    public void update(Customer customer) {
+        customerRepository.Update(customer);
+    }
+
     public Customer loadById(long customerId) {
         return customerRepository.loadById(customerId);
     }

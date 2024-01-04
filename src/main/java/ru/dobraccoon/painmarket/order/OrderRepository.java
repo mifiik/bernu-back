@@ -24,6 +24,20 @@ public class OrderRepository {
         jdbcTemplate.execute(sqlInsert);
     }
 
+    public void update(Order order) {
+        String sqlUpdate = String.format(
+                """
+                        UPDATE orders SET product_id = %s, client_id = %s, price = %s
+                        WHERE id = %s;""",
+                order.getProductId(),
+                order.getClientId(),
+                order.getPrice(),
+                order.getId()
+        );
+        jdbcTemplate.update(sqlUpdate);
+
+    }
+
     public Order loadById(long orderId) {
         String sqlLoadById = String.format("SELECT * FROM orders WHERE id = %s", orderId);
 

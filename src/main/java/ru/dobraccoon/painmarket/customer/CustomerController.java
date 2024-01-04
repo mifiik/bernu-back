@@ -18,6 +18,11 @@ public class CustomerController {
         return customerService.create(newCustomer);
     }
 
+    @PutMapping
+    public void update(@RequestBody Customer customer) {
+        customerService.update(customer);
+    }
+
     @GetMapping("/{customerId}")
     public Customer loadById(@PathVariable long customerId) {
         return customerService.loadById(customerId);
