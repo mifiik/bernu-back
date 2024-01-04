@@ -23,6 +23,16 @@ public class ProductController {
         productService.update(product);
     }
 
+    @DeleteMapping("{productId}")
+    public void deleteById(@PathVariable long productId) {
+        productService.deleteById(productId);
+    }
+
+    @DeleteMapping("{price}/{discount}")
+    public void deleteByPriceAndDiscount(@PathVariable float price, @PathVariable int discount) {
+        productService.deleteByPriceAndDiscount(price, discount);
+    }
+
     @GetMapping("/{productId}")
     public Product loadById(@PathVariable long productId) {
         return productService.loadById(productId);

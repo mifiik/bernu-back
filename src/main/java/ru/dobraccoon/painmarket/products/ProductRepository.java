@@ -41,6 +41,22 @@ public class ProductRepository {
         jdbcTemplate.update(sqlUpdate);
     }
 
+    public void deleteById(long productId) {
+        String sqlDeleteById = String.format("DELETE FROM product WHERE id = %s;", productId);
+
+        jdbcTemplate.execute(sqlDeleteById);
+    }
+
+    public void deleteByPriceAndDiscount(float price, int discount) {
+        String sqlDeleteByPriceAndDiscount = String.format(
+                "DELETE FROM product WHERE price = %s AND discount = %s;",
+                price,
+                discount
+        );
+
+        jdbcTemplate.execute(sqlDeleteByPriceAndDiscount);
+    }
+
     public Product loadById(long productId) {
         String sqlLoadById = String.format("SELECT * FROM product WHERE id = %s", productId);
 
