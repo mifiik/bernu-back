@@ -16,6 +16,10 @@ public class ProductService {
         return productRepository.create(newProduct);
     }
 
+    public void update(Product product) {
+        productRepository.update(product);
+    }
+
     public Product loadById(long productId) {
         return productRepository.loadById(productId);
     }

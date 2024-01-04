@@ -18,6 +18,11 @@ public class ProductController {
         return productService.create(newProduct);
     }
 
+    @PutMapping
+    public void update(@RequestBody Product product) {
+        productService.update(product);
+    }
+
     @GetMapping("/{productId}")
     public Product loadById(@PathVariable long productId) {
         return productService.loadById(productId);
