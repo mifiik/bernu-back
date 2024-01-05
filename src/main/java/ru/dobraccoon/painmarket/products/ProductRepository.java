@@ -57,6 +57,17 @@ public class ProductRepository {
         jdbcTemplate.execute(sqlDeleteByPriceAndDiscount);
     }
 
+    public void deleteByName(String name) {
+        String sqlDeleteByName = String.format("DELETE FROM product WHERE name = '%s';", name);
+        jdbcTemplate.execute(sqlDeleteByName);
+    }
+
+
+    public void deleteByDiscount(int discount) {
+        String sqlDeleteByDiscount = String.format("DELETE FROM product WHERE discount = %s;", discount);
+        jdbcTemplate.execute(sqlDeleteByDiscount);
+    }
+
     public Product loadById(long productId) {
         String sqlLoadById = String.format("SELECT * FROM product WHERE id = %s", productId);
 

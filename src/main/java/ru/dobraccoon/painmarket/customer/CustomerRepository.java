@@ -21,6 +21,17 @@ public class CustomerRepository {
         return null;
     }
 
+    public void deleteById(long id) {
+        String sqlDeleteById = String.format("DELETE FROM customer WHERE id = %s;", id);
+
+        jdbcTemplate.execute(sqlDeleteById);
+    }
+
+    public void deleteByEmail(String email) {
+        String sqlDeleteByEmail = String.format("DELETE FROM customer WHERE email = '%s';", email);
+        jdbcTemplate.execute(sqlDeleteByEmail);
+    }
+
     public Customer loadById(long customerId) {
         String sqlLoadById = String.format("SELECT * FROM customer WHERE id = %s", customerId);
 

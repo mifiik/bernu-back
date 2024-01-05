@@ -16,6 +16,14 @@ public class CustomerService {
         return customerRepository.create(newCustomer);
     }
 
+    public void deleteById(long id) {
+        customerRepository.deleteById(id);
+    }
+
+    public void deleteByEmail(String email) {
+        customerRepository.deleteByEmail(email);
+    }
+
     public Customer loadById(long customerId) {
         return customerRepository.loadById(customerId);
     }
