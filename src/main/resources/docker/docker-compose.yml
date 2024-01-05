@@ -10,4 +10,4 @@ services:
       - pain-network
 networks:
   pain-network:
-    driver: bridgeg
+    driver: bridge
