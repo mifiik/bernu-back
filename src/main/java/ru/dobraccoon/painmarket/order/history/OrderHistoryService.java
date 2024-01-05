@@ -19,14 +19,14 @@ public class OrderHistoryService {
     OrderService orderService;
     ProductService productService;
 
-    public OrderHistoryDTO loadByCustomerId(long customerId) {
+    public OrderHistoryDTO loadOrderHistoryByCustomerId(long customerId) {
         Customer customer = customerService.loadById(customerId);
-        List<Order> orderList = orderService.loadByClientId(customerId);
+        List<Order> orderList = orderService.loadByCustomerId(customerId);
         List<OrderDTO> customerOrdersInfo = new ArrayList<>();
 
         for (Order order : orderList) {
             Product product = productService.loadById(order.getProductId());
-            OrderDTO orderDTO = new OrderDTO(order.getId(), product, order.getClientId(), order.getPrice());
+            OrderDTO orderDTO = new OrderDTO(order.getId(), product, order.getCustomerId(), order.getPrice());
             customerOrdersInfo.add(orderDTO);
         }
 

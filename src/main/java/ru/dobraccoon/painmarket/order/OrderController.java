@@ -26,8 +26,8 @@ public class OrderController {
     }
 
     @GetMapping("/history-by-customer-id/{customerId}")
-    public OrderHistoryDTO loadByCustomerId(@PathVariable long customerId) {
-        return orderHistoryService.loadByCustomerId(customerId);
+    public OrderHistoryDTO loadOrderHistoryByCustomerId(@PathVariable long customerId) {
+        return orderHistoryService.loadOrderHistoryByCustomerId(customerId);
     }
 
     @DeleteMapping("{id}")
@@ -35,9 +35,9 @@ public class OrderController {
         orderService.deleteById(id);
     }
 
-    @DeleteMapping("/delete-by-clientId/{clientId}")
-    public void deleteByClientId(@PathVariable long clientId) {
-        orderService.deleteByClientId(clientId);
+    @DeleteMapping("/delete-by-customer-id/{customerId}")
+    public void deleteByCustomerId(@PathVariable long customerId) {
+        orderService.deleteByCustomerId(customerId);
     }
 
     @DeleteMapping("/delete-by-price/{price}")
@@ -60,8 +60,8 @@ public class OrderController {
         return orderService.loadAll();
     }
 
-    @GetMapping("/load-by-client-id/{clientId}")
-    public List<Order> loadByClientId(@PathVariable long clientId) {
-        return orderService.loadByClientId(clientId);
+    @GetMapping("/load-by-customer-id/{customerId}")
+    public List<Order> loadByCustomerId(@PathVariable long customerId) {
+        return orderService.loadByCustomerId(customerId);
     }
 }

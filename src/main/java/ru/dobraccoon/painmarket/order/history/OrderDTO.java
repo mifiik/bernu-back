@@ -9,6 +9,6 @@ import ru.dobraccoon.painmarket.products.Product;
 public class OrderDTO {
     private long orderId;
     private Product product;
-    private long clientId;
+    private long customerId;
     private long price;
 }

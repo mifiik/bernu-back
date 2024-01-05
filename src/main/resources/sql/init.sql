@@ -39,14 +39,14 @@ CREATE TABLE orders
 (
     id         NUMERIC PRIMARY KEY,
     product_id NUMERIC NOT NULL,
-    client_id  NUMERIC NOT NULL,
+    customer_id  NUMERIC NOT NULL,
     price      NUMERIC NOT NULL
 );
 
 CREATE SEQUENCE order_sequence START WITH 100 INCREMENT BY 1;
 
 
-INSERT INTO orders(id, product_id, client_id, price)
+INSERT INTO orders(id, product_id, customer_id, price)
 VALUES (101, 202, 01, 1000),
        (201, 203, 02, 2000),
        (301, 204, 03, 3000),
