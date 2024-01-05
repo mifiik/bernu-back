@@ -11,7 +11,7 @@ public class OrderRowMapper implements RowMapper<Order> {
         return new Order(
                 rs.getLong("id"),
                 rs.getLong("product_id"),
-                rs.getLong("client_id"),
+                rs.getLong("customer_id"),
                 rs.getLong("price")
         );
     }
