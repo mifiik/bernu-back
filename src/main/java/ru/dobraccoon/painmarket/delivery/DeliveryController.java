@@ -18,6 +18,22 @@ public class DeliveryController {
         deliveryService.create(delivery);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable long id) {
+        deliveryService.deleteById(id);
+    }
+
+    @DeleteMapping("{orderId}/{customerId}")
+    public void deleteByOrderIdAndCustomerId(@PathVariable long orderId, @PathVariable long customerId) {
+        deliveryService.deleteByOrderIdAndCustomerId(orderId, customerId);
+    }
+
+    @DeleteMapping("/by-address/{address}")
+    public void deleteByAddress(@PathVariable String address) {
+        deliveryService.deleteByAddress(address);
+    }
+
+
     @PutMapping
     public void update(@RequestBody Delivery delivery) {
         deliveryService.update(delivery);

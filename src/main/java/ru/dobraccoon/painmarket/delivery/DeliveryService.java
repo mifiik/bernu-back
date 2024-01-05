@@ -16,6 +16,18 @@ public class DeliveryService {
         deliveryRepository.create(delivery);
     }
 
+    public void deleteById(long id) {
+        deliveryRepository.deleteById(id);
+    }
+
+    public void deleteByOrderIdAndCustomerId(long orderId, long customerId) {
+        deliveryRepository.deleteByOrderIdAndCustomerId(orderId, customerId);
+    }
+
+    public void deleteByAddress(String address) {
+        deliveryRepository.deleteByAddress(address);
+    }
+
     public void update(Delivery delivery) {
         deliveryRepository.update(delivery);
     }

@@ -17,6 +17,18 @@ public class OrderService {
         orderRepository.create(order);
     }
 
+    public void deleteById(long id) {
+        orderRepository.deleteById(id);
+    }
+
+    public void deleteByClientId(long clientId) {
+        orderRepository.deleteByClientId(clientId);
+    }
+
+    public void deleteByPrice(long price) {
+        orderRepository.deleteByPrice(price);
+    }
+
     public void update(Order order) {
         orderRepository.update(order);
     }

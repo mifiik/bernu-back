@@ -24,6 +24,21 @@ public class OrderRepository {
         jdbcTemplate.execute(sqlInsert);
     }
 
+    public void deleteById(long id) {
+        String sqlDeleteById = String.format("DELETE FROM orders WHERE id = %s;", id);
+        jdbcTemplate.execute(sqlDeleteById);
+    }
+
+    public void deleteByClientId(long clientId) {
+        String sqlDeleteByClientId = String.format("DELETE FROM orders WHERE client_id = %s;", clientId);
+        jdbcTemplate.execute(sqlDeleteByClientId);
+    }
+
+    public void deleteByPrice(long price) {
+        String sqlDeleteByPrice = String.format("DELETE FROM orders WHERE price = %s;", price);
+        jdbcTemplate.execute(sqlDeleteByPrice);
+    }
+
     public void update(Order order) {
         String sqlUpdate = String.format(
                 """

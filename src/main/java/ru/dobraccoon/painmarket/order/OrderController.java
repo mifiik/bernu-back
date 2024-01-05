@@ -20,6 +20,21 @@ public class OrderController {
         orderService.create(order);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable long id) {
+        orderService.deleteById(id);
+    }
+
+    @DeleteMapping("/delete-by-clientId/{clientId}")
+    public void deleteByClientId(@PathVariable long clientId) {
+        orderService.deleteByClientId(clientId);
+    }
+
+    @DeleteMapping("/delete-by-price/{price}")
+    public void deleteByPrice(@PathVariable long price) {
+        orderService.deleteByPrice(price);
+    }
+
     @PutMapping
     public void update(@RequestBody Order order) {
         orderService.update(order);

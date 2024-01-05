@@ -22,6 +22,26 @@ public class DeliveryRepository {
         jdbcTemplate.execute(sqlInsert);
     }
 
+    public void deleteById(long id) {
+        String sqlDeleteById = String.format("DELETE FROM delivery WHERE id = %s;", id);
+        jdbcTemplate.execute(sqlDeleteById);
+    }
+
+    public void deleteByOrderIdAndCustomerId(long orderId, long customerId) {
+        String sqlDeleteByOrderIdAndCustomerId = String.format(
+                "DELETE FROM delivery WHERE order_id = %s AND customer_id = %s;",
+                orderId,
+                customerId
+        );
+        jdbcTemplate.execute(sqlDeleteByOrderIdAndCustomerId);
+    }
+
+    public void deleteByAddress(String address) {
+        String sqlDeleteByAddress = String.format("DELETE FROM delivery WHERE address = '%s';", address);
+
+        jdbcTemplate.execute(sqlDeleteByAddress);
+    }
+
     public void update(Delivery delivery) {
         String sqlUpdate = String.format("""
                         UPDATE delivery 
