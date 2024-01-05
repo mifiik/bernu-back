@@ -28,6 +28,11 @@ public class CustomerController {
         customerService.deleteByEmail(email);
     }
 
+    @PutMapping
+    public void update(@RequestBody Customer customer) {
+        customerService.update(customer);
+    }
+
     @GetMapping("/{customerId}")
     public Customer loadById(@PathVariable long customerId) {
         return customerService.loadById(customerId);

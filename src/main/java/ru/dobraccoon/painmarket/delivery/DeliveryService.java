@@ -28,6 +28,10 @@ public class DeliveryService {
         deliveryRepository.deleteByAddress(address);
     }
 
+    public void update(Delivery delivery) {
+        deliveryRepository.update(delivery);
+    }
+
     public Delivery loadById(long deliveryId) {
         return deliveryRepository.loadById(deliveryId);
     }

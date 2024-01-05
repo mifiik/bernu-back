@@ -24,6 +24,10 @@ public class CustomerService {
         customerRepository.deleteByEmail(email);
     }
 
+    public void update(Customer customer) {
+        customerRepository.Update(customer);
+    }
+
     public Customer loadById(long customerId) {
         return customerRepository.loadById(customerId);
     }

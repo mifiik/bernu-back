@@ -32,6 +32,17 @@ public class CustomerRepository {
         jdbcTemplate.execute(sqlDeleteByEmail);
     }
 
+    public void Update(Customer customer) {
+        String sqlUpdate = String.format("""
+                        UPDATE customer
+                        SET email = '%s'
+                        WHERE id = %s;""",
+                customer.getEmail(),
+                customer.getId()
+        );
+        jdbcTemplate.update(sqlUpdate);
+    }
+
     public Customer loadById(long customerId) {
         String sqlLoadById = String.format("SELECT * FROM customer WHERE id = %s", customerId);
 

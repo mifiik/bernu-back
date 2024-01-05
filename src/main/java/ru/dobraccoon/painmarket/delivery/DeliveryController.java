@@ -34,6 +34,11 @@ public class DeliveryController {
     }
 
 
+    @PutMapping
+    public void update(@RequestBody Delivery delivery) {
+        deliveryService.update(delivery);
+    }
+
     @GetMapping("/{deliveryId}")
     public Delivery loadById(@PathVariable long deliveryId) {
         return deliveryService.loadById(deliveryId);
