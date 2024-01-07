@@ -12,9 +12,9 @@ import ru.dobraccoon.painmarket.products.ProductService;
 @Service
 @AllArgsConstructor
 public class OrderDetailService {
-    CustomerService customerService;
-    ProductService productService;
-    OrderService orderService;
+    private CustomerService customerService;
+    private ProductService productService;
+    private OrderService orderService;
 
     public OrderWithDetails loadByOrderId(long orderId) {
         Order order = orderService.loadById(orderId);
