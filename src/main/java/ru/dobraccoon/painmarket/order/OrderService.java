@@ -21,8 +21,8 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    public void deleteByClientId(long clientId) {
-        orderRepository.deleteByClientId(clientId);
+    public void deleteByCustomerId(long customerId) {
+        orderRepository.deleteByCustomerId(customerId);
     }
 
     public void deleteByPrice(long price) {
@@ -41,7 +41,7 @@ public class OrderService {
         return orderRepository.loadAll();
     }
 
-    public List<Order> loadByClientId(long clientId) {
-        return orderRepository.loadByClientId(clientId);
+    public List<Order> loadByCustomerId(long customerId) {
+        return orderRepository.loadByCustomerId(customerId);
     }
 }

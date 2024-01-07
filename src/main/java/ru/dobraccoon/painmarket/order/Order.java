@@ -4,15 +4,15 @@ import lombok.Getter;
 
 @Getter
 public class Order {
-    private Long id;
-    private Long productId;
-    private Long clientId;
+    private long id;
+    private long productId;
+    private long customerId;
     private long price;
 
-    public Order(Long id, Long productId, Long clientId, long price) {
+    public Order(Long id, Long productId, Long customerId, long price) {
         this.id = id;
         this.productId = productId;
-        this.clientId = clientId;
+        this.customerId = customerId;
         if (price > 0) {
             this.price = price;
         } else {

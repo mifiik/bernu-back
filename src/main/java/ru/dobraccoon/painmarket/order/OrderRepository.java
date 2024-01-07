@@ -14,11 +14,11 @@ public class OrderRepository {
     }
 
     public void create(Order order) {
-        String sqlInsert = String.format("INSERT INTO orders(id, product_id, client_id, price)\n" +
+        String sqlInsert = String.format("INSERT INTO orders(id, product_id, customer_id, price)\n" +
                         "VALUES (%s, %s, %s, %s);",
                 "nextval('order_sequence')",
                 order.getProductId(),
-                order.getClientId(),
+                order.getCustomerId(),
                 order.getPrice());
 
         jdbcTemplate.execute(sqlInsert);
@@ -29,9 +29,9 @@ public class OrderRepository {
         jdbcTemplate.execute(sqlDeleteById);
     }
 
-    public void deleteByClientId(long clientId) {
-        String sqlDeleteByClientId = String.format("DELETE FROM orders WHERE client_id = %s;", clientId);
-        jdbcTemplate.execute(sqlDeleteByClientId);
+    public void deleteByCustomerId(long customerId) {
+        String sqlDeleteByCustomerId = String.format("DELETE FROM orders WHERE customer_id = %s;", customerId);
+        jdbcTemplate.execute(sqlDeleteByCustomerId);
     }
 
     public void deleteByPrice(long price) {
@@ -42,10 +42,10 @@ public class OrderRepository {
     public void update(Order order) {
         String sqlUpdate = String.format(
                 """
-                        UPDATE orders SET product_id = %s, client_id = %s, price = %s
+                        UPDATE orders SET product_id = %s, customer_id = %s, price = %s
                         WHERE id = %s;""",
                 order.getProductId(),
-                order.getClientId(),
+                order.getCustomerId(),
                 order.getPrice(),
                 order.getId()
         );
@@ -65,8 +65,8 @@ public class OrderRepository {
         return jdbcTemplate.query(sqlLoadAll, new OrderRowMapper());
     }
 
-    public List<Order> loadByClientId(long clientId) {
-        String sqlLoadByClientId = String.format("SELECT * FROM orders WHERE client_id = %s", clientId);
-        return jdbcTemplate.query(sqlLoadByClientId, new OrderRowMapper());
+    public List<Order> loadByCustomerId(long customerId) {
+        String sqlLoadByCustomerId = String.format("SELECT * FROM orders WHERE customer_id = %s", customerId);
+        return jdbcTemplate.query(sqlLoadByCustomerId, new OrderRowMapper());
     }
 }
