@@ -19,7 +19,7 @@ public class OrderDetailService {
     public OrderWithDetails loadByOrderId(long orderId) {
         Order order = orderService.loadById(orderId);
         Product product = productService.loadById(order.getProductId());
-        Customer customer = customerService.loadById(order.getClientId());
+        Customer customer = customerService.loadById(order.getCustomerId());
 
         return new OrderWithDetails(
                 orderId,
