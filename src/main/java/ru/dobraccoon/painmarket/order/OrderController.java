@@ -2,6 +2,8 @@ package ru.dobraccoon.painmarket.order;
 
 
 import org.springframework.web.bind.annotation.*;
+import ru.dobraccoon.painmarket.order.details.OrderDetailService;
+import ru.dobraccoon.painmarket.order.details.OrderWithDetails;
 import ru.dobraccoon.painmarket.order.history.OrderHistoryDTO;
 import ru.dobraccoon.painmarket.order.history.OrderHistoryService;
 
@@ -12,12 +14,14 @@ import java.util.List;
 public class OrderController {
 
     private OrderService orderService;
-
     private OrderHistoryService orderHistoryService;
+    private OrderDetailService orderDetailService;
 
-    public OrderController(OrderService orderService, OrderHistoryService orderHistoryService) {
+    public OrderController(OrderService orderService, OrderHistoryService orderHistoryService,
+                           OrderDetailService orderDetailService) {
         this.orderService = orderService;
         this.orderHistoryService = orderHistoryService;
+        this.orderDetailService = orderDetailService;
     }
 
     @PostMapping
@@ -63,5 +67,10 @@ public class OrderController {
     @GetMapping("/load-by-client-id/{clientId}")
     public List<Order> loadByClientId(@PathVariable long clientId) {
         return orderService.loadByClientId(clientId);
+    }
+
+    @GetMapping("/by-id-with-details/{orderId}")
+    public OrderWithDetails loadByOrderId(@PathVariable long orderId) {
+        return orderDetailService.loadByOrderId(orderId);
     }
 }
