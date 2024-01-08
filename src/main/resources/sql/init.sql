@@ -17,9 +17,9 @@ VALUES (01, 'test1@mail.ru'),
 
 CREATE TABLE product
 (
-    id       NUMERIC,
-    name     VARCHAR(128),
-    price    NUMERIC,
+    id       NUMERIC PRIMARY KEY,
+    name     VARCHAR(128) NOT NULL,
+    price    NUMERIC      NOT NULL,
     discount NUMERIC
 );
 
@@ -37,10 +37,10 @@ VALUES (202, 'Samsung', 200, 20),
 
 CREATE TABLE orders
 (
-    id         NUMERIC PRIMARY KEY,
-    product_id NUMERIC NOT NULL,
-    customer_id  NUMERIC NOT NULL,
-    price      NUMERIC NOT NULL
+    id          NUMERIC PRIMARY KEY,
+    product_id  NUMERIC REFERENCES product (id),
+    customer_id NUMERIC REFERENCES customer (id),
+    price       NUMERIC NOT NULL
 );
 
 CREATE SEQUENCE order_sequence START WITH 100 INCREMENT BY 1;
@@ -56,10 +56,10 @@ VALUES (101, 202, 01, 1000),
 
 CREATE TABLE delivery
 (
-    id          NUMERIC NOT NULL PRIMARY KEY,
-    order_id    NUMERIC NOT NULL,
-    customer_id NUMERIC NOT NULL,
-    address     VARCHAR(255)
+    id          NUMERIC      NOT NULL PRIMARY KEY,
+    order_id    NUMERIC REFERENCES orders (id),
+    customer_id NUMERIC REFERENCES customer (id),
+    address     VARCHAR(255) NOT NULL
 );
 
 CREATE SEQUENCE delivery_sequence START WITH 100 INCREMENT BY 1;
