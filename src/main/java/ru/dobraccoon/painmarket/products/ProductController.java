@@ -23,24 +23,10 @@ public class ProductController {
         productService.update(product);
     }
 
-    @DeleteMapping("{productId}")
-    public void deleteById(@PathVariable long productId) {
-        productService.deleteById(productId);
-    }
 
-    @DeleteMapping("{price}/{discount}")
-    public void deleteByPriceAndDiscount(@PathVariable float price, @PathVariable int discount) {
-        productService.deleteByPriceAndDiscount(price, discount);
-    }
-
-    @DeleteMapping("/delete-by-name/{name}")
-    public void deleteByName(@PathVariable String name) {
-        productService.deleteByName(name);
-    }
-
-    @DeleteMapping("/delete-by-discount/{discount}")
-    public void deleteByDiscount(@PathVariable int discount) {
-        productService.deleteByDiscount(discount);
+    @DeleteMapping("{primaryPrice}")
+    public void deleteByPrimaryPrice(@PathVariable float primaryPrice) {
+        productService.deleteByPrimaryPrice(primaryPrice);
     }
 
     @GetMapping("/{productId}")
@@ -53,9 +39,9 @@ public class ProductController {
         return productService.loadAll();
     }
 
-    @GetMapping("/load-by-discount/{discount}")
-    public List<Product> loadByDiscount(@PathVariable int discount) {
+    @GetMapping("/load-by-Current-price/{currentPrice}")
+    public List<Product> loadByCurrentPrice(@PathVariable float currentPrice) {
 
-        return productService.loadByDiscount(discount);
+        return productService.loadByCurrentPrice(currentPrice);
     }
 }

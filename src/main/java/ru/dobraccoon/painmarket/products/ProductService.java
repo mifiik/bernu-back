@@ -20,20 +20,8 @@ public class ProductService {
         productRepository.update(product);
     }
 
-    public void deleteById(long productId) {
-        productRepository.deleteById(productId);
-    }
-
-    public void deleteByPriceAndDiscount(float price, int discount) {
-        productRepository.deleteByPriceAndDiscount(price, discount);
-    }
-
-    public void deleteByName(String name) {
-        productRepository.deleteByName(name);
-    }
-
-    public void deleteByDiscount(int discount) {
-        productRepository.deleteByDiscount(discount);
+    public void deleteByPrimaryPrice(float primaryPrice) {
+        productRepository.deleteByPrimaryPrice(primaryPrice);
     }
 
     public Product loadById(long productId) {
@@ -44,8 +32,9 @@ public class ProductService {
         return productRepository.loadAll();
     }
 
-    public List<Product> loadByDiscount(int discount) {
 
-        return productRepository.loadByDiscount(discount);
+    public List<Product> loadByCurrentPrice(float currentPrice) {
+
+        return productRepository.loadByCurrentPrice(currentPrice);
     }
 }

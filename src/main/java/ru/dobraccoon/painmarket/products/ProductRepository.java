@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class ProductRepository {
@@ -14,75 +15,81 @@ public class ProductRepository {
     }
 
     public Product create(Product newProduct) {
-        String sqlInsert = String.format("INSERT INTO product(id, name, price, discount) VALUES (%s,'%s',%s,%s);",
-                "nextval('product_sequence')",
-                newProduct.getName(),
-                newProduct.getPrice(),
-                newProduct.getDiscount());
+        String sqlInsert = String.format("INSERT INTO products(id, primary_price," +
+                        " current_price, is_new, image_url, description," +
+                        "mindelivery_days, maxdelivery_days, rating, review_count) VALUES (%s,%s,%s,%s,'%s'," +
+                        "'%s',%s,%s,%s,%s);",
+                "nextval('products_sequence')",
+                newProduct.getPrimaryPrice(),
+                newProduct.getCurrentPrice(),
+                newProduct.isNew(),
+                newProduct.getImageUrl(),
+                newProduct.getDescription(),
+                newProduct.getMinDeliveryDays(),
+                newProduct.getMaxDeliveryDays(),
+                newProduct.getRating(),
+                newProduct.getReviewCount());
 
         jdbcTemplate.execute(sqlInsert);
         return null;
     }
 
     public void update(Product product) {
+
+        if (Objects.isNull(product.getId())) {
+            throw new NullPointerException();
+        }
+
+        loadById(product.getId());
+
         String sqlUpdate = String.format(
                 """
-                        UPDATE product
-                        SET name     = '%s',
-                            price    = %s,
-                            discount = %s
+                        UPDATE products
+                        SET primary_price = %s,
+                            current_price = %s,
+                            is_new = %s,
+                            image_url = '%s',
+                            description = '%s',
+                            mindelivery_days = %s,
+                            maxdelivery_days = %s,
+                            rating = %s,
+                            review_count = %s
                         WHERE id = %s;""",
-                product.getName(),
-                product.getPrice(),
-                product.getDiscount(),
+                product.getPrimaryPrice(),
+                product.getCurrentPrice(),
+                product.isNew(),
+                product.getImageUrl(),
+                product.getDescription(),
+                product.getMinDeliveryDays(),
+                product.getMaxDeliveryDays(),
+                product.getRating(),
+                product.getReviewCount(),
                 product.getId()
         );
 
         jdbcTemplate.update(sqlUpdate);
     }
 
-    public void deleteById(long productId) {
-        String sqlDeleteById = String.format("DELETE FROM product WHERE id = %s;", productId);
-
-        jdbcTemplate.execute(sqlDeleteById);
-    }
-
-    public void deleteByPriceAndDiscount(float price, int discount) {
-        String sqlDeleteByPriceAndDiscount = String.format(
-                "DELETE FROM product WHERE price = %s AND discount = %s;",
-                price,
-                discount
-        );
-
-        jdbcTemplate.execute(sqlDeleteByPriceAndDiscount);
-    }
-
-    public void deleteByName(String name) {
-        String sqlDeleteByName = String.format("DELETE FROM product WHERE name = '%s';", name);
-        jdbcTemplate.execute(sqlDeleteByName);
-    }
-
-
-    public void deleteByDiscount(int discount) {
-        String sqlDeleteByDiscount = String.format("DELETE FROM product WHERE discount = %s;", discount);
-        jdbcTemplate.execute(sqlDeleteByDiscount);
+    public void deleteByPrimaryPrice(float primaryPrice) {
+        String sqlDeleteByPrimaryPrice = String.format("DELETE FROM products WHERE primary_price = %s;", primaryPrice);
+        jdbcTemplate.execute(sqlDeleteByPrimaryPrice);
     }
 
     public Product loadById(long productId) {
-        String sqlLoadById = String.format("SELECT * FROM product WHERE id = %s", productId);
+        String sqlLoadById = String.format("SELECT * FROM products WHERE id = %s", productId);
 
         return jdbcTemplate.queryForObject(sqlLoadById, new ProductRowMapper());
     }
 
     public List<Product> loadAll() {
-        String sqlLoadAll = "SELECT * FROM product;";
+        String sqlLoadAll = "SELECT * FROM products;";
 
         return jdbcTemplate.query(sqlLoadAll, new ProductRowMapper());
     }
 
-    public List<Product> loadByDiscount(int discount) {
-        String sqlLoadByDiscount = String.format("SELECT * FROM product WHERE discount = %s", discount);
+    public List<Product> loadByCurrentPrice(float currentPrice) {
+        String sqlLoadByCurrentPrice = String.format("SELECT * FROM products WHERE current_price = %s", currentPrice);
 
-        return jdbcTemplate.query(sqlLoadByDiscount, new ProductRowMapper());
+        return jdbcTemplate.query(sqlLoadByCurrentPrice, new ProductRowMapper());
     }
 }
