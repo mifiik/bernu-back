@@ -1,14 +1,16 @@
 package ru.dobraccoon.painmarket.products;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
+@AllArgsConstructor
 @Getter
 public class Product {
-    private Long id;
+    private long id;
     private float primaryPrice;
     private float currentPrice;
-    private boolean isNew;
+    private int discount;
+    private boolean nea;
     private String imageUrl;
     private String description;
     private int minDeliveryDays;
@@ -16,23 +18,6 @@ public class Product {
     private float rating;
     private int reviewCount;
 
-
-    public Product(Long id, float primaryPrice,
-                   float currentPrice, boolean isNew,
-                   String imageUrl, String description,
-                   int minDeliveryDays, int maxDeliveryDays,
-                   float rating, int reviewCount) {
-        this.id = id;
-        this.primaryPrice = primaryPrice;
-        this.currentPrice = currentPrice;
-        this.isNew = isNew;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.minDeliveryDays = minDeliveryDays;
-        this.maxDeliveryDays = maxDeliveryDays;
-        this.rating = rating;
-        this.reviewCount = reviewCount;
-    }
 }
 
 

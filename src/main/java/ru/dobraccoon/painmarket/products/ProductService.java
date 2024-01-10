@@ -24,6 +24,14 @@ public class ProductService {
         productRepository.deleteByPrimaryPrice(primaryPrice);
     }
 
+    public void deleteById(long productId) {
+        productRepository.deleteById(productId);
+    }
+
+    public void deleteByDescription(String description) {
+        productRepository.deleteByDescription(description);
+    }
+
     public Product loadById(long productId) {
         return productRepository.loadById(productId);
     }
@@ -37,4 +45,9 @@ public class ProductService {
 
         return productRepository.loadByCurrentPrice(currentPrice);
     }
+
+    public List<Product> loadByDiscount(int discount) {
+        return productRepository.loadByDiscount(discount);
+    }
+
 }

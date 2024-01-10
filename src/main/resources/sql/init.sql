@@ -17,29 +17,30 @@ VALUES (01, 'test1@mail.ru'),
 
 CREATE TABLE products
 (
-    id               NUMERIC PRIMARY KEY,
-    primary_price    NUMERIC       NOT NULL,
-    current_price    NUMERIC       NOT NULL,
-    is_new           BOOLEAN       NOT NULL,
-    image_url        VARCHAR(1024) NOT NULL,
-    description      VARCHAR(512)  NOT NULL,
-    minDelivery_days NUMERIC       NOT NULL,
-    maxDelivery_days NUMERIC       NOT NULL,
-    rating           NUMERIC       NOT NULL,
-    review_count     NUMERIC       NOT NULL
+    id                NUMERIC PRIMARY KEY,
+    primary_price     NUMERIC       NOT NULL,
+    current_price     NUMERIC       NOT NULL,
+    discount          NUMERIC       NOT NULL,
+    is_new            BOOLEAN       NOT NULL,
+    image_url         VARCHAR(1024) NOT NULL,
+    description       VARCHAR(512)  NOT NULL,
+    min_delivery_days NUMERIC       NOT NULL,
+    max_delivery_days NUMERIC       NOT NULL,
+    rating            NUMERIC       NOT NULL,
+    review_count      NUMERIC       NOT NULL
 );
 
 CREATE SEQUENCE products_sequence START WITH 100 INCREMENT BY 1;
 
 
-INSERT INTO products(id, primary_price, current_price,
-                     is_new, image_url, description, minDelivery_days,
-                     maxDelivery_days, rating, review_count)
-VALUES (202, 100, 1000, true, 'image_url_1', 'Description 1', 1, 1, 5.0, 10),
-       (203, 200, 2000, false, 'image_url_2', 'Description 2', 1, 3, 4.2, 15),
-       (204, 300, 3000, true, 'image_url_3', 'Description 3', 1, 5, 4.0, 20),
-       (205, 400, 4000, false, 'image_url_4', 'Description 4', 1, 2, 3.5, 12),
-       (206, 500, 5000, false, 'image_url_5', 'Description 5', 1, 7, 2.0, 18);
+INSERT INTO products(id, primary_price, current_price, discount,
+                     is_new, image_url, description, min_delivery_days,
+                     max_delivery_days, rating, review_count)
+VALUES (202, 100, 1000, 2, true, 'image_url_1', 'Description 1', 1, 1, 5.0, 10),
+       (203, 200, 2000, 10, false, 'image_url_2', 'Description 2', 1, 3, 4.2, 15),
+       (204, 300, 3000, 5, true, 'image_url_3', 'Description 3', 1, 5, 4.0, 20),
+       (205, 400, 4000, 3, false, 'image_url_4', 'Description 4', 1, 2, 3.5, 12),
+       (206, 500, 5000, 15, false, 'image_url_5', 'Description 5', 1, 7, 2.0, 18);
 
 
 
@@ -48,7 +49,7 @@ CREATE TABLE orders
     id          NUMERIC PRIMARY KEY,
     product_id  NUMERIC REFERENCES products (id),
     customer_id NUMERIC REFERENCES customers (id),
-    price       NUMERIC(0, 200) NOT NULL
+    price       NUMERIC NOT NULL
 );
 
 CREATE SEQUENCE orders_sequence START WITH 100 INCREMENT BY 1;
@@ -80,6 +81,8 @@ VALUES (01, 101, 01, 'Штефан  чел маре 1'),
        (04, 401, 04, 'Штефан  чел маре 5'),
        (05, 501, 05, 'Штефан  чел маре 5');
 
+SELECT *
+FROM products;
 
 
 

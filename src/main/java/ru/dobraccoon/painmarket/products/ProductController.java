@@ -7,7 +7,7 @@ import java.util.List;
 @RestController
 @RequestMapping("products")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -23,10 +23,19 @@ public class ProductController {
         productService.update(product);
     }
 
+    @DeleteMapping("/{productId}")
+    public void deleteById(@PathVariable long productId) {
+        productService.deleteById(productId);
+    }
 
-    @DeleteMapping("{primaryPrice}")
+    @DeleteMapping("/{primaryPrice}")
     public void deleteByPrimaryPrice(@PathVariable float primaryPrice) {
         productService.deleteByPrimaryPrice(primaryPrice);
+    }
+
+    @DeleteMapping("/delete-by-description/{description}")
+    public void deleteByDescription(@PathVariable String description) {
+        productService.deleteByDescription(description);
     }
 
     @GetMapping("/{productId}")
@@ -44,4 +53,10 @@ public class ProductController {
 
         return productService.loadByCurrentPrice(currentPrice);
     }
+
+    @GetMapping("/load-by-discount/{discount}")
+    public List<Product> loadByDiscount(@PathVariable int discount) {
+        return productService.loadByDiscount(discount);
+    }
+
 }
