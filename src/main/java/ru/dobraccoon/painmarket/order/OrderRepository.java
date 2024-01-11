@@ -1,72 +1,88 @@
 package ru.dobraccoon.painmarket.order;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class OrderRepository {
-    private JdbcTemplate jdbcTemplate;
-
-    public OrderRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public void create(Order order) {
-        String sqlInsert = String.format("INSERT INTO orders(id, product_id, customer_id, price)\n" +
-                        "VALUES (%s, %s, %s, %s);",
-                "nextval('order_sequence')",
-                order.getProductId(),
-                order.getCustomerId(),
-                order.getPrice());
+        String sqlInsert = "INSERT INTO orders(id, product_id, customer_id, price) " +
+                "VALUES (:id, :productId, :customerId, :price)";
 
-        jdbcTemplate.execute(sqlInsert);
+        namedParameterJdbcTemplate.update(
+                sqlInsert,
+                new MapSqlParameterSource()
+                        .addValue("id", order.getId())
+                        .addValue("productId", order.getProductId())
+                        .addValue("customerId", order.getCustomerId())
+                        .addValue("price", order.getPrice())
+        );
     }
 
     public void deleteById(long id) {
-        String sqlDeleteById = String.format("DELETE FROM orders WHERE id = %s;", id);
-        jdbcTemplate.execute(sqlDeleteById);
+        String sqlDeleteById = "DELETE FROM orders WHERE id = :id;";
+        namedParameterJdbcTemplate.update(
+                sqlDeleteById,
+                new MapSqlParameterSource("id", id));
     }
 
     public void deleteByCustomerId(long customerId) {
-        String sqlDeleteByCustomerId = String.format("DELETE FROM orders WHERE customer_id = %s;", customerId);
-        jdbcTemplate.execute(sqlDeleteByCustomerId);
+        String sqlDeleteByCustomerId = "DELETE FROM orders WHERE customer_id = :customerId";
+        namedParameterJdbcTemplate.update(
+                sqlDeleteByCustomerId,
+                new MapSqlParameterSource("customerId", customerId));
     }
 
     public void deleteByPrice(long price) {
-        String sqlDeleteByPrice = String.format("DELETE FROM orders WHERE price = %s;", price);
-        jdbcTemplate.execute(sqlDeleteByPrice);
+        String sqlDeleteByPrice = "DELETE FROM orders WHERE price = :price;";
+        namedParameterJdbcTemplate.update(
+                sqlDeleteByPrice,
+                new MapSqlParameterSource("price", price));
     }
 
     public void update(Order order) {
-        String sqlUpdate = String.format(
-                """
-                        UPDATE orders SET product_id = %s, customer_id = %s, price = %s
-                        WHERE id = %s;""",
-                order.getProductId(),
-                order.getCustomerId(),
-                order.getPrice(),
-                order.getId()
+        String sqlUpdate = "UPDATE orders SET product_id = :productId, customer_id = :customerId, price = :price " +
+                " WHERE id = :orderId";
+
+        namedParameterJdbcTemplate.update(
+                sqlUpdate,
+                new MapSqlParameterSource()
+                        .addValue("productId", order.getProductId())
+                        .addValue("customerId", order.getCustomerId())
+                        .addValue("price", order.getPrice())
+                        .addValue("orderId", order.getId())
         );
-        jdbcTemplate.update(sqlUpdate);
 
     }
 
     public Order loadById(long orderId) {
-        String sqlLoadById = String.format("SELECT * FROM orders WHERE id = %s", orderId);
+        String sqlLoadById = "SELECT * FROM orders WHERE id = :orderId";
 
-        return jdbcTemplate.queryForObject(sqlLoadById, new OrderRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(
+                sqlLoadById,
+                new MapSqlParameterSource("orderId", orderId),
+                new OrderRowMapper());
     }
 
     public List<Order> loadAll() {
         String sqlLoadAll = "SELECT * FROM orders;";
 
-        return jdbcTemplate.query(sqlLoadAll, new OrderRowMapper());
+        return namedParameterJdbcTemplate.query(sqlLoadAll, new OrderRowMapper());
     }
 
     public List<Order> loadByCustomerId(long customerId) {
-        String sqlLoadByCustomerId = String.format("SELECT * FROM orders WHERE customer_id = %s", customerId);
-        return jdbcTemplate.query(sqlLoadByCustomerId, new OrderRowMapper());
+        String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
+
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCustomerId,
+                new MapSqlParameterSource("customerId", customerId),
+                new OrderRowMapper());
     }
 }
