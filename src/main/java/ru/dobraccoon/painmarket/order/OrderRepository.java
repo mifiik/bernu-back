@@ -1,17 +1,19 @@
 package ru.dobraccoon.painmarket.order;
 
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class OrderRepository {
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public OrderRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public void create(Order order) {
         String sqlInsert = String.format("INSERT INTO orders(id, product_id, customer_id, price)\n" +
@@ -21,7 +23,9 @@ public class OrderRepository {
                 order.getCustomerId(),
                 order.getPrice());
 
-        jdbcTemplate.execute(sqlInsert);
+        namedParameterJdbcTemplate.update(
+                sqlInsert,
+                new MapSqlParameterSource().addValue("id", "nextval('order_sequence')"));
     }
 
     public void deleteById(long id) {

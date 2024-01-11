@@ -42,17 +42,12 @@ VALUES (202, 100, 1000, 2, true, 'image_url_1', 'Description 1', 1, 1, 5.0, 10),
        (205, 400, 4000, 3, false, 'image_url_4', 'Description 4', 1, 2, 3.5, 12),
        (206, 500, 5000, 15, false, 'image_url_5', 'Description 5', 1, 7, 2.0, 18);
 
-SELECT *
-FROM products;
-DELETE
-FROM products
-WHERE id = 100;
 
 CREATE TABLE orders
 (
     id          NUMERIC PRIMARY KEY,
-    product_id  NUMERIC REFERENCES products (id),
-    customer_id NUMERIC REFERENCES customers (id),
+    product_id  NUMERIC NOT NULL REFERENCES products (id),
+    customer_id NUMERIC NOT NULL REFERENCES customers (id),
     price       NUMERIC NOT NULL
 );
 
@@ -70,8 +65,8 @@ VALUES (101, 202, 01, 1000),
 CREATE TABLE deliveries
 (
     id          NUMERIC      NOT NULL PRIMARY KEY,
-    order_id    NUMERIC REFERENCES orders (id),
-    customer_id NUMERIC REFERENCES customers (id),
+    order_id    NUMERIC      NOT NULL REFERENCES orders (id),
+    customer_id NUMERIC      NOT NULL REFERENCES customers (id),
     address     VARCHAR(255) NOT NULL
 );
 
@@ -85,8 +80,7 @@ VALUES (01, 101, 01, 'Штефан  чел маре 1'),
        (04, 401, 04, 'Штефан  чел маре 5'),
        (05, 501, 05, 'Штефан  чел маре 5');
 
-SELECT *
-FROM products;
+
 
 
 
