@@ -14,14 +14,14 @@ public class CustomerRowMapper implements RowMapper<Customer> {
                 rs.getString("image_url"),
                 rs.getBoolean("law_entity"),
                 rs.getString("email"),
-                rs.getInt("PhoneCountryCode"),
-                rs.getInt("phoneNumber"),
-                rs.getString("firstName"),
-                rs.getString("lastName"),
+                rs.getInt("phone_country_code"),
+                rs.getInt("phone_number"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
                 rs.getString("password"),
                 rs.getString("city"),
                 rs.getString("street"),
-                rs.getInt("cityIndex")
+                rs.getInt("city_index")
         );
     }
 }

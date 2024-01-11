@@ -10,7 +10,7 @@ public class Customer {
     private String imageUrl;
     private boolean lawEntity;
     private String email;
-    private int PhoneCountryCode;
+    private int phoneCountryCode;
     private int phoneNumber;
     private String firstName;
     private String lastName;
