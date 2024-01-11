@@ -1,18 +1,29 @@
-CREATE TABLE customer
+CREATE TABLE customers
 (
-    id    NUMERIC PRIMARY KEY,
-    email VARCHAR(124) NOT NULL
+    id                 NUMERIC PRIMARY KEY,
+    image_url          VARCHAR(254) NOT NULL,
+    law_entity         BOOLEAN      NOT NULL,
+    email              VARCHAR(124) NOT NULL,
+    phone_country_code NUMERIC      NOT NULL,
+    phone_number       NUMERIC      NOT NULL,
+    firstName          VARCHAR(128) NOT NULL,
+    last_name          VARCHAR(128) NOT NULL,
+    password           VARCHAR(256) NOT NULL,
+    city               VARCHAR(124) NOT NULL,
+    street             VARCHAR(124) NOT NULL,
+    cityIndex          NUMERIC      NOT NULL
 );
 
-CREATE SEQUENCE customer_sequence START WITH 100 INCREMENT BY 1;
+CREATE SEQUENCE customers_sequence START WITH 100 INCREMENT BY 1;
 
 
-INSERT INTO customer (id, email)
-VALUES (01, 'test1@mail.ru'),
-       (02, 'test2@mail.de'),
-       (03, 'test3@mail.nl'),
-       (04, 'test4@mail.ru'),
-       (05, 'test5@mail.de');
+INSERT INTO customers (id, image_url, law_entity,
+                       email, phone_country_code, phone_number,
+                       firstName, last_name, password, city, street, cityIndex)
+VALUES (01, 'image_url_1', true, 'test1@mail.ru', 373, 79652796,
+        'Oleg', 'Bogdanov', 'as123456', 'Balti', 'Stefan cel Mare 12', 3100),
+       (02, 'image_url_2', false, 'test2@mail.ru', 490, 79645777,
+        'Albert', 'Muller', 'df456789', 'Dortmund', 'Oberst Strasse 10', 4500);
 
 
 CREATE TABLE product
@@ -39,7 +50,7 @@ CREATE TABLE orders
 (
     id          NUMERIC PRIMARY KEY,
     product_id  NUMERIC REFERENCES product (id),
-    customer_id NUMERIC REFERENCES customer (id),
+    customer_id NUMERIC REFERENCES customers (id),
     price       NUMERIC NOT NULL
 );
 
@@ -58,7 +69,7 @@ CREATE TABLE delivery
 (
     id          NUMERIC      NOT NULL PRIMARY KEY,
     order_id    NUMERIC REFERENCES orders (id),
-    customer_id NUMERIC REFERENCES customer (id),
+    customer_id NUMERIC REFERENCES customers (id),
     address     VARCHAR(255) NOT NULL
 );
 
