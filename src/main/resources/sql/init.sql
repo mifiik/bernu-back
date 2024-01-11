@@ -42,7 +42,11 @@ VALUES (202, 100, 1000, 2, true, 'image_url_1', 'Description 1', 1, 1, 5.0, 10),
        (205, 400, 4000, 3, false, 'image_url_4', 'Description 4', 1, 2, 3.5, 12),
        (206, 500, 5000, 15, false, 'image_url_5', 'Description 5', 1, 7, 2.0, 18);
 
-
+SELECT *
+FROM products;
+DELETE
+FROM products
+WHERE id = 100;
 
 CREATE TABLE orders
 (

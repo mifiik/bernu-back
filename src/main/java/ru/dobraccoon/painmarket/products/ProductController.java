@@ -28,12 +28,12 @@ public class ProductController {
         productService.deleteById(productId);
     }
 
-    @DeleteMapping("/{primaryPrice}")
+    @DeleteMapping("/by-primary-price/{primaryPrice}")
     public void deleteByPrimaryPrice(@PathVariable float primaryPrice) {
         productService.deleteByPrimaryPrice(primaryPrice);
     }
 
-    @DeleteMapping("/delete-by-description/{description}")
+    @DeleteMapping("/by-description/{description}")
     public void deleteByDescription(@PathVariable String description) {
         productService.deleteByDescription(description);
     }

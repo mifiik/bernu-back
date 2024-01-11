@@ -84,7 +84,7 @@ public class ProductRepository {
     }
 
     public void deleteByDescription(String description) {
-        String sqlDeleteByDescription = String.format("DELETE FROM products WHERE id = '%s';", description);
+        String sqlDeleteByDescription = String.format("DELETE FROM products WHERE description = '%s';", description);
         jdbcTemplate.execute(sqlDeleteByDescription);
     }
 
