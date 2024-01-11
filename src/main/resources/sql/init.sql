@@ -1,57 +1,66 @@
 CREATE TABLE customers
 (
-    id    NUMERIC PRIMARY KEY,
-    email VARCHAR(124) NOT NULL
+    id                 NUMERIC PRIMARY KEY,
+    image_url          VARCHAR(254) NOT NULL,
+    law_entity         BOOLEAN      NOT NULL,
+    email              VARCHAR(124) NOT NULL,
+    phone_country_code NUMERIC      NOT NULL,
+    phone_number       NUMERIC      NOT NULL,
+    first_name         VARCHAR(128) NOT NULL,
+    last_name          VARCHAR(128) NOT NULL,
+    password           VARCHAR(256) NOT NULL,
+    city               VARCHAR(124) NOT NULL,
+    street             VARCHAR(124) NOT NULL,
+    city_index         NUMERIC      NOT NULL
 );
 
 CREATE SEQUENCE customers_sequence START WITH 100 INCREMENT BY 1;
 
 
-INSERT INTO customers (id, email)
-VALUES (01, 'test1@mail.ru'),
-       (02, 'test2@mail.de'),
-       (03, 'test3@mail.nl'),
-       (04, 'test4@mail.ru'),
-       (05, 'test5@mail.de');
+INSERT INTO customers (id, image_url, law_entity,
+                       email, phone_country_code, phone_number,
+                       first_name, last_name, password, city, street, city_index)
+VALUES (01, 'image_url_1', true, 'test1@mail.ru', 373, 79652796,
+        'Oleg', 'Bogdanov', 'as123456', 'Balti', 'Stefan cel Mare 12', 3100),
+       (02, 'image_url_2', false, 'test2@mail.ru', 490, 79645777,
+        'Albert', 'Muller', 'df456789', 'Dortmund', 'Oberst Strasse 10', 4500),
+       (03, 'image_url_1', true, 'test1@mail.ru', 373, 79652796,
+        'Oleg', 'Bogdanov', 'as123456', 'Balti', 'Stefan cel Mare 12', 3100),
+       (04, 'image_url_1', true, 'test1@mail.ru', 373, 79652796,
+        'Oleg', 'Bogdanov', 'as123456', 'Balti', 'Stefan cel Mare 12', 3100),
+       (05, 'image_url_1', true, 'test1@mail.ru', 373, 79652796,
+        'Oleg', 'Bogdanov', 'as123456', 'Balti', 'Stefan cel Mare 12', 3100);
 
 
-CREATE TABLE products
+CREATE TABLE product
 (
-    id                NUMERIC PRIMARY KEY,
-    primary_price     NUMERIC       NOT NULL,
-    current_price     NUMERIC       NOT NULL,
-    discount          NUMERIC       NOT NULL,
-    is_new            BOOLEAN       NOT NULL,
-    image_url         VARCHAR(1024) NOT NULL,
-    description       VARCHAR(512)  NOT NULL,
-    min_delivery_days NUMERIC       NOT NULL,
-    max_delivery_days NUMERIC       NOT NULL,
-    rating            NUMERIC       NOT NULL,
-    review_count      NUMERIC       NOT NULL
+    id       NUMERIC PRIMARY KEY,
+    name     VARCHAR(128) NOT NULL,
+    price    NUMERIC      NOT NULL,
+    discount NUMERIC      NOT NULL
 );
 
-CREATE SEQUENCE products_sequence START WITH 100 INCREMENT BY 1;
+CREATE SEQUENCE product_sequence START WITH 100 INCREMENT BY 1;
 
 
-INSERT INTO products(id, primary_price, current_price, discount,
-                     is_new, image_url, description, min_delivery_days,
-                     max_delivery_days, rating, review_count)
-VALUES (202, 100, 1000, 2, true, 'image_url_1', 'Description 1', 1, 1, 5.0, 10),
-       (203, 200, 2000, 10, false, 'image_url_2', 'Description 2', 1, 3, 4.2, 15),
-       (204, 300, 3000, 5, true, 'image_url_3', 'Description 3', 1, 5, 4.0, 20),
-       (205, 400, 4000, 3, false, 'image_url_4', 'Description 4', 1, 2, 3.5, 12),
-       (206, 500, 5000, 15, false, 'image_url_5', 'Description 5', 1, 7, 2.0, 18);
+INSERT INTO product(id, name, price, discount)
+VALUES (202, 'Samsung', 200, 20),
+       (203, 'Volvo', 1000.0, 20),
+       (204, 'Apple', 10000.0, 80),
+       (205, 'BMW', 2000.0, 80),
+       (206, 'Nokia', 3000.0, 30);
+
 
 
 CREATE TABLE orders
 (
     id          NUMERIC PRIMARY KEY,
-    product_id  NUMERIC NOT NULL REFERENCES products (id),
-    customer_id NUMERIC NOT NULL REFERENCES customers (id),
+    product_id  NUMERIC REFERENCES product (id),
+    customer_id NUMERIC REFERENCES customers (id),
     price       NUMERIC NOT NULL
 );
 
-CREATE SEQUENCE orders_sequence START WITH 100 INCREMENT BY 1;
+CREATE SEQUENCE order_sequence START WITH 100 INCREMENT BY 1;
 
 
 INSERT INTO orders(id, product_id, customer_id, price)
@@ -62,24 +71,23 @@ VALUES (101, 202, 01, 1000),
        (501, 206, 05, 5000);
 
 
-CREATE TABLE deliveries
+CREATE TABLE delivery
 (
     id          NUMERIC      NOT NULL PRIMARY KEY,
-    order_id    NUMERIC      NOT NULL REFERENCES orders (id),
-    customer_id NUMERIC      NOT NULL REFERENCES customers (id),
+    order_id    NUMERIC REFERENCES orders (id),
+    customer_id NUMERIC REFERENCES customers (id),
     address     VARCHAR(255) NOT NULL
 );
 
 CREATE SEQUENCE delivery_sequence START WITH 100 INCREMENT BY 1;
 
 
-INSERT INTO deliveries (id, order_id, customer_id, address)
+INSERT INTO delivery (id, order_id, customer_id, address)
 VALUES (01, 101, 01, 'Штефан  чел маре 1'),
        (02, 201, 02, 'Штефан  чел маре 1'),
        (03, 301, 03, 'Shtefan cel mare 2'),
        (04, 401, 04, 'Штефан  чел маре 5'),
        (05, 501, 05, 'Штефан  чел маре 5');
-
 
 
 

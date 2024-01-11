@@ -7,7 +7,7 @@ import java.util.List;
 @RestController
 @RequestMapping("customer")
 public class CustomerController {
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
@@ -33,12 +33,12 @@ public class CustomerController {
         customerService.update(customer);
     }
 
-    @GetMapping("/{customerId}")
+    @GetMapping("{customerId}")
     public Customer loadById(@PathVariable long customerId) {
         return customerService.loadById(customerId);
     }
 
-    @GetMapping("/load-all")
+    @GetMapping("load-all")
     public List<Customer> loadAll() {
         return customerService.loadAll();
     }

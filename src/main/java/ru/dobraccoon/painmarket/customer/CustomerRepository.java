@@ -15,26 +15,42 @@ public class CustomerRepository {
     }
 
     public Customer create(Customer newCustomer) {
-        String createSQL = String.format("INSERT INTO customer(id, email) VALUES (%s, '%s')",
-                "nextval('customer_sequence')", newCustomer.getEmail());
+        String createSQL = String.format("INSERT INTO" +
+                        " customers(id, image_url," +
+                        "law_entity, email, phone_country_code, phone_number," +
+                        "firstName, last_name, password, city, street, cityIndex)" +
+                        " VALUES (%s, '%s', %s, '%s', %s, %s, '%s', '%s', '%s', '%s', '%s', %s)",
+                "nextval('customers_sequence')",
+                newCustomer.getImageUrl(),
+                newCustomer.isLawEntity(),
+                newCustomer.getEmail(),
+                newCustomer.getPhoneCountryCode(),
+                newCustomer.getPhoneNumber(),
+                newCustomer.getFirstName(),
+                newCustomer.getLastName(),
+                newCustomer.getPassword(),
+                newCustomer.getCity(),
+                newCustomer.getStreet(),
+                newCustomer.getCityIndex());
+
         jdbcTemplate.execute(createSQL);
         return null;
     }
 
     public void deleteById(long id) {
-        String sqlDeleteById = String.format("DELETE FROM customer WHERE id = %s;", id);
+        String sqlDeleteById = String.format("DELETE FROM customers WHERE id = %s;", id);
 
         jdbcTemplate.execute(sqlDeleteById);
     }
 
     public void deleteByEmail(String email) {
-        String sqlDeleteByEmail = String.format("DELETE FROM customer WHERE email = '%s';", email);
+        String sqlDeleteByEmail = String.format("DELETE FROM customers WHERE email = '%s';", email);
         jdbcTemplate.execute(sqlDeleteByEmail);
     }
 
     public void Update(Customer customer) {
         String sqlUpdate = String.format("""
-                        UPDATE customer
+                        UPDATE customers
                         SET email = '%s'
                         WHERE id = %s;""",
                 customer.getEmail(),
@@ -44,13 +60,13 @@ public class CustomerRepository {
     }
 
     public Customer loadById(long customerId) {
-        String sqlLoadById = String.format("SELECT * FROM customer WHERE id = %s", customerId);
+        String sqlLoadById = String.format("SELECT * FROM customers WHERE id = %s;", customerId);
 
         return jdbcTemplate.queryForObject(sqlLoadById, new CustomerRowMapper());
     }
 
     public List<Customer> loadAll() {
-        String sqlLoadAll = "SELECT * FROM customer;";
+        String sqlLoadAll = "SELECT * FROM customers;";
 
         return jdbcTemplate.query(sqlLoadAll, new CustomerRowMapper());
     }
