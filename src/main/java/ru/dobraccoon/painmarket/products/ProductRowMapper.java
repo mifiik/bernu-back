@@ -10,9 +10,16 @@ public class ProductRowMapper implements RowMapper<Product> {
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Product(
                 rs.getLong("id"),
-                rs.getString("name"),
-                rs.getFloat("price"),
-                rs.getInt("discount")
+                rs.getFloat("primary_price"),
+                rs.getFloat("current_price"),
+                rs.getInt("discount"),
+                rs.getBoolean("is_new"),
+                rs.getString("image_url"),
+                rs.getString("description"),
+                rs.getInt("min_delivery_days"),
+                rs.getInt("max_delivery_days"),
+                rs.getFloat("rating"),
+                rs.getInt("review_count")
         );
     }
 }

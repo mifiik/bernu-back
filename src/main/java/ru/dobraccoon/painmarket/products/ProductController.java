@@ -7,7 +7,7 @@ import java.util.List;
 @RestController
 @RequestMapping("products")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -23,24 +23,19 @@ public class ProductController {
         productService.update(product);
     }
 
-    @DeleteMapping("{productId}")
+    @DeleteMapping("/{productId}")
     public void deleteById(@PathVariable long productId) {
         productService.deleteById(productId);
     }
 
-    @DeleteMapping("{price}/{discount}")
-    public void deleteByPriceAndDiscount(@PathVariable float price, @PathVariable int discount) {
-        productService.deleteByPriceAndDiscount(price, discount);
+    @DeleteMapping("/by-primary-price/{primaryPrice}")
+    public void deleteByPrimaryPrice(@PathVariable float primaryPrice) {
+        productService.deleteByPrimaryPrice(primaryPrice);
     }
 
-    @DeleteMapping("/delete-by-name/{name}")
-    public void deleteByName(@PathVariable String name) {
-        productService.deleteByName(name);
-    }
-
-    @DeleteMapping("/delete-by-discount/{discount}")
-    public void deleteByDiscount(@PathVariable int discount) {
-        productService.deleteByDiscount(discount);
+    @DeleteMapping("/by-description/{description}")
+    public void deleteByDescription(@PathVariable String description) {
+        productService.deleteByDescription(description);
     }
 
     @GetMapping("/{productId}")
@@ -53,9 +48,15 @@ public class ProductController {
         return productService.loadAll();
     }
 
+    @GetMapping("/load-by-Current-price/{currentPrice}")
+    public List<Product> loadByCurrentPrice(@PathVariable float currentPrice) {
+
+        return productService.loadByCurrentPrice(currentPrice);
+    }
+
     @GetMapping("/load-by-discount/{discount}")
     public List<Product> loadByDiscount(@PathVariable int discount) {
-
         return productService.loadByDiscount(discount);
     }
+
 }
