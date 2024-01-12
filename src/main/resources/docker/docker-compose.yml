@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  pain-db:
+    image: postgres:10.5
+    restart: always
+    container_name: pain-db
+    ports:
+      - "5432:5432"
+    networks:
+      - pain-network
+networks:
+  pain-network:
+    driver: bridge
