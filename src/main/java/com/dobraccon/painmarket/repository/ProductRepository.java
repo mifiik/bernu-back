@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @AllArgsConstructor
 public class ProductRepository {
@@ -25,11 +27,23 @@ public class ProductRepository {
     }
 
     public Product findByProductId(long id) {
-        String sql = "SELECT * FROM product WHERE id = :id";
+        String sql = "SELECT * FROM products WHERE id = :id;";
         return namedParameterJdbcTemplate.queryForObject(
                 sql,
                 new MapSqlParameterSource("id", id),
                 new ProductRowMapper()
         );
+    }
+
+    public List<Product> findAllProducts() {
+        String sql = "SELECT * FROM products";
+        return jdbcTemplate.query(sql, new ProductRowMapper());
+    }
+
+    public List<Product> findProductsByDiscount(int discount) {
+        String sql = "SELECT * FROM products WHERE discount = :discount;";
+        return namedParameterJdbcTemplate.query(sql,
+                new MapSqlParameterSource("discount", discount),
+                new ProductRowMapper());
     }
 }

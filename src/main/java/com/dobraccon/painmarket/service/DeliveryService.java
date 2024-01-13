@@ -5,6 +5,8 @@ import com.dobraccon.painmarket.repository.DeliveryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class DeliveryService {
@@ -16,5 +18,13 @@ public class DeliveryService {
 
     public Delivery findByDeliveryId(long id) {
         return repository.findByDeliveryId(id);
+    }
+
+    public List<Delivery> findAllDelivery() {
+        return repository.findAllDelivery();
+    }
+
+    public List<Delivery> findDeliveryByAddress(String address) {
+        return repository.findDeliveryByAddress(address);
     }
 }

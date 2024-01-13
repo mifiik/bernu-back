@@ -5,6 +5,8 @@ import com.dobraccon.painmarket.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ProductService {
@@ -16,5 +18,13 @@ public class ProductService {
 
     public Product findByProductId(long id) {
         return repository.findByProductId(id);
+    }
+
+    public List<Product> findAllProducts() {
+        return repository.findAllProducts();
+    }
+
+    public List<Product> findProductsByDiscount(int discount) {
+        return repository.findProductsByDiscount(discount);
     }
 }

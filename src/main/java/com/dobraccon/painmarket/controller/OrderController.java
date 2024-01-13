@@ -5,6 +5,8 @@ import com.dobraccon.painmarket.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/orders")
@@ -19,5 +21,15 @@ public class OrderController {
     @GetMapping("/{id}")
     public Order findByOrderId(@PathVariable long id) {
         return service.findByOrderId(id);
+    }
+
+    @GetMapping("/load-all")
+    public List<Order> findAllOrders() {
+        return service.findAllOrders();
+    }
+
+    @GetMapping("/load-all/{customerId}")
+    public List<Order> findOrderByCustomerId(@PathVariable long customerId) {
+        return service.findOrderByCustomerId(customerId);
     }
 }

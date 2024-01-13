@@ -5,6 +5,8 @@ import com.dobraccon.painmarket.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CustomerService {
@@ -16,5 +18,13 @@ public class CustomerService {
 
     public Customer findByCustomerId(long id) {
         return repository.findByCustomerId(id);
+    }
+
+    public List<Customer> findAllCustomers() {
+        return repository.findAllCustomer();
+    }
+
+    public Customer findByCustomerEmail(String email) {
+        return repository.findByCustomerEmail(email);
     }
 }
