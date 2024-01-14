@@ -1,25 +1,28 @@
 package ru.dobraccoon.painmarket.order;
 
-import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
-@AllArgsConstructor
 public class OrderRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SimpleJdbcInsert simpleJdbcInsert;
+
+    public OrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("orders")
+                .usingGeneratedKeyColumns("id");
+    }
 
     public void create(Order order) {
-        String sqlInsert = "INSERT INTO orders(id, product_id, customer_id, price) " +
-                "VALUES (:id, :productId, :customerId, :price)";
-
-        namedParameterJdbcTemplate.update(
-                sqlInsert,
+        simpleJdbcInsert.execute(
                 new MapSqlParameterSource()
-                        .addValue("id", order.getId())
                         .addValue("productId", order.getProductId())
                         .addValue("customerId", order.getCustomerId())
                         .addValue("price", order.getPrice())

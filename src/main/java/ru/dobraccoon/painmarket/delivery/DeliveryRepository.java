@@ -1,79 +1,99 @@
 package ru.dobraccoon.painmarket.delivery;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class DeliveryRepository {
-    private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SimpleJdbcInsert simpleJdbcInsert;
 
-    public DeliveryRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public DeliveryRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("deliveries")
+                .usingGeneratedKeyColumns("id");
     }
 
     public void create(Delivery delivery) {
-        String sqlInsert = String.format("INSERT INTO delivery(id, order_id, customer_id, address) VALUES(%s,%s,%s,'%s');",
-                "nextval('delivery_sequence')",
-                delivery.getOrderId(), delivery.getCustomerId(),
-                delivery.getAddress());
-
-        jdbcTemplate.execute(sqlInsert);
+        simpleJdbcInsert.execute(
+                new MapSqlParameterSource()
+                        .addValue("orderId", delivery.getOrderId())
+                        .addValue("customerId", delivery.getCustomerId())
+                        .addValue("address", delivery.getAddress())
+        );
     }
 
     public void deleteById(long id) {
-        String sqlDeleteById = String.format("DELETE FROM delivery WHERE id = %s;", id);
-        jdbcTemplate.execute(sqlDeleteById);
+        String sqlDeleteById = "DELETE FROM deliveries WHERE id = :id;";
+        namedParameterJdbcTemplate.update(
+                sqlDeleteById,
+                new MapSqlParameterSource("id", id));
     }
 
     public void deleteByOrderIdAndCustomerId(long orderId, long customerId) {
-        String sqlDeleteByOrderIdAndCustomerId = String.format(
-                "DELETE FROM delivery WHERE order_id = %s AND customer_id = %s;",
-                orderId,
-                customerId
-        );
-        jdbcTemplate.execute(sqlDeleteByOrderIdAndCustomerId);
+        String sqlDeleteByOrderIdAndCustomerId =
+                "DELETE FROM deliveries WHERE order_id = :orderId AND customer_id = :customerId;";
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("orderId", orderId)
+                .addValue("customerId", customerId);
+
+        namedParameterJdbcTemplate.update(sqlDeleteByOrderIdAndCustomerId, parameters);
     }
 
     public void deleteByAddress(String address) {
-        String sqlDeleteByAddress = String.format("DELETE FROM delivery WHERE address = '%s';", address);
+        String sqlDeleteByAddress = "DELETE FROM deliveries WHERE address = :address;";
 
-        jdbcTemplate.execute(sqlDeleteByAddress);
+        namedParameterJdbcTemplate.update(
+                sqlDeleteByAddress,
+                new MapSqlParameterSource("address", address));
     }
 
     public void update(Delivery delivery) {
-        String sqlUpdate = String.format("""
-                        UPDATE delivery 
-                        SET order_id = %s, 
-                        customer_id = %s, 
-                        address = '%s'
-                        WHERE id = %s;""",
-                delivery.getOrderId(),
-                delivery.getCustomerId(),
-                delivery.getAddress(),
-                delivery.getId()
+        String sqlUpdate =
+                "UPDATE deliveries " +
+                        "SET order_id = :orderId, " +
+                        "customer_id = :customerId," +
+                        "address = '%s'WHERE id = :id;";
+
+        namedParameterJdbcTemplate.update(
+                sqlUpdate,
+                new MapSqlParameterSource()
+                        .addValue("orderId", delivery.getOrderId())
+                        .addValue("customerId", delivery.getCustomerId())
+                        .addValue("id", delivery.getCustomerId())
         );
 
-        jdbcTemplate.update(sqlUpdate);
     }
 
     public Delivery loadById(long deliveryId) {
-        String sqlLoadById = String.format("SELECT * FROM delivery WHERE id = %s", deliveryId);
+        String sqlLoadById = "SELECT * FROM deliveries WHERE id = :deliveryId;";
 
-        return jdbcTemplate.queryForObject(sqlLoadById, new DeliveryRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(
+                sqlLoadById,
+                new MapSqlParameterSource("deliveryId", deliveryId),
+                new DeliveryRowMapper());
     }
 
     public List<Delivery> loadAll() {
-        String sqlLoadAll = "SELECT * FROM delivery;";
+        String sqlLoadAll = "SELECT * FROM deliveries;";
 
-        return jdbcTemplate.query(sqlLoadAll, new DeliveryRowMapper());
+        return namedParameterJdbcTemplate.query(sqlLoadAll, new DeliveryRowMapper());
     }
 
     public List<Delivery> loadByAddress(String address) {
-        String sqlLoadByAddress = String.format("SELECT * FROM delivery WHERE address = '%s'", address);
+        String sqlLoadByAddress = "SELECT * FROM deliveries WHERE address = :address;";
 
-        return jdbcTemplate.query(sqlLoadByAddress, new DeliveryRowMapper());
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByAddress,
+                new MapSqlParameterSource("address", address),
+                new DeliveryRowMapper());
     }
 }
 

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Customer {
-    private long id;
+    private Long id;
     private String imageUrl;
     private boolean lawEntity;
     private String email;

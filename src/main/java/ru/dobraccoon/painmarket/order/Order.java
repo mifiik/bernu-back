@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Order {
-    private long id;
+    private Long id;
     private long productId;
     private long customerId;
     private long price;
