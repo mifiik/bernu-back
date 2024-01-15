@@ -14,8 +14,8 @@ public class DeliveryController {
     private DeliveryService service;
 
     @PostMapping
-    public void createDelivery(@RequestBody Delivery delivery) {
-        service.createDelivery(delivery);
+    public Long createDelivery(@RequestBody Delivery delivery) {
+        return service.createDelivery(delivery);
     }
 
     @GetMapping("/{id}")
@@ -28,7 +28,7 @@ public class DeliveryController {
         return service.findAllDelivery();
     }
 
-    @GetMapping("/load-all/{address}")
+    @GetMapping("/find-by-address/{address}")
     public List<Delivery> findDeliveryByAddress(@PathVariable String address) {
         return service.findDeliveryByAddress(address);
     }

@@ -14,8 +14,8 @@ public class OrderController {
     private OrderService service;
 
     @PostMapping
-    public void createOrder(@RequestBody Order order) {
-        service.createOrder(order);
+    public Long createOrder(@RequestBody Order order) {
+        return service.createOrder(order);
     }
 
     @GetMapping("/{id}")
@@ -28,7 +28,7 @@ public class OrderController {
         return service.findAllOrders();
     }
 
-    @GetMapping("/load-all/{customerId}")
+    @GetMapping("/find-by-customer-id/{customerId}")
     public List<Order> findOrderByCustomerId(@PathVariable long customerId) {
         return service.findOrderByCustomerId(customerId);
     }

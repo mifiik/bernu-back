@@ -14,8 +14,8 @@ public class CustomerController {
     private final CustomerService service;
 
     @PostMapping
-    public void saveCustomer(@RequestBody Customer customer) {
-        service.saveCustomer(customer);
+    public Long saveCustomer(@RequestBody Customer customer) {
+        return service.saveCustomer(customer);
     }
 
     @GetMapping("/{id}")
@@ -28,7 +28,7 @@ public class CustomerController {
         return service.findAllCustomers();
     }
 
-    @GetMapping("/load-all/{email}")
+    @GetMapping("/find-by-email/{email}")
     public Customer findByCustomerEmail(@PathVariable String email) {
         return service.findByCustomerEmail(email);
     }

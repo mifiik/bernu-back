@@ -12,8 +12,8 @@ import java.util.List;
 public class DeliveryService {
     private DeliveryRepository repository;
 
-    public void createDelivery(Delivery delivery) {
-        repository.createDelivery(delivery);
+    public Long createDelivery(Delivery delivery) {
+        return repository.createDelivery(delivery);
     }
 
     public Delivery findByDeliveryId(long id) {

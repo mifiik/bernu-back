@@ -12,8 +12,8 @@ import java.util.List;
 public class CustomerService {
     private final CustomerRepository repository;
 
-    public void saveCustomer(Customer customer) {
-        repository.saveCustomer(customer);
+    public Long saveCustomer(Customer customer) {
+        return repository.saveCustomer(customer);
     }
 
     public Customer findByCustomerId(long id) {

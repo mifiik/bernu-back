@@ -12,8 +12,8 @@ import java.util.List;
 public class OrderService {
     private OrderRepository repository;
 
-    public void createOrder(Order order) {
-        repository.createOrder(order);
+    public Long createOrder(Order order) {
+        return repository.createOrder(order);
     }
 
     public Order findByOrderId(long id) {
