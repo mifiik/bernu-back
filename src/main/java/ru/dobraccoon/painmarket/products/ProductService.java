@@ -12,8 +12,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product create(Product newProduct) {
-        return productRepository.create(newProduct);
+    public void create(Product newProduct) {
+        productRepository.create(newProduct);
     }
 
     public void update(Product product) {

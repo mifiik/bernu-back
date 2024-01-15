@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Product {
-    private long id;
+    private Long id;
     private float primaryPrice;
     private float currentPrice;
     private int discount;
-    private boolean nea;
+    private boolean newProduct;
     private String imageUrl;
     private String description;
     private int minDeliveryDays;

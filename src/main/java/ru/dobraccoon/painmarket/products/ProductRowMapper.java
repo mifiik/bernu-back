@@ -13,7 +13,7 @@ public class ProductRowMapper implements RowMapper<Product> {
                 rs.getFloat("primary_price"),
                 rs.getFloat("current_price"),
                 rs.getInt("discount"),
-                rs.getBoolean("is_new"),
+                rs.getBoolean("new_product"),
                 rs.getString("image_url"),
                 rs.getString("description"),
                 rs.getInt("min_delivery_days"),
