@@ -60,13 +60,15 @@ public class DeliveryRepository {
                 "UPDATE deliveries " +
                         "SET order_id = :orderId, " +
                         "customer_id = :customerId," +
-                        "address = '%s'WHERE id = :id;";
+                        "address = :address" +
+                        " WHERE id = :id;";
 
         namedParameterJdbcTemplate.update(
                 sqlUpdate,
                 new MapSqlParameterSource()
                         .addValue("orderId", delivery.getOrderId())
                         .addValue("customerId", delivery.getCustomerId())
+                        .addValue("address", delivery.getAddress())
                         .addValue("id", delivery.getCustomerId())
         );
 

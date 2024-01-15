@@ -79,7 +79,7 @@ public class ProductRepository {
         String sqlDeleteByPrimaryPrice = "DELETE FROM products WHERE primary_price = :primaryPrice;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteByPrimaryPrice,
-                new MapSqlParameterSource("primary_price", primaryPrice));
+                new MapSqlParameterSource("primaryPrice", primaryPrice));
     }
 
     public void deleteByDescription(String description) {
