@@ -32,4 +32,24 @@ public class ProductController {
     public List<Product> findProductsByDiscount(@PathVariable int discount) {
         return service.findProductsByDiscount(discount);
     }
+
+    @PutMapping
+    public void updateProduct(@RequestBody Product product) {
+        service.updateProduct(product);
+    }
+
+    @DeleteMapping("/delete-by-discount/{discount}")
+    public void deleteProduct(@PathVariable int discount) {
+        service.deleteProduct(discount);
+    }
+
+    @DeleteMapping("/delete-by-name/{name}")
+    public void deleteProduct(@PathVariable String name) {
+        service.deleteProduct(name);
+    }
+
+    @DeleteMapping("/delete-by-price/{price}/by-discount/{discount}")
+    public void deleteProduct(@PathVariable float price, @PathVariable int discount) {
+        service.deleteProduct(price, discount);
+    }
 }

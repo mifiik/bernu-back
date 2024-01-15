@@ -46,4 +46,25 @@ public class ProductRepository {
                 new MapSqlParameterSource("discount", discount),
                 new ProductRowMapper());
     }
+
+    public void updateProduct(Product product) {
+        String sql = "UPDATE products SET name = :name, price = :price, discount = :discount WHERE id = :id;";
+        namedParameterJdbcTemplate.update(sql,
+                new MapSqlParameterSource("id", product.getId())
+                        .addValue("name", product.getName())
+                        .addValue("price", product.getPrice())
+                        .addValue("discount", product.getDiscount()));
+    }
+
+    public void deleteProduct(String name) {
+        jdbcTemplate.update("DELETE FROM products WHERE name = ?;", name);
+    }
+
+    public void deleteProduct(int discount) {
+        jdbcTemplate.update("DELETE FROM products WHERE discount = ?;", discount);
+    }
+
+    public void deleteProduct(float price, int discount) {
+        jdbcTemplate.update("DELETE FROM products WHERE price = ? AND discount = ?;", price, discount);
+    }
 }

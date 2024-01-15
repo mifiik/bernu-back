@@ -27,4 +27,20 @@ public class ProductService {
     public List<Product> findProductsByDiscount(int discount) {
         return repository.findProductsByDiscount(discount);
     }
+
+    public void updateProduct(Product product) {
+        repository.updateProduct(product);
+    }
+
+    public void deleteProduct(int discount) {
+        repository.deleteProduct(discount);
+    }
+
+    public void deleteProduct(String name) {
+        repository.deleteProduct(name);
+    }
+
+    public void deleteProduct(float price, int discount) {
+        repository.deleteProduct(price, discount);
+    }
 }

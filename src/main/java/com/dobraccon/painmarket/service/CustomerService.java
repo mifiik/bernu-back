@@ -27,4 +27,16 @@ public class CustomerService {
     public Customer findByCustomerEmail(String email) {
         return repository.findByCustomerEmail(email);
     }
+
+    public void updateCustomer(Customer customer) {
+        repository.updateCustomer(customer);
+    }
+
+    public void deleteCustomer(long id) {
+        repository.deleteCustomer(id);
+    }
+
+    public void deleteCustomer(String email) {
+        repository.deleteCustomer(email);
+    }
 }

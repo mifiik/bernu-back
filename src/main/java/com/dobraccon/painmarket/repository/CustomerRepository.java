@@ -44,4 +44,20 @@ public class CustomerRepository {
                 new MapSqlParameterSource("email", email),
                 new CustomerRowMapper());
     }
+
+    public void updateCustomer(Customer customer) {
+        String sql = "UPDATE customers SET email = :email WHERE id = :id;";
+         namedParameterJdbcTemplate.update(sql,
+                new MapSqlParameterSource("id", customer.getId())
+                        .addValue("email", customer.getEmail()));
+    }
+
+    public void deleteCustomer(long id) {
+        String sql = "DELETE FROM customers WHERE id = ?;";
+        jdbcTemplate.update(sql, id);
+    }
+
+    public void deleteCustomer(String email) {
+        jdbcTemplate.update("DELETE FROM customers WHERE email = ?;", email);
+    }
 }
