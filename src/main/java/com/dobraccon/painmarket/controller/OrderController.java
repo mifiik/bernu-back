@@ -21,9 +21,9 @@ public class OrderController {
         return service.createOrder(order);
     }
 
-    @GetMapping("/{id}")
-    public Order findByOrderId(@PathVariable long id) {
-        return service.findByOrderId(id);
+    @GetMapping("/{orderId}")
+    public Order findByOrderId(@PathVariable Long orderId) {
+        return service.findByOrderId(orderId);
     }
 
     @GetMapping("/load-all")
