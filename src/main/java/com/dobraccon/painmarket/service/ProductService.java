@@ -12,8 +12,8 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository repository;
 
-    public void saveProduct(Product product) {
-        repository.saveProduct(product);
+    public Long saveProduct(Product product) {
+        return repository.saveProduct(product);
     }
 
     public Product findByProductId(long id) {

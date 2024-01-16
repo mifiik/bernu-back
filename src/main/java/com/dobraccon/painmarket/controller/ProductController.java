@@ -14,8 +14,8 @@ public class ProductController {
     private final ProductService service;
 
     @PostMapping
-    public void saveProduct(@RequestBody Product product) {
-        service.saveProduct(product);
+    public Long saveProduct(@RequestBody Product product) {
+        return service.saveProduct(product);
     }
 
     @GetMapping("/{id}")
@@ -28,7 +28,7 @@ public class ProductController {
         return service.findAllProducts();
     }
 
-    @GetMapping("/load-all/{discount}")
+    @GetMapping("/find-by-discount/{discount}")
     public List<Product> findProductsByDiscount(@PathVariable int discount) {
         return service.findProductsByDiscount(discount);
     }
