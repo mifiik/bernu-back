@@ -46,7 +46,7 @@ public class CustomerRepository {
 
     public void updateCustomer(Customer customer) {
         String sql = "UPDATE customers SET email = :email WHERE id = :id;";
-         namedParameterJdbcTemplate.update(sql,
+        namedParameterJdbcTemplate.update(sql,
                 new MapSqlParameterSource("id", customer.getId())
                         .addValue("email", customer.getEmail()));
     }

@@ -51,7 +51,7 @@ public class OrderRepository {
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("clientId", clientId));
     }
 
-    public void  deleteOrder(float price) {
+    public void deleteOrder(float price) {
         String sql = "DELETE FROM orders WHERE price = :price;";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("price", price));
     }

@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Order {
-    private long id;
-    private long productId;
-    private long clientId;
-    private long price;
+    private Long id;
+    private Long productId;
+    private Long clientId;
+    private Long price;
 
 }

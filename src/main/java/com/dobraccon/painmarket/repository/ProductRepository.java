@@ -61,7 +61,7 @@ public class ProductRepository {
     }
 
     public void deleteProduct(int discount) {
-        jdbcTemplate.update("DELETE FROM products WHERE discount = :discount;",
+        namedParameterJdbcTemplate.update("DELETE FROM products WHERE discount = :discount;",
                 new MapSqlParameterSource("discount", discount));
     }
 

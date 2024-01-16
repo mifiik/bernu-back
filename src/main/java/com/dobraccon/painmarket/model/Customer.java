@@ -1,14 +1,11 @@
 package com.dobraccon.painmarket.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class Customer {
-    private final long id;
+    private final Long id;
     private final String email;
-
-    public Customer(long id, String email) {
-        this.id = id;
-        this.email = email;
-    }
 }
