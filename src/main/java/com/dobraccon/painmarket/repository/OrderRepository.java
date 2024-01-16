@@ -47,4 +47,14 @@ public class OrderRepository {
                 new MapSqlParameterSource("client_id", customerId),
                 new OrderRowMapper());
     }
+
+    public void deleteOrder(long clientId) {
+        String sql = "DELETE FROM orders WHERE client_id = :clientId;";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("clientId", clientId));
+    }
+
+    public void  deleteOrder(float price) {
+        String sql = "DELETE FROM orders WHERE price = :price;";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("price", price));
+    }
 }

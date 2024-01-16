@@ -53,11 +53,13 @@ public class CustomerRepository {
     }
 
     public void deleteCustomer(long id) {
-        String sql = "DELETE FROM customers WHERE id = ?;";
-        jdbcTemplate.update(sql, id);
+        String sql = "DELETE FROM customers WHERE id = :id;";
+        namedParameterJdbcTemplate.update(sql,
+                new MapSqlParameterSource("id", id));
     }
 
     public void deleteCustomer(String email) {
-        jdbcTemplate.update("DELETE FROM customers WHERE email = ?;", email);
+        namedParameterJdbcTemplate.update("DELETE FROM customers WHERE email = :email;",
+                new MapSqlParameterSource("email", email));
     }
 }

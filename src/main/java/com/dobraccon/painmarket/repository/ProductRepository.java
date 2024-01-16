@@ -57,14 +57,19 @@ public class ProductRepository {
     }
 
     public void deleteProduct(String name) {
-        jdbcTemplate.update("DELETE FROM products WHERE name = ?;", name);
+        namedParameterJdbcTemplate.update("DELETE FROM products WHERE name = :name;",
+                new MapSqlParameterSource("name", name));
     }
 
     public void deleteProduct(int discount) {
-        jdbcTemplate.update("DELETE FROM products WHERE discount = ?;", discount);
+        jdbcTemplate.update("DELETE FROM products WHERE discount = :discount;",
+                new MapSqlParameterSource("discount", discount));
     }
 
     public void deleteProduct(float price, int discount) {
-        jdbcTemplate.update("DELETE FROM products WHERE price = ? AND discount = ?;", price, discount);
+        namedParameterJdbcTemplate.update("DELETE FROM products WHERE price = :price AND discount = :discount;",
+                new MapSqlParameterSource()
+                        .addValue("price", price)
+                        .addValue("discount", discount));
     }
 }
