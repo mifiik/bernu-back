@@ -23,7 +23,7 @@ public class CustomerRepository {
                 Long.class);
     }
 
-    public Customer findByCustomerId(long id) {
+    public Customer findById(long id) {
         String sql = "SELECT * FROM  customers WHERE id = :id;";
         return namedParameterJdbcTemplate.queryForObject(
                 sql,
@@ -32,12 +32,12 @@ public class CustomerRepository {
         );
     }
 
-    public List<Customer> findAllCustomer() {
+    public List<Customer> findAll() {
         String sql = "SELECT * FROM customers";
         return namedParameterJdbcTemplate.query(sql, new CustomerRowMapper());
     }
 
-    public Customer findByCustomerEmail(String email) {
+    public Customer findByEmail(String email) {
         String sql = "SELECT * FROM customers WHERE email = :email;";
         return namedParameterJdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource("email", email),
@@ -51,13 +51,13 @@ public class CustomerRepository {
                         .addValue("email", customer.getEmail()));
     }
 
-    public void deleteCustomer(long id) {
+    public void deleteByCustomerId(long id) {
         String sql = "DELETE FROM customers WHERE id = :id;";
         namedParameterJdbcTemplate.update(sql,
                 new MapSqlParameterSource("id", id));
     }
 
-    public void deleteCustomer(String email) {
+    public void deleteByCustomerEmail(String email) {
         namedParameterJdbcTemplate.update("DELETE FROM customers WHERE email = :email;",
                 new MapSqlParameterSource("email", email));
     }

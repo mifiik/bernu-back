@@ -25,7 +25,7 @@ public class OrderRepository {
                 Long.class);
     }
 
-    public Order findByOrderId(long id) {
+    public Order findById(long id) {
         String sql = "SELECT * FROM orders WHERE id = :id";
         return namedParameterJdbcTemplate.queryForObject(
                 sql,
@@ -34,24 +34,24 @@ public class OrderRepository {
         );
     }
 
-    public List<Order> findAllOrders() {
+    public List<Order> findAll() {
         String sql = "SELECT * FROM orders";
         return namedParameterJdbcTemplate.query(sql, new OrderRowMapper());
     }
 
-    public List<Order> findOrdersByConsumerId(long customerId) {
+    public List<Order> findByCustomerId(long customerId) {
         String sql = "SELECT * FROM orders WHERE client_id = :clientId;";
         return namedParameterJdbcTemplate.query(sql,
                 new MapSqlParameterSource("clientId", customerId),
                 new OrderRowMapper());
     }
 
-    public void deleteOrder(long clientId) {
-        String sql = "DELETE FROM orders WHERE client_id = :clientId;";
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("clientId", clientId));
+    public void deleteByCustomerId(long customerId) {
+        String sql = "DELETE FROM orders WHERE client_id = :customerId;";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("clientId", customerId));
     }
 
-    public void deleteOrder(float price) {
+    public void deleteByPrice(float price) {
         String sql = "DELETE FROM orders WHERE price = :price;";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("price", price));
     }

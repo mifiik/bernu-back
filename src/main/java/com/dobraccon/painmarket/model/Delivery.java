@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Delivery {
     private Long id;
-    private Long orderId;
-    private Long customerId;
+    private long orderId;
+    private long customerId;
     private String address;
 }

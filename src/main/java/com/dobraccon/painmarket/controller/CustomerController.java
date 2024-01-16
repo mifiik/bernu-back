@@ -39,12 +39,12 @@ public class CustomerController {
     }
 
     @DeleteMapping("/delete-by-id/{id}")
-    public void deleteCustomer(@PathVariable long id) {
-        service.deleteCustomer(id);
+    public void deleteCustomerById(@PathVariable long id) {
+        service.deleteCustomerById(id);
     }
 
     @DeleteMapping("/delete-by-email/{email}")
-    public void deleteCustomer(@PathVariable String email) {
-        service.deleteCustomer(email);
+    public void deleteCustomerByEmail(@PathVariable String email) {
+        service.deleteCustomerByEmail(email);
     }
 }

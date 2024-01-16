@@ -32,15 +32,15 @@ public class ProductService {
         repository.updateProduct(product);
     }
 
-    public void deleteProduct(int discount) {
-        repository.deleteProduct(discount);
+    public void deleteProductByDiscount(int discount) {
+        repository.deleteProductByDiscount(discount);
     }
 
-    public void deleteProduct(String name) {
-        repository.deleteProduct(name);
+    public void deleteProductByName(String name) {
+        repository.deleteProductByName(name);
     }
 
-    public void deleteProduct(float price, int discount) {
-        repository.deleteProduct(price, discount);
+    public void deleteProductByPriceAndDiscount(float price, int discount) {
+        repository.deleteProductByPriceAndDiscount(price, discount);
     }
 }

@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Order {
     private Long id;
-    private Long productId;
-    private Long clientId;
-    private Long price;
+    private long productId;
+    private long clientId;
+    private long price;
 
 }

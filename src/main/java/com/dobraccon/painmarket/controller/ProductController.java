@@ -39,17 +39,17 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete-by-discount/{discount}")
-    public void deleteProduct(@PathVariable int discount) {
-        service.deleteProduct(discount);
+    public void deleteProductByDiscount(@PathVariable int discount) {
+        service.deleteProductByDiscount(discount);
     }
 
     @DeleteMapping("/delete-by-name/{name}")
-    public void deleteProduct(@PathVariable String name) {
-        service.deleteProduct(name);
+    public void deleteProductByName(@PathVariable String name) {
+        service.deleteProductByName(name);
     }
 
     @DeleteMapping("/delete-by-price/{price}/by-discount/{discount}")
-    public void deleteProduct(@PathVariable float price, @PathVariable int discount) {
-        service.deleteProduct(price, discount);
+    public void deleteProductByPriceAndDiscount(@PathVariable float price, @PathVariable int discount) {
+        service.deleteProductByPriceAndDiscount(price, discount);
     }
 }

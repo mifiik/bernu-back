@@ -23,21 +23,31 @@ public class OrderController {
 
     @GetMapping("/{orderId}")
     public Order findByOrderId(@PathVariable Long orderId) {
-        return service.findByOrderId(orderId);
+        return service.findById(orderId);
     }
 
     @GetMapping("/load-all")
     public List<Order> findAllOrders() {
-        return service.findAllOrders();
+        return service.findAll();
     }
 
     @GetMapping("/find-by-customer-id/{customerId}")
     public List<Order> findOrderByCustomerId(@PathVariable Long customerId) {
-        return service.findOrderByCustomerId(customerId);
+        return service.findByCustomerId(customerId);
     }
 
     @GetMapping("/by-id-with-details/{orderId}")
-    public OrderWithDetails findByIdOrderWithDetails(@PathVariable Long orderId) {
-        return orderDetailService.getOrderWithDetailsById(orderId);
+    public OrderWithDetails findByOrderIdWithDetails(@PathVariable Long orderId) {
+        return orderDetailService.findByOrderIdWithDetails(orderId);
+    }
+
+    @DeleteMapping("/delete-by-customer-id/{customerId}")
+    public void deleteByCustomerId(@PathVariable Long customerId) {
+        service.deleteById(customerId);
+    }
+
+    @DeleteMapping("/delete-by-price/{price}")
+    public void deleteByPrice(@PathVariable float price) {
+        service.deleteByPrice(price);
     }
 }

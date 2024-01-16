@@ -16,15 +16,23 @@ public class OrderService {
         return repository.createOrder(order);
     }
 
-    public Order findByOrderId(long id) {
-        return repository.findByOrderId(id);
+    public Order findById(long id) {
+        return repository.findById(id);
     }
 
-    public List<Order> findAllOrders() {
-        return repository.findAllOrders();
+    public List<Order> findAll() {
+        return repository.findAll();
     }
 
-    public List<Order> findOrderByCustomerId(long customerId) {
-        return repository.findOrdersByConsumerId(customerId);
+    public List<Order> findByCustomerId(long customerId) {
+        return repository.findByCustomerId(customerId);
+    }
+
+    public void deleteById(long customerId) {
+        repository.deleteByCustomerId(customerId);
+    }
+
+    public void deleteByPrice(float price) {
+        repository.deleteByPrice(price);
     }
 }
