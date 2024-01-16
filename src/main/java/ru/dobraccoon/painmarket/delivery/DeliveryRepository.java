@@ -24,8 +24,14 @@ public class DeliveryRepository {
         simpleJdbcInsert.execute(
                 new MapSqlParameterSource()
                         .addValue("orderId", delivery.getOrderId())
-                        .addValue("customerId", delivery.getCustomerId())
-                        .addValue("address", delivery.getAddress())
+                        .addValue("requiredFields", delivery.isRequiredFields())
+                        .addValue("city", delivery.getCity())
+                        .addValue("street", delivery.getStreet())
+                        .addValue("postcode", delivery.getPostcode())
+                        .addValue("textArea", delivery.getTextArea())
+                        .addValue("deliveryPrice", delivery.getDeliveryPrice())
+                        .addValue("discount", delivery.getDiscount())
+                        .addValue("totalAmount", delivery.getTotalAmount())
         );
     }
 
@@ -36,40 +42,51 @@ public class DeliveryRepository {
                 new MapSqlParameterSource("id", id));
     }
 
-    public void deleteByOrderIdAndCustomerId(long orderId, long customerId) {
-        String sqlDeleteByOrderIdAndCustomerId =
-                "DELETE FROM deliveries WHERE order_id = :orderId AND customer_id = :customerId;";
+    public void deleteByOrderId(long orderId) {
+        String sqlDeleteByOrderId =
+                "DELETE FROM deliveries WHERE order_id = :orderId;";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("orderId", orderId)
-                .addValue("customerId", customerId);
+                .addValue("orderId", orderId);
 
-        namedParameterJdbcTemplate.update(sqlDeleteByOrderIdAndCustomerId, parameters);
+        namedParameterJdbcTemplate.update(sqlDeleteByOrderId, parameters);
     }
 
-    public void deleteByAddress(String address) {
-        String sqlDeleteByAddress = "DELETE FROM deliveries WHERE address = :address;";
+    public void deleteByPostcode(int postcode) {
+        String sqlDeleteByPostcode = "DELETE FROM deliveries WHERE postcode = :postcode;";
 
         namedParameterJdbcTemplate.update(
-                sqlDeleteByAddress,
-                new MapSqlParameterSource("address", address));
+                sqlDeleteByPostcode,
+                new MapSqlParameterSource("postcode", postcode));
     }
 
     public void update(Delivery delivery) {
-        String sqlUpdate =
-                "UPDATE deliveries " +
-                        "SET order_id = :orderId, " +
-                        "customer_id = :customerId," +
-                        "address = :address" +
-                        " WHERE id = :id;";
+        String sqlUpdate = """
+                UPDATE deliveries
+                SET order_id        = :orderId,
+                    required_fields = :customerId,
+                    city            = :address,
+                    street          = :street,
+                    postcode        = :postcode,
+                    text_area       = :textArea,
+                    delivery_price  = :deliveryPrice,
+                    discount        = :discount,
+                    total_amount    = :totalAmount
+                WHERE id = :id""";
+
 
         namedParameterJdbcTemplate.update(
                 sqlUpdate,
                 new MapSqlParameterSource()
                         .addValue("orderId", delivery.getOrderId())
-                        .addValue("customerId", delivery.getCustomerId())
-                        .addValue("address", delivery.getAddress())
-                        .addValue("id", delivery.getCustomerId())
+                        .addValue("requiredFields", delivery.isRequiredFields())
+                        .addValue("city", delivery.getDeliveryPrice())
+                        .addValue("street", delivery.getStreet())
+                        .addValue("postcode", delivery.getPostcode())
+                        .addValue("textArea", delivery.getTextArea())
+                        .addValue("deliveryPrice", delivery.getDeliveryPrice())
+                        .addValue("discount", delivery.getDiscount())
+                        .addValue("totalAmount", delivery.getTotalAmount())
         );
 
     }
@@ -89,12 +106,12 @@ public class DeliveryRepository {
         return namedParameterJdbcTemplate.query(sqlLoadAll, new DeliveryRowMapper());
     }
 
-    public List<Delivery> loadByAddress(String address) {
-        String sqlLoadByAddress = "SELECT * FROM deliveries WHERE address = :address;";
+    public List<Delivery> loadByPostcode(int postcode) {
+        String sqlLoadByPostcode = "SELECT * FROM deliveries WHERE postcode = :postcode;";
 
         return namedParameterJdbcTemplate.query(
-                sqlLoadByAddress,
-                new MapSqlParameterSource("address", address),
+                sqlLoadByPostcode,
+                new MapSqlParameterSource("postcode", postcode),
                 new DeliveryRowMapper());
     }
 }

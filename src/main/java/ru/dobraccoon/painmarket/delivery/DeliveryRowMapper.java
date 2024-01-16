@@ -11,8 +11,14 @@ public class DeliveryRowMapper implements RowMapper<Delivery> {
         return new Delivery(
                 rs.getLong("id"),
                 rs.getLong("order_id"),
-                rs.getLong("customer_id"),
-                rs.getString("address")
+                rs.getBoolean("required_fields"),
+                rs.getString("city"),
+                rs.getString("street"),
+                rs.getInt("postcode"),
+                rs.getString("text_area"),
+                rs.getFloat("delivery_price"),
+                rs.getInt("discount"),
+                rs.getFloat("total_amount")
 
         );
     }

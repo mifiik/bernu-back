@@ -24,13 +24,13 @@ public class DeliveryController {
     }
 
     @DeleteMapping("{orderId}/{customerId}")
-    public void deleteByOrderIdAndCustomerId(@PathVariable long orderId, @PathVariable long customerId) {
-        deliveryService.deleteByOrderIdAndCustomerId(orderId, customerId);
+    public void deleteByOrderId(@PathVariable long orderId) {
+        deliveryService.deleteByOrderId(orderId);
     }
 
-    @DeleteMapping("/by-address/{address}")
-    public void deleteByAddress(@PathVariable String address) {
-        deliveryService.deleteByAddress(address);
+    @DeleteMapping("/by-postcode/{postcode}")
+    public void deleteByPostcode(@PathVariable int postcode) {
+        deliveryService.deleteByPostcode(postcode);
     }
 
 
@@ -49,8 +49,8 @@ public class DeliveryController {
         return deliveryService.loadAll();
     }
 
-    @GetMapping("/load-by-address/{address}")
-    public List<Delivery> loadByAddress(@PathVariable String address) {
-        return deliveryService.loadByAddress(address);
+    @GetMapping("/load-by-postcode/{postcode}")
+    public List<Delivery> loadByPostcode(@PathVariable int postcode) {
+        return deliveryService.loadByPostcode(postcode);
     }
 }
