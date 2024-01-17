@@ -9,11 +9,10 @@ import lombok.Getter;
 public class Delivery {
     private Long id;
     private long orderId;
-    private boolean requiredFields;
     private String city;
     private String street;
     private int postcode;
-    private String textArea;
+    private String informationForCourier;
     private float deliveryPrice;
     private int discount;
     private float totalAmount;

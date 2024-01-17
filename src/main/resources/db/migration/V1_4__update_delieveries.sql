@@ -1,23 +1,15 @@
 ALTER TABLE deliveries
-    ADD required_fields BOOLEAN,
-    ADD city            VARCHAR(255) NOT NULL DEFAULT 'migrated',
-    ADD street          VARCHAR(255) NOT NULL DEFAULT 'migrated',
-    ADD postcode        NUMERIC      NOT NULL DEFAULT 1,
-    ADD text_area       VARCHAR(255),
-    ADD delivery_price  NUMERIC      NOT NULL DEFAULT 1,
-    ADD discount        NUMERIC      NOT NULL DEFAULT 1,
-    ADD total_amount    NUMERIC      NOT NULL DEFAULT 1;
+    ADD city                    VARCHAR(255) NOT NULL DEFAULT 'migrated',
+    ADD street                  VARCHAR(255) NOT NULL DEFAULT 'migrated',
+    ADD postcode                NUMERIC      NOT NULL DEFAULT 1,
+    ADD information_for_courier VARCHAR(255),
+    ADD delivery_price          NUMERIC      NOT NULL DEFAULT 1,
+    ADD discount                NUMERIC      NOT NULL DEFAULT 1,
+    ADD total_amount            NUMERIC      NOT NULL DEFAULT 1;
 
 ALTER TABLE deliveries
     DROP COLUMN customer_id,
     DROP COLUMN address;
-
-UPDATE deliveries
-SET required_fields = true
-WHERE id IN (1, 3, 5);
-UPDATE deliveries
-SET required_fields = false
-WHERE id IN (2, 4);
 
 UPDATE deliveries
 SET city = 'London'
@@ -68,7 +60,7 @@ SET postcode = 7100
 WHERE id = 5;
 
 UPDATE deliveries
-SET text_area = 'Lorem ipsum dolor sit amet';
+SET information_for_courier = 'Lorem ipsum dolor sit amet';
 
 UPDATE deliveries
 SET delivery_price = 25
