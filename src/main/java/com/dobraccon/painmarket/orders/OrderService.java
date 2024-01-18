@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.service;
+package com.dobraccon.painmarket.orders;
 
-import com.dobraccon.painmarket.model.Order;
-import com.dobraccon.painmarket.repository.OrderRepository;
+import com.dobraccon.painmarket.orders.Order;
+import com.dobraccon.painmarket.orders.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

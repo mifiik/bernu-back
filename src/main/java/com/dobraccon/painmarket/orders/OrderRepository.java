@@ -1,7 +1,6 @@
-package com.dobraccon.painmarket.repository;
+package com.dobraccon.painmarket.orders;
 
 import com.dobraccon.painmarket.config.row_mapper.OrderRowMapper;
-import com.dobraccon.painmarket.model.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,12 +14,12 @@ public class OrderRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public Long createOrder(Order order) {
-        String sql = "INSERT INTO orders(id, product_id, client_id, price) VALUES " +
-                "(nextval('orders_sequence'), :productId, :clientId, :price);";
+        String sql = "INSERT INTO orders(id, product_id, customerId, price) VALUES " +
+                "(nextval('orders_sequence'), :productId, :customerId, :price);";
         return namedParameterJdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource()
                         .addValue("productId", order.getProductId())
-                        .addValue("clientId", order.getClientId())
+                        .addValue("customerId", order.getCustomerId())
                         .addValue("price", order.getPrice()),
                 Long.class);
     }
@@ -40,15 +39,15 @@ public class OrderRepository {
     }
 
     public List<Order> findByCustomerId(long customerId) {
-        String sql = "SELECT * FROM orders WHERE client_id = :clientId;";
+        String sql = "SELECT * FROM orders WHERE customerId = :clientId;";
         return namedParameterJdbcTemplate.query(sql,
-                new MapSqlParameterSource("clientId", customerId),
+                new MapSqlParameterSource("customerId", customerId),
                 new OrderRowMapper());
     }
 
     public void deleteByCustomerId(long customerId) {
-        String sql = "DELETE FROM orders WHERE client_id = :customerId;";
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("clientId", customerId));
+        String sql = "DELETE FROM orders WHERE customerId = :customerId;";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("customerId", customerId));
     }
 
     public void deleteByPrice(float price) {

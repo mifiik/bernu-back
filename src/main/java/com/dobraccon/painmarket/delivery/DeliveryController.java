@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.controller;
+package com.dobraccon.painmarket.delivery;
 
-import com.dobraccon.painmarket.model.Delivery;
-import com.dobraccon.painmarket.service.DeliveryService;
+import com.dobraccon.painmarket.delivery.Delivery;
+import com.dobraccon.painmarket.delivery.DeliveryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +31,15 @@ public class DeliveryController {
     @GetMapping("/find-by-address/{address}")
     public List<Delivery> findDeliveryByAddress(@PathVariable String address) {
         return service.findDeliveryByAddress(address);
+    }
+
+    @DeleteMapping("/delete-by-address/{address}")
+    public void deleteDeliveryByAddress(@PathVariable String address) {
+        service.deleteDeliveryByAddress(address);
+    }
+
+    @DeleteMapping("/delete-by-orderId{orderId}/by-customerId/{customerId}")
+    public void deleteDeliveryByOrderIdAndCustomerId(@PathVariable long orderId, @PathVariable long customerId) {
+        service.deleteDeliveryByOrderIdAndCustomerId(orderId, customerId);
     }
 }

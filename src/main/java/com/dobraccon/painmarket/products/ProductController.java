@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.controller;
+package com.dobraccon.painmarket.products;
 
-import com.dobraccon.painmarket.model.Product;
-import com.dobraccon.painmarket.service.ProductService;
+import com.dobraccon.painmarket.products.Product;
+import com.dobraccon.painmarket.products.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

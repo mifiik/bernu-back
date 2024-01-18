@@ -1,13 +1,14 @@
-package com.dobraccon.painmarket.model;
+package com.dobraccon.painmarket.orders;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Delivery {
+public class Order {
     private Long id;
-    private long orderId;
+    private long productId;
     private long customerId;
-    private String address;
+    private long price;
+
 }
