@@ -13,6 +13,13 @@ public class OrderRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
 
+    private static final String sqlDeleteById = "DELETE FROM orders WHERE id = :id;";
+    private static final String sqlDeleteByCustomerId = "DELETE FROM orders WHERE customer_id = :customerId";
+    private static final String sqlDeleteByPrice = "DELETE FROM orders WHERE price = :price;";
+    private static final String sqlLoadById = "SELECT * FROM orders WHERE id = :orderId";
+    private static final String sqlLoadAll = "SELECT * FROM orders;";
+    private static final String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
+
     public OrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
@@ -30,21 +37,18 @@ public class OrderRepository {
     }
 
     public void deleteById(long id) {
-        String sqlDeleteById = "DELETE FROM orders WHERE id = :id;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteById,
                 new MapSqlParameterSource("id", id));
     }
 
     public void deleteByCustomerId(long customerId) {
-        String sqlDeleteByCustomerId = "DELETE FROM orders WHERE customer_id = :customerId";
         namedParameterJdbcTemplate.update(
                 sqlDeleteByCustomerId,
                 new MapSqlParameterSource("customerId", customerId));
     }
 
     public void deleteByPrice(long price) {
-        String sqlDeleteByPrice = "DELETE FROM orders WHERE price = :price;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteByPrice,
                 new MapSqlParameterSource("price", price));
@@ -66,8 +70,6 @@ public class OrderRepository {
     }
 
     public Order loadById(long orderId) {
-        String sqlLoadById = "SELECT * FROM orders WHERE id = :orderId";
-
         return namedParameterJdbcTemplate.queryForObject(
                 sqlLoadById,
                 new MapSqlParameterSource("orderId", orderId),
@@ -75,14 +77,10 @@ public class OrderRepository {
     }
 
     public List<Order> loadAll() {
-        String sqlLoadAll = "SELECT * FROM orders;";
-
         return namedParameterJdbcTemplate.query(sqlLoadAll, new OrderRowMapper());
     }
 
     public List<Order> loadByCustomerId(long customerId) {
-        String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
-
         return namedParameterJdbcTemplate.query(
                 sqlLoadByCustomerId,
                 new MapSqlParameterSource("customerId", customerId),

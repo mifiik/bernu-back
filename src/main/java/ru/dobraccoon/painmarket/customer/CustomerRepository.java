@@ -11,6 +11,17 @@ import java.util.List;
 @Repository
 public class CustomerRepository {
 
+    private static final String sqlDeleteById = "DELETE FROM customers WHERE id = :id;";
+
+    private static final String sqlDeleteByEmail = "DELETE FROM customers WHERE email = :email;";
+    private static final String sqlUpdate = "UPDATE customers  SET" +
+            " image_url = :imageUrl, law_entity = :lawEntity, email = :email," +
+            "phone_country_code = :phoneCountryCode, phone_number = :phoneNumber," +
+            "first_name = :firstName, last_name = :lastName, password = :password," +
+            "city = :city, street = :street, city_index = :cityIndex" +
+            "   WHERE id = :id";
+    private static final String sqlLoadById = "SELECT * FROM customers WHERE id = :customerId;";
+    private static final String sqlLoadAll = "SELECT * FROM customers;";
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
 
@@ -39,28 +50,18 @@ public class CustomerRepository {
     }
 
     public void deleteById(long id) {
-        String sqlDeleteById = "DELETE FROM customers WHERE id = :id;";
-
         namedParameterJdbcTemplate.update(
                 sqlDeleteById,
                 new MapSqlParameterSource("id", id));
     }
 
     public void deleteByEmail(String email) {
-        String sqlDeleteByEmail = "DELETE FROM customers WHERE email = :email;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteByEmail,
                 new MapSqlParameterSource("email", email));
     }
 
     public void update(Customer customer) {
-        String sqlUpdate = "UPDATE customers  SET" +
-                " image_url = :imageUrl, law_entity = :lawEntity, email = :email," +
-                "phone_country_code = :phoneCountryCode, phone_number = :phoneNumber," +
-                "first_name = :firstName, last_name = :lastName, password = :password," +
-                "city = :city, street = :street, city_index = :cityIndex" +
-                "   WHERE id = :id";
-
         namedParameterJdbcTemplate.update(
                 sqlUpdate,
                 new MapSqlParameterSource()
@@ -80,8 +81,6 @@ public class CustomerRepository {
     }
 
     public Customer loadById(long customerId) {
-        String sqlLoadById = "SELECT * FROM customers WHERE id = :customerId;";
-
         return namedParameterJdbcTemplate.queryForObject(
                 sqlLoadById,
                 new MapSqlParameterSource("customerId", customerId),
@@ -90,8 +89,6 @@ public class CustomerRepository {
     }
 
     public List<Customer> loadAll() {
-        String sqlLoadAll = "SELECT * FROM customers;";
-
         return namedParameterJdbcTemplate.query(sqlLoadAll, new CustomerRowMapper());
     }
 }

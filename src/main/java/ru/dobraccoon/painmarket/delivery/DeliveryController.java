@@ -1,6 +1,8 @@
 package ru.dobraccoon.painmarket.delivery;
 
 import org.springframework.web.bind.annotation.*;
+import ru.dobraccoon.painmarket.delivery.history.DeliveryDTO;
+import ru.dobraccoon.painmarket.delivery.history.DeliveryDTOService;
 
 import java.util.List;
 
@@ -8,9 +10,11 @@ import java.util.List;
 @RequestMapping("delivery")
 public class DeliveryController {
     private DeliveryService deliveryService;
+    private DeliveryDTOService deliveryDTOService;
 
-    public DeliveryController(DeliveryService deliveryService) {
+    public DeliveryController(DeliveryService deliveryService, DeliveryDTOService deliveryDTOService) {
         this.deliveryService = deliveryService;
+        this.deliveryDTOService = deliveryDTOService;
     }
 
     @PostMapping
@@ -52,5 +56,10 @@ public class DeliveryController {
     @GetMapping("/load-by-postcode/{postcode}")
     public List<Delivery> loadByPostcode(@PathVariable int postcode) {
         return deliveryService.loadByPostcode(postcode);
+    }
+
+    @GetMapping("/load-by-deliveryId/{deliveryId}")
+    public DeliveryDTO loadDeliveryDTOById(@PathVariable long deliveryId) {
+        return deliveryDTOService.loadDeliveryDTOById(deliveryId);
     }
 }

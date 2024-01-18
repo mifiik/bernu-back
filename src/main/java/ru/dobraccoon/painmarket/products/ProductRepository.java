@@ -14,6 +14,19 @@ public class ProductRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
 
+    private static final String sqlUpdate = "UPDATE products SET primary_price = :primaryPrice, current_price = :currentPrice," +
+            " discount = :discount, new_product = :new_product, image_url = :imageUrl,  description = :description," +
+            "min_delivery_days = :minDeliveryDays, max_delivery_days = :maxDeliveryDays," +
+            "rating = :rating, review_count = :reviewCount" +
+            " WHERE id = :id;";
+    private static final String sqlDeleteById = "DELETE FROM products WHERE id = :productId;";
+    private static final String sqlDeleteByPrimaryPrice = "DELETE FROM products WHERE primary_price = :primaryPrice;";
+    private static final String sqlDeleteByDescription = "DELETE FROM products WHERE description = :description;";
+    private static final String sqlLoadById = "SELECT * FROM products WHERE id = :productId;";
+
+    private static final String sqlLoadByCurrentPrice = "SELECT * FROM products WHERE current_price = :currentPrice;";
+    private static final String sqlLoadByDiscount = "SELECT * FROM products WHERE discount = :discount;";
+
     public ProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSourcet) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(dataSourcet)
@@ -45,13 +58,6 @@ public class ProductRepository {
 
         loadById(product.getId());
 
-
-        String sqlUpdate = "UPDATE products SET primary_price = :primaryPrice, current_price = :currentPrice," +
-                " discount = :discount, new_product = :new_product, image_url = :imageUrl,  description = :description," +
-                "min_delivery_days = :minDeliveryDays, max_delivery_days = :maxDeliveryDays," +
-                "rating = :rating, review_count = :reviewCount" +
-                " WHERE id = :id;";
-
         namedParameterJdbcTemplate.update(
                 sqlUpdate,
                 new MapSqlParameterSource()
@@ -69,29 +75,24 @@ public class ProductRepository {
     }
 
     public void deleteById(long productId) {
-        String sqlDeleteById = "DELETE FROM products WHERE id = :productId;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteById,
                 new MapSqlParameterSource("productId", productId));
     }
 
     public void deleteByPrimaryPrice(float primaryPrice) {
-        String sqlDeleteByPrimaryPrice = "DELETE FROM products WHERE primary_price = :primaryPrice;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteByPrimaryPrice,
                 new MapSqlParameterSource("primaryPrice", primaryPrice));
     }
 
     public void deleteByDescription(String description) {
-        String sqlDeleteByDescription = "DELETE FROM products WHERE description = :description;";
         namedParameterJdbcTemplate.update(
                 sqlDeleteByDescription,
                 new MapSqlParameterSource("description", description));
     }
 
     public Product loadById(long productId) {
-        String sqlLoadById = "SELECT * FROM products WHERE id = :productId;";
-
         return namedParameterJdbcTemplate.queryForObject(
                 sqlLoadById,
                 new MapSqlParameterSource("productId", productId),
@@ -105,8 +106,6 @@ public class ProductRepository {
     }
 
     public List<Product> loadByCurrentPrice(float currentPrice) {
-        String sqlLoadByCurrentPrice = "SELECT * FROM products WHERE current_price = :currentPrice;";
-
         return namedParameterJdbcTemplate.query(
                 sqlLoadByCurrentPrice,
                 new MapSqlParameterSource("currentPrice", currentPrice),
@@ -114,8 +113,6 @@ public class ProductRepository {
     }
 
     public List<Product> loadByDiscount(int discount) {
-        String sqlLoadByDiscount = "SELECT * FROM products WHERE discount = :discount;";
-
         return namedParameterJdbcTemplate.query(
                 sqlLoadByDiscount,
                 new MapSqlParameterSource("discount", discount),
