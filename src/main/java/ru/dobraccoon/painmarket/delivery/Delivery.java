@@ -8,7 +8,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Delivery {
     private Long id;
-    private Long orderId;
-    private Long customerId;
-    private String address;
+    private long orderId;
+    private String city;
+    private String street;
+    private int postcode;
+    private String informationForCourier;
+    private float deliveryPrice;
+    private int discount;
+    private float totalAmount;
 }
