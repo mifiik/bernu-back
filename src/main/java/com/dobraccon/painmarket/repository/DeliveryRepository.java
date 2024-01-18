@@ -45,4 +45,15 @@ public class DeliveryRepository {
                 new MapSqlParameterSource("address", address),
                 new DeliveryRowMapper());
     }
+
+    public void deleteDelivery(String address) {
+        String sql = "DELETE FROM delivery WHERE address = :address;";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("address", address));
+    }
+
+    public void deleteDelivery(long orderId, long clientId) {
+        String sql = "DELETE FROM delivery WHERE order_id = :orderId AND customer_id = :clientId;";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("orderId", orderId)
+                .addValue("clientId", clientId));
+    }
 }

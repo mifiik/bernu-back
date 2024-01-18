@@ -1,5 +1,7 @@
 package com.dobraccon.painmarket.controller;
 
+import com.dobraccon.painmarket.details.OrderDetailService;
+import com.dobraccon.painmarket.details.OrderWithDetails;
 import com.dobraccon.painmarket.model.Order;
 import com.dobraccon.painmarket.service.OrderService;
 import lombok.AllArgsConstructor;
@@ -12,24 +14,40 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
     private OrderService service;
+    private OrderDetailService orderDetailService;
 
     @PostMapping
     public Long createOrder(@RequestBody Order order) {
         return service.createOrder(order);
     }
 
-    @GetMapping("/{id}")
-    public Order findByOrderId(@PathVariable long id) {
-        return service.findByOrderId(id);
+    @GetMapping("/{orderId}")
+    public Order findByOrderId(@PathVariable Long orderId) {
+        return service.findById(orderId);
     }
 
     @GetMapping("/load-all")
     public List<Order> findAllOrders() {
-        return service.findAllOrders();
+        return service.findAll();
     }
 
     @GetMapping("/find-by-customer-id/{customerId}")
-    public List<Order> findOrderByCustomerId(@PathVariable long customerId) {
-        return service.findOrderByCustomerId(customerId);
+    public List<Order> findOrderByCustomerId(@PathVariable Long customerId) {
+        return service.findByCustomerId(customerId);
+    }
+
+    @GetMapping("/by-id-with-details/{orderId}")
+    public OrderWithDetails findByOrderIdWithDetails(@PathVariable Long orderId) {
+        return orderDetailService.findByOrderIdWithDetails(orderId);
+    }
+
+    @DeleteMapping("/delete-by-customer-id/{customerId}")
+    public void deleteByCustomerId(@PathVariable Long customerId) {
+        service.deleteById(customerId);
+    }
+
+    @DeleteMapping("/delete-by-price/{price}")
+    public void deleteByPrice(@PathVariable float price) {
+        service.deleteByPrice(price);
     }
 }

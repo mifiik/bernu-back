@@ -17,14 +17,26 @@ public class CustomerService {
     }
 
     public Customer findByCustomerId(long id) {
-        return repository.findByCustomerId(id);
+        return repository.findById(id);
     }
 
     public List<Customer> findAllCustomers() {
-        return repository.findAllCustomer();
+        return repository.findAll();
     }
 
     public Customer findByCustomerEmail(String email) {
-        return repository.findByCustomerEmail(email);
+        return repository.findByEmail(email);
+    }
+
+    public void updateCustomer(Customer customer) {
+        repository.updateCustomer(customer);
+    }
+
+    public void deleteCustomerById(long id) {
+        repository.deleteByCustomerId(id);
+    }
+
+    public void deleteCustomerByEmail(String email) {
+        repository.deleteByCustomerEmail(email);
     }
 }

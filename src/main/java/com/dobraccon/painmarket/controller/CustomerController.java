@@ -32,4 +32,19 @@ public class CustomerController {
     public Customer findByCustomerEmail(@PathVariable String email) {
         return service.findByCustomerEmail(email);
     }
+
+    @PutMapping
+    public void updateCustomer(@RequestBody Customer customer) {
+        service.updateCustomer(customer);
+    }
+
+    @DeleteMapping("/delete-by-id/{id}")
+    public void deleteCustomerById(@PathVariable long id) {
+        service.deleteCustomerById(id);
+    }
+
+    @DeleteMapping("/delete-by-email/{email}")
+    public void deleteCustomerByEmail(@PathVariable String email) {
+        service.deleteCustomerByEmail(email);
+    }
 }
