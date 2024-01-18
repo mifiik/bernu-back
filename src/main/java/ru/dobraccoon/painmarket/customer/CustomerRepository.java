@@ -22,6 +22,7 @@ public class CustomerRepository {
             "   WHERE id = :id";
     private static final String sqlLoadById = "SELECT * FROM customers WHERE id = :customerId;";
     private static final String sqlLoadAll = "SELECT * FROM customers;";
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
 

@@ -1,21 +1,19 @@
 package ru.dobraccoon.painmarket.delivery;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.dobraccoon.painmarket.delivery.history.DeliveryDTO;
 import ru.dobraccoon.painmarket.delivery.history.DeliveryDTOService;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("delivery")
 public class DeliveryController {
     private DeliveryService deliveryService;
     private DeliveryDTOService deliveryDTOService;
 
-    public DeliveryController(DeliveryService deliveryService, DeliveryDTOService deliveryDTOService) {
-        this.deliveryService = deliveryService;
-        this.deliveryDTOService = deliveryDTOService;
-    }
 
     @PostMapping
     public void create(@RequestBody Delivery delivery) {
@@ -58,7 +56,7 @@ public class DeliveryController {
         return deliveryService.loadByPostcode(postcode);
     }
 
-    @GetMapping("/load-by-deliveryId/{deliveryId}")
+    @GetMapping("/dto-by-id/{deliveryId}")
     public DeliveryDTO loadDeliveryDTOById(@PathVariable long deliveryId) {
         return deliveryDTOService.loadDeliveryDTOById(deliveryId);
     }

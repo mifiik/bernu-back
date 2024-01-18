@@ -18,7 +18,7 @@ public class DeliveryDTOService {
         Order order = orderService.loadById(delivery.getOrderId());
 
         return new DeliveryDTO(
-                deliveryId,
+                delivery.getId(),
                 order,
                 delivery.getCity(),
                 delivery.getStreet(),
