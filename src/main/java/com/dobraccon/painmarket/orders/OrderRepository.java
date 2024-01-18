@@ -39,7 +39,7 @@ public class OrderRepository {
     }
 
     public List<Order> findByCustomerId(long customerId) {
-        String sql = "SELECT * FROM orders WHERE customerId = :clientId;";
+        String sql = "SELECT * FROM orders WHERE customerId = :customerId;";
         return namedParameterJdbcTemplate.query(sql,
                 new MapSqlParameterSource("customerId", customerId),
                 new OrderRowMapper());
