@@ -1,7 +1,5 @@
 package com.dobraccon.painmarket.delivery;
 
-import com.dobraccon.painmarket.delivery.Delivery;
-import com.dobraccon.painmarket.delivery.DeliveryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

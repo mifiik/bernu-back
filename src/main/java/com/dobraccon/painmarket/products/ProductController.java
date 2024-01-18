@@ -1,7 +1,5 @@
 package com.dobraccon.painmarket.products;
 
-import com.dobraccon.painmarket.products.Product;
-import com.dobraccon.painmarket.products.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

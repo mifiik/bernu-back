@@ -1,7 +1,6 @@
 package com.dobraccon.painmarket.products;
 
 import com.dobraccon.painmarket.config.row_mapper.ProductRowMapper;
-import com.dobraccon.painmarket.products.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
