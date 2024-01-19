@@ -1,4 +1,4 @@
-package com.dobraccon.painmarket.model;
+package com.dobraccon.painmarket.products;
 
 import lombok.Getter;
 

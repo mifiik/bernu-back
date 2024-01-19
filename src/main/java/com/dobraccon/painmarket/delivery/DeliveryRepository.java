@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.repository;
+package com.dobraccon.painmarket.delivery;
 
 import com.dobraccon.painmarket.config.row_mapper.DeliveryRowMapper;
-import com.dobraccon.painmarket.model.Delivery;
+import com.dobraccon.painmarket.delivery.Delivery;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -46,14 +46,14 @@ public class DeliveryRepository {
                 new DeliveryRowMapper());
     }
 
-    public void deleteDelivery(String address) {
+    public void deleteDeliveryByAddress(String address) {
         String sql = "DELETE FROM delivery WHERE address = :address;";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("address", address));
     }
 
-    public void deleteDelivery(long orderId, long clientId) {
-        String sql = "DELETE FROM delivery WHERE order_id = :orderId AND customer_id = :clientId;";
+    public void deleteDeliveryByOrderIdAndCustomerId(long orderId, long customerId) {
+        String sql = "DELETE FROM delivery WHERE order_id = :orderId AND customer_id = :customerId;";
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("orderId", orderId)
-                .addValue("clientId", clientId));
+                .addValue("customerId", customerId));
     }
 }

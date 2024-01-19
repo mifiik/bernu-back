@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.service;
+package com.dobraccon.painmarket.delivery;
 
-import com.dobraccon.painmarket.model.Delivery;
-import com.dobraccon.painmarket.repository.DeliveryRepository;
+import com.dobraccon.painmarket.delivery.Delivery;
+import com.dobraccon.painmarket.delivery.DeliveryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +26,13 @@ public class DeliveryService {
 
     public List<Delivery> findDeliveryByAddress(String address) {
         return repository.findDeliveryByAddress(address);
+    }
+
+    public void deleteDeliveryByAddress(String address) {
+        repository.deleteDeliveryByAddress(address);
+    }
+
+    public void deleteDeliveryByOrderIdAndCustomerId(long orderId, long customerId) {
+        repository.deleteDeliveryByOrderIdAndCustomerId(orderId, customerId);
     }
 }

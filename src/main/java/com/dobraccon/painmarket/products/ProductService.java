@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.service;
+package com.dobraccon.painmarket.products;
 
-import com.dobraccon.painmarket.model.Product;
-import com.dobraccon.painmarket.repository.ProductRepository;
+import com.dobraccon.painmarket.products.Product;
+import com.dobraccon.painmarket.products.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

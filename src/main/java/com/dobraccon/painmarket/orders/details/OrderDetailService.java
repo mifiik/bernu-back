@@ -1,11 +1,11 @@
-package com.dobraccon.painmarket.details;
+package com.dobraccon.painmarket.orders.details;
 
-import com.dobraccon.painmarket.model.Customer;
-import com.dobraccon.painmarket.model.Order;
-import com.dobraccon.painmarket.model.Product;
-import com.dobraccon.painmarket.service.CustomerService;
-import com.dobraccon.painmarket.service.OrderService;
-import com.dobraccon.painmarket.service.ProductService;
+import com.dobraccon.painmarket.customers.Customer;
+import com.dobraccon.painmarket.orders.Order;
+import com.dobraccon.painmarket.products.Product;
+import com.dobraccon.painmarket.customers.CustomerService;
+import com.dobraccon.painmarket.orders.OrderService;
+import com.dobraccon.painmarket.products.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class OrderDetailService {
     public OrderWithDetails findByOrderIdWithDetails(long id) {
         Order order = orderService.findById(id);
         Product orderProduct = productService.findByProductId(order.getProductId());
-        Customer orderCustomer = customerService.findByCustomerId(order.getClientId());
+        Customer orderCustomer = customerService.findByCustomerId(order.getCustomerId());
         return new OrderWithDetails(id, orderProduct, orderCustomer);
     }
 }

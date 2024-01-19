@@ -1,7 +1,7 @@
-package com.dobraccon.painmarket.details;
+package com.dobraccon.painmarket.orders.details;
 
-import com.dobraccon.painmarket.model.Customer;
-import com.dobraccon.painmarket.model.Product;
+import com.dobraccon.painmarket.customers.Customer;
+import com.dobraccon.painmarket.products.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
