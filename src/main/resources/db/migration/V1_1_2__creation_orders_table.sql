@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS orders
 (
     id         BIGSERIAL PRIMARY KEY NOT NULL,
     product_id BIGSERIAL             NOT NULL REFERENCES products (id),
-    customerId  BIGSERIAL             NOT NULL REFERENCES customers (id),
+    customer_id  BIGSERIAL             NOT NULL REFERENCES customers (id),
     price      BIGSERIAL             NOT NULL
 );
 
