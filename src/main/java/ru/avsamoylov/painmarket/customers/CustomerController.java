@@ -14,7 +14,7 @@ public class CustomerController {
     private final CustomerService service;
 
     @PostMapping
-    public Customer saveCustomer(@RequestBody Customer customer){
+    public Long saveCustomer(@RequestBody Customer customer){
        return service.saveCustomer(customer);
     }
 }
