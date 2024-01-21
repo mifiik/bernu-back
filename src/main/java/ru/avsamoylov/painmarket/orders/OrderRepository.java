@@ -12,7 +12,7 @@ public class OrderRepository {
 
     public Order createOrder(Order order) {
         return new Order(
-                new Random().nextLong(), order.getProductId(), order.getClientId(), order.getPrice()
+                new Random().nextLong(), order.getProductId(), order.getCustomerId(), order.getPrice()
         );
     }
 }
