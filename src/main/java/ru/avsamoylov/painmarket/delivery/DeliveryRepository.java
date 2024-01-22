@@ -12,7 +12,7 @@ public class DeliveryRepository {
 
     public Long createDelivery(Delivery delivery) {
         String sql = "INSERT INTO delivery(id, order_id, customer_id, address) VALUE" +
-                "(nextval('delivery_sequence'), :orderId, :customerId, :address);";
+                "(nextval('delivery_sequence'), :orderId, :customerId, ':address');";
         return namedParameterJDBCTemplate.queryForObject(sql,
                 new MapSqlParameterSource()
                         .addValue("orderId", delivery.getOrderId())
