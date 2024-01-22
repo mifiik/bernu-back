@@ -1,7 +1,6 @@
 package ru.avsamoylov.painmarket.customers;
 
 import lombok.AllArgsConstructor;
-import org.apache.catalina.mbeans.SparseUserDatabaseMBean;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,10 +14,7 @@ public class CustomerRepository {
     public Long saveCustomer(Customer customer) {
         String sql = "INSERT INTO customer(id, email) VALUE (nextval('customers_sequence'), :email) RETURNING id;";
         return namedParameterJdbcTemplate.queryForObject(sql,
-                new MapSqlParameterSource()
-                        .addValue("email",
-                                customer.getEmail()),
-                Long.class);
+                new MapSqlParameterSource().addValue("email", customer.getEmail()), Long.class);
     }
     public void updateCustomer(Customer customer){
         String sql = "UPDATE customer SET email = :email WHERE id = :id;";

@@ -12,7 +12,7 @@ public class ProductRepository {
 
     public Long saveProduct(Product product) {
         String sql = "INSERT INTO product(id, name, price, discount) VALUES " +
-                "(nextval('products_sequens), :name, :price, :discount);";
+                "(nextval('products_sequens), ':name', :price, :discount);";
         return namedParameterJdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource()
                         .addValue("name", product.getName())
@@ -22,7 +22,7 @@ public class ProductRepository {
     }
 
     public void updateProduct(Product product) {
-        String sql = "UPDATE product SET name = :name, price = :price, discount = :discount WHERE id = :id;";
+        String sql = "UPDATE product SET name = ':name', price = :price, discount = :discount WHERE id = :id;";
         namedParameterJdbcTemplate.update(sql,
                 new MapSqlParameterSource("id", product.getId())
                         .addValue("name", product.getName())
