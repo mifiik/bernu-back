@@ -1,18 +1,17 @@
 package ru.dobraccoon.painmarket.order.details;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.dobraccoon.painmarket.customer.Customer;
 import ru.dobraccoon.painmarket.products.Product;
 
+import java.util.List;
+
 @Getter
+@AllArgsConstructor
 public class OrderWithDetails {
     private long orderId;
-    private Product orderProduct;
+    private long price;
+    private List<Product> products;
     private Customer orderCustomer;
-
-    public OrderWithDetails(long orderId, Product orderProduct, Customer orderCustomer) {
-        this.orderId = orderId;
-        this.orderCustomer = orderCustomer;
-        this.orderProduct = orderProduct;
-    }
 }

@@ -27,6 +27,14 @@ public class ProductRepository {
     private static final String sqlLoadByCurrentPrice = "SELECT * FROM products WHERE current_price = :currentPrice;";
     private static final String sqlLoadByDiscount = "SELECT * FROM products WHERE discount = :discount;";
 
+    private static final String sqlLoadByOrderId = """
+                SELECT products.*
+            FROM orders
+                     JOIN xref_order_2_products ON xref_order_2_products.order_id = orders.id
+                     JOIN products ON products.id = xref_order_2_products.product_id
+            WHERE orders.id = :orderId;
+            """;
+
     public ProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSourcet) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(dataSourcet)
@@ -119,4 +127,10 @@ public class ProductRepository {
                 new ProductRowMapper());
     }
 
+    public List<Product> loadByOrderId(long orderId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByOrderId,
+                new MapSqlParameterSource("orderId", orderId),
+                new ProductRowMapper());
+    }
 }

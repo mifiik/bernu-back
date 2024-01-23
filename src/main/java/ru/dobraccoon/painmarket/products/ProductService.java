@@ -50,4 +50,8 @@ public class ProductService {
         return productRepository.loadByDiscount(discount);
     }
 
+    public List<Product> loadByOrderId(long orderId) {
+        return productRepository.loadByOrderId(orderId);
+    }
+
 }
