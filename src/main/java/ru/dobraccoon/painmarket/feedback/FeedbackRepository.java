@@ -9,7 +9,6 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
-
 public class FeedbackRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;

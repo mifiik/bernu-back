@@ -17,7 +17,7 @@ public class FeedbackController {
         feedbackService.create(feedback);
     }
 
-    @GetMapping("/load-by-ProductId/{productId}")
+    @GetMapping("/load-by-productId/{productId}")
     public List<Feedback> loadByProductId(@PathVariable long productId) {
         return feedbackService.loadByProductId(productId);
     }
