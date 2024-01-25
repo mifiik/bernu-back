@@ -1,7 +1,5 @@
 package com.dobraccon.painmarket.customers;
 
-import com.dobraccon.painmarket.customers.Customer;
-import com.dobraccon.painmarket.customers.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

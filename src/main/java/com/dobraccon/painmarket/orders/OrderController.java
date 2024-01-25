@@ -2,6 +2,8 @@ package com.dobraccon.painmarket.orders;
 
 import com.dobraccon.painmarket.orders.details.OrderDetailService;
 import com.dobraccon.painmarket.orders.details.OrderWithDetails;
+import com.dobraccon.painmarket.orders.histoty.OrdersHistoryDTO;
+import com.dobraccon.painmarket.orders.histoty.OrdersHistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class OrderController {
     private OrderService service;
     private OrderDetailService orderDetailService;
+    private OrdersHistoryService ordersHistoryService;
 
     @PostMapping
     public Long createOrder(@RequestBody Order order) {
@@ -47,5 +50,10 @@ public class OrderController {
     @DeleteMapping("/delete-by-price/{price}")
     public void deleteByPrice(@PathVariable float price) {
         service.deleteByPrice(price);
+    }
+
+    @GetMapping("/history-by-customer-id/{customerId}")
+    public OrdersHistoryDTO getOrdersByCustomerId(@PathVariable Long customerId) {
+        return ordersHistoryService.getOrdersByCustomerId(customerId);
     }
 }
