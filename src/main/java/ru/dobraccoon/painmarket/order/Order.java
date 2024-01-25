@@ -8,7 +8,7 @@ public class Order {
     private long customerId;
     private long price;
 
-    public Order(Long id, Long customerId, long price) {
+    public Order(Long id, long customerId, long price) {
         this.id = id;
         this.customerId = customerId;
         if (price > 0) {

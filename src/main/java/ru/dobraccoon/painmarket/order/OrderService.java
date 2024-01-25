@@ -29,13 +29,9 @@ public class OrderService {
         orderRepository.deleteByPrice(price);
     }
 
-    public void update(Order order) {
-        orderRepository.update(order);
-    }
-
-    public Order loadById(long orderId) {
-        return orderRepository.loadById(orderId);
-    }
+      public Order loadById(long orderId) {
+          return orderRepository.loadById(orderId);
+      }
 
     public List<Order> loadAll() {
         return orderRepository.loadAll();

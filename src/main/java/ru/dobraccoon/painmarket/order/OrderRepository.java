@@ -19,10 +19,7 @@ public class OrderRepository {
     private static final String sqlLoadById = "SELECT * FROM orders WHERE id = :orderId";
     private static final String sqlLoadAll = "SELECT * FROM orders;";
 
-    private static final String sqlUpdate = "UPDATE orders SET " +
-            "customer_id = :customerId, price = :price " +
-            " WHERE id = :orderId";
-    private static final String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
+       private static final String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
 
     public OrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -55,17 +52,6 @@ public class OrderRepository {
         namedParameterJdbcTemplate.update(
                 sqlDeleteByPrice,
                 new MapSqlParameterSource("price", price));
-    }
-
-    public void update(Order order) {
-        namedParameterJdbcTemplate.update(
-                sqlUpdate,
-                new MapSqlParameterSource()
-                        .addValue("customerId", order.getCustomerId())
-                        .addValue("price", order.getPrice())
-                        .addValue("orderId", order.getId())
-        );
-
     }
 
     public Order loadById(long orderId) {
