@@ -15,7 +15,7 @@ public class ProductRepository {
 
     public Long saveProduct(Product product) {
         String sql = "INSERT INTO products(id, name, price, discount) VALUES " +
-                "(nextval('products_sequence'), :name, :price, : discount);";
+                "(nextval('products_sequence'), :name, :price, :discount) RETURNING id;";
         return namedParameterJdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource()
                         .addValue("name", product.getName())

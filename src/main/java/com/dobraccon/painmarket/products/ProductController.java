@@ -17,17 +17,17 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product findByProductId(@PathVariable long id) {
+    public Product findById(@PathVariable long id) {
         return service.findByProductId(id);
     }
 
     @GetMapping("/load-all")
-    public List<Product> findAllProducts() {
+    public List<Product> findAll() {
         return service.findAllProducts();
     }
 
     @GetMapping("/find-by-discount/{discount}")
-    public List<Product> findProductsByDiscount(@PathVariable int discount) {
+    public List<Product> findByDiscount(@PathVariable int discount) {
         return service.findProductsByDiscount(discount);
     }
 
@@ -37,17 +37,17 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete-by-discount/{discount}")
-    public void deleteProductByDiscount(@PathVariable int discount) {
+    public void deleteByDiscount(@PathVariable int discount) {
         service.deleteProductByDiscount(discount);
     }
 
     @DeleteMapping("/delete-by-name/{name}")
-    public void deleteProductByName(@PathVariable String name) {
+    public void deleteByName(@PathVariable String name) {
         service.deleteProductByName(name);
     }
 
     @DeleteMapping("/delete-by-price/{price}/by-discount/{discount}")
-    public void deleteProductByPriceAndDiscount(@PathVariable float price, @PathVariable int discount) {
+    public void deleteByPriceAndDiscount(@PathVariable float price, @PathVariable int discount) {
         service.deleteProductByPriceAndDiscount(price, discount);
     }
 }

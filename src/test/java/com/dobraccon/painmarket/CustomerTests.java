@@ -80,4 +80,18 @@ public class CustomerTests extends AbstractPostgresContainer {
         List<Customer> customers = controller.findAllCustomers();
         customers.forEach(x -> assertThat(x.getEmail()).isNotEqualTo(expectedEmail));
     }
+
+    @Test
+    public void testingTheMethodToUpdateCustomer() {
+        String expectedEmail = randomCustomer.getEmail();
+        customerId = controller.saveCustomer(randomCustomer);
+        Customer customer = controller.findByCustomerEmail(expectedEmail);
+        assertThat(customer.getEmail()).isEqualTo(expectedEmail);
+
+        String updatingEmail = RandomCustomer.getRandomCustomer().getEmail();
+        controller.updateCustomer(new Customer(customerId, updatingEmail));
+        Customer actualCustomer = controller.findByCustomerId(customerId);
+
+        assertThat(actualCustomer.getEmail()).isEqualTo(updatingEmail);
+    }
 }

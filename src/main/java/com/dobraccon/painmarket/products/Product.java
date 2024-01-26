@@ -9,7 +9,7 @@ public class Product {
     private final float price;
     private final int discount;
 
-    public Product(long id, String name, float price, int discount) {
+    public Product(Long id, String name, float price, int discount) {
         this.id = id;
         this.name = name;
         if (price <= 0) {
