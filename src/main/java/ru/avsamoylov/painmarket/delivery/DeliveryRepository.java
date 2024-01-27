@@ -18,6 +18,14 @@ public class DeliveryRepository {
                         .addValue("orderId", delivery.getOrderId())
                         .addValue("customerId", delivery.getCustomerId())
                         .addValue("address", delivery.getAddress()),
-        Long.class);
+                Long.class);
+    }
+
+    public Delivery findByDeliveryId(long id) {
+        String sql = "SELECT * FROM delivery WHERE id = :id;";
+        return namedParameterJDBCTemplate.queryForObject(sql,
+                new MapSqlParameterSource("id", id),
+                new DeliveryRowMapper()
+        );
     }
 }

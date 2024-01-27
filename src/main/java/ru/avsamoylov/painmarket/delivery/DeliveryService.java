@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class DeliveryService {
     private DeliveryRepository repository;
+
     public Long createDelivery(Delivery delivery) {
         return repository.createDelivery(delivery);
+    }
+
+    public Delivery findByDeliveryId(long id) {
+        return repository.findByDeliveryId(id);
     }
 }

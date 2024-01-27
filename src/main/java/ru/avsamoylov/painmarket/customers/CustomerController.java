@@ -1,10 +1,7 @@
 package ru.avsamoylov.painmarket.customers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -14,7 +11,12 @@ public class CustomerController {
     private final CustomerService service;
 
     @PostMapping
-    public Customer saveCustomer(@RequestBody Customer customer){
-       return service.saveCustomer(customer);
+    public Long saveCustomer(@RequestBody Customer customer) {
+        return service.saveCustomer(customer);
+    }
+
+    @GetMapping("/{id}")
+    public Customer findByCustomerId(@PathVariable long id) {
+        return service.findByCustomerId(id);
     }
 }

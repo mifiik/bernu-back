@@ -8,6 +8,6 @@ import lombok.Getter;
 public class Order {
     private  long id;
     private long productId;
-    private long clientId;
+    private long customerId;
     private long price;
 }

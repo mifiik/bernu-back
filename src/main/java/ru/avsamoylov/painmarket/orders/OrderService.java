@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     private OrderRepository orderRepository;
 
-    public Order createOrder(Order order) {
+    public Long createOrder(Order order) {
         return orderRepository.createOrder(order);
+    }
+
+    public Order findById(long id) {
+        return orderRepository.findById(id);
     }
 }
