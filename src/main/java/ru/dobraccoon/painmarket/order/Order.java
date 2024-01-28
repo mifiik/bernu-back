@@ -6,11 +6,13 @@ import lombok.Getter;
 public class Order {
     private Long id;
     private long customerId;
+    private long statusId;
     private long price;
 
-    public Order(Long id, long customerId, long price) {
+    public Order(Long id, long customerId, long statusId, long price) {
         this.id = id;
         this.customerId = customerId;
+        this.statusId = statusId;
         if (price > 0) {
             this.price = price;
         } else {

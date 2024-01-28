@@ -12,6 +12,7 @@ public class OrderRowMapper implements RowMapper<Order> {
         return new Order(
                 rs.getLong("id"),
                 rs.getLong("customer_id"),
+                rs.getLong("status_id"),
                 rs.getLong("price")
         );
     }

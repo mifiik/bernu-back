@@ -28,7 +28,8 @@ public class OrderDetailService {
                 orderId,
                 order.getPrice(),
                 products,
-                customer
+                customer,
+                OrderStatus.getStatusNameById(order.getStatusId())
         );
     }
 }
