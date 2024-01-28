@@ -9,6 +9,8 @@ import ru.dobraccoon.painmarket.order.OrderService;
 import ru.dobraccoon.painmarket.products.Product;
 import ru.dobraccoon.painmarket.products.ProductService;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class OrderDetailService {
@@ -16,14 +18,16 @@ public class OrderDetailService {
     private ProductService productService;
     private OrderService orderService;
 
+
     public OrderWithDetails loadByOrderId(long orderId) {
         Order order = orderService.loadById(orderId);
-        Product product = productService.loadById(order.getProductId());
+        List<Product> products = productService.loadByOrderId(orderId);
         Customer customer = customerService.loadById(order.getCustomerId());
 
         return new OrderWithDetails(
                 orderId,
-                product,
+                order.getPrice(),
+                products,
                 customer
         );
     }
