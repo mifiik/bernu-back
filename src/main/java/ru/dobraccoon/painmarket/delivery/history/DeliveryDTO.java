@@ -2,6 +2,7 @@ package ru.dobraccoon.painmarket.delivery.history;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.dobraccoon.painmarket.delivery.DeliveryStatus;
 import ru.dobraccoon.painmarket.order.Order;
 
 @Getter
@@ -16,4 +17,5 @@ public class DeliveryDTO {
     private float deliveryPrice;
     private int discount;
     private float totalAmount;
+    private DeliveryStatus deliveryStatus;
 }
