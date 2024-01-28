@@ -14,4 +14,5 @@ public class OrderWithDetails {
     private long price;
     private List<Product> products;
     private Customer orderCustomer;
+    private OrderStatus orderStatus;
 }
