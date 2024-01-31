@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -29,9 +29,9 @@ public class OrderService {
         orderRepository.deleteByPrice(price);
     }
 
-      public Order loadById(long orderId) {
-          return orderRepository.loadById(orderId);
-      }
+    public Order loadById(long orderId) {
+        return orderRepository.loadById(orderId);
+    }
 
     public List<Order> loadAll() {
         return orderRepository.loadAll();

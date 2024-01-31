@@ -59,4 +59,18 @@ public class ProductController {
         return productService.loadByDiscount(discount);
     }
 
+    @GetMapping("/load-by-category-group-id/{categoryGroupId}")
+    public List<Product> loadByCategoryGroupId(@PathVariable long categoryGroupId) {
+        return productService.loadByCategoryGroupId(categoryGroupId);
+    }
+
+    @GetMapping("/load-by-catalog-id/{catalogId}")
+    public List<Product> loadByCatalogId(@PathVariable long catalogId) {
+        return productService.loadByCatalogId(catalogId);
+    }
+
+    @GetMapping("/load-by-category-id/{categoryId}")
+    public List<Product> loadByCategoryId(@PathVariable long categoryId) {
+        return productService.loadByCategoryId(categoryId);
+    }
 }
