@@ -2,7 +2,7 @@ package ru.dobraccoon.painmarket.delivery;
 
 public enum DeliveryStatus {
     CREATED(1),
-    DELIVERY(3),
+    DELIVERY(2),
     COMPLETED(3);
 
     private long statusId;
