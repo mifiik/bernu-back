@@ -12,8 +12,8 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public void create(Customer newCustomer) {
-        customerRepository.create(newCustomer);
+    public Customer create(Customer newCustomer) {
+        return customerRepository.create(newCustomer);
     }
 
     public void deleteById(long id) {

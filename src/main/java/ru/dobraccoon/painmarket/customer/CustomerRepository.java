@@ -33,8 +33,8 @@ public class CustomerRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    public void create(Customer newCustomer) {
-        simpleJdbcInsert.execute(
+    public Customer create(Customer newCustomer) {
+        Long newCustomerId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
                         .addValue("imageUrl", newCustomer.getImageUrl())
                         .addValue("lawEntity", newCustomer.isLawEntity())
@@ -47,7 +47,11 @@ public class CustomerRepository {
                         .addValue("city", newCustomer.getCity())
                         .addValue("street", newCustomer.getStreet())
                         .addValue("cityIndex", newCustomer.getCityIndex())
-        );
+        ).longValue();
+
+        newCustomer.setId(newCustomerId);
+
+        return newCustomer;
     }
 
     public void deleteById(long id) {
