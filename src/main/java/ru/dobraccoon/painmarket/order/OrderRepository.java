@@ -19,7 +19,7 @@ public class OrderRepository {
     private static final String sqlLoadById = "SELECT * FROM orders WHERE id = :orderId";
     private static final String sqlLoadAll = "SELECT * FROM orders;";
 
-       private static final String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
+    private static final String sqlLoadByCustomerId = "SELECT * FROM orders WHERE customer_id = :customerId";
 
     public OrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -28,12 +28,16 @@ public class OrderRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    public void create(Order order) {
-        simpleJdbcInsert.execute(
+    public Order create(Order newOrder) {
+        long newOrderId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
-                        .addValue("customerId", order.getCustomerId())
-                        .addValue("price", order.getPrice())
-        );
+                        .addValue("customerId", newOrder.getCustomerId())
+                        .addValue("price", newOrder.getPrice())
+        ).longValue();
+
+        newOrder.setId(newOrderId);
+
+        return newOrder;
     }
 
     public void deleteById(long id) {

@@ -2,10 +2,12 @@ package ru.dobraccoon.painmarket.products;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
 public class Product {
+    @Setter
     private Long id;
     private float primaryPrice;
     private float currentPrice;

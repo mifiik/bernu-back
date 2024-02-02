@@ -16,8 +16,8 @@ public class DeliveryController {
 
 
     @PostMapping
-    public void create(@RequestBody Delivery delivery) {
-        deliveryService.create(delivery);
+    public Delivery create(@RequestBody Delivery newDelivery) {
+        return deliveryService.create(newDelivery);
     }
 
     @DeleteMapping("{id}")

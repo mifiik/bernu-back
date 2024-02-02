@@ -3,10 +3,12 @@ package ru.dobraccoon.painmarket.delivery;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 public class Delivery {
+    @Setter
     private Long id;
     private long orderId;
     private String city;

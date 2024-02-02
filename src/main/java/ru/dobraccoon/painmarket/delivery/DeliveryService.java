@@ -12,8 +12,8 @@ public class DeliveryService {
         this.deliveryRepository = deliveryRepository;
     }
 
-    public void create(Delivery delivery) {
-        deliveryRepository.create(delivery);
+    public Delivery create(Delivery newDelivery) {
+        return deliveryRepository.create(newDelivery);
     }
 
     public void deleteById(long id) {

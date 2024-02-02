@@ -10,8 +10,8 @@ import java.util.List;
 public class FeedbackService {
     private FeedbackRepository feedbackRepository;
 
-    public void create(Feedback feedback) {
-        feedbackRepository.create(feedback);
+    public Feedback create(Feedback newFeedback) {
+        return feedbackRepository.create(newFeedback);
     }
 
     public List<Feedback> loadByProductId(long productId) {
