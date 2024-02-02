@@ -40,6 +40,10 @@ public class DeliveryService {
         return deliveryRepository.loadAll();
     }
 
+    public List<Delivery> loadByStatusId(long statusId) {
+        return deliveryRepository.loadByStatusId(statusId);
+    }
+
     public List<Delivery> loadByPostcode(int postcode) {
         return deliveryRepository.loadByPostcode(postcode);
     }

@@ -33,6 +33,9 @@ public class DeliveryRepository {
     private static final String sqlLoadById =
             "SELECT * FROM deliveries WHERE id = :deliveryId;";
 
+    private static final String sqlLoadByStatusId =
+            "SELECT * FROM deliveries WHERE status_id = :statusId";
+
     private static final String sqlLoadAll =
             "SELECT * FROM deliveries;";
 
@@ -107,6 +110,13 @@ public class DeliveryRepository {
 
     public List<Delivery> loadAll() {
         return namedParameterJdbcTemplate.query(sqlLoadAll, new DeliveryRowMapper());
+    }
+
+    public List<Delivery> loadByStatusId(long statusId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByStatusId,
+                new MapSqlParameterSource("statusId", statusId),
+                new DeliveryRowMapper());
     }
 
     public List<Delivery> loadByPostcode(int postcode) {

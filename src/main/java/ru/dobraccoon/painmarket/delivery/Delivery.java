@@ -16,4 +16,5 @@ public class Delivery {
     private float deliveryPrice;
     private int discount;
     private float totalAmount;
+    private long statusId;
 }

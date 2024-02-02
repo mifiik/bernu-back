@@ -17,7 +17,8 @@ public class DeliveryRowMapper implements RowMapper<Delivery> {
                 rs.getString("information_for_courier"),
                 rs.getFloat("delivery_price"),
                 rs.getInt("discount"),
-                rs.getFloat("total_amount")
+                rs.getFloat("total_amount"),
+                rs.getLong("status_id")
 
         );
     }

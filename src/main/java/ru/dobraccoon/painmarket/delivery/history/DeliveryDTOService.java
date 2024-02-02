@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.dobraccoon.painmarket.delivery.Delivery;
 import ru.dobraccoon.painmarket.delivery.DeliveryService;
+import ru.dobraccoon.painmarket.delivery.DeliveryStatus;
 import ru.dobraccoon.painmarket.order.Order;
 import ru.dobraccoon.painmarket.order.OrderService;
 
@@ -12,6 +13,7 @@ import ru.dobraccoon.painmarket.order.OrderService;
 public class DeliveryDTOService {
     private DeliveryService deliveryService;
     private OrderService orderService;
+
 
     public DeliveryDTO loadDeliveryDTOById(long deliveryId) {
         Delivery delivery = deliveryService.loadById(deliveryId);
@@ -26,7 +28,8 @@ public class DeliveryDTOService {
                 delivery.getInformationForCourier(),
                 delivery.getDeliveryPrice(),
                 delivery.getDiscount(),
-                delivery.getTotalAmount()
+                delivery.getTotalAmount(),
+                DeliveryStatus.getById(delivery.getStatusId())
         );
     }
 }

@@ -51,6 +51,11 @@ public class DeliveryController {
         return deliveryService.loadAll();
     }
 
+    @GetMapping("/load-by-status-id/{statusId}")
+    public List<Delivery> loadByStatusId(@PathVariable long statusId) {
+        return deliveryService.loadByStatusId(statusId);
+    }
+
     @GetMapping("/load-by-postcode/{postcode}")
     public List<Delivery> loadByPostcode(@PathVariable int postcode) {
         return deliveryService.loadByPostcode(postcode);
