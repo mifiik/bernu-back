@@ -9,65 +9,65 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
-public class CategoryGroupsRepository {
+public class CategoryGroupRepository {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     SimpleJdbcInsert simpleJdbcInsert;
 
     private static final String sqlLoadById = "SELECT * FROM category_groups WHERE id = :id;";
 
-    private static final String sqlDeleteById = "DELETE FROM category_groups WHERE id = :catGroupID;";
+    private static final String sqlDeleteById = "DELETE FROM category_groups WHERE id = :categoryGroupId;";
 
     private static final String sqlUpdate = "UPDATE category_groups" +
             " SET catalog_id = :catalogId," +
             "name = :name WHERE id = :id;";
 
-    private static final String sqlLoadByCategoryGroupsId = "SELECT * FROM category_groups " +
+    private static final String sqlLoadByCategoryGroupId = "SELECT * FROM category_groups " +
             "WHERE catalog_id = :catalogId;";
 
-    public CategoryGroupsRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
+    public CategoryGroupRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("category_groups")
                 .usingGeneratedKeyColumns("id");
     }
 
-    public CategoryGroups loadById(long id) {
+    public CategoryGroup loadById(long id) {
         return namedParameterJdbcTemplate.queryForObject(
                 sqlLoadById,
                 new MapSqlParameterSource("id", id),
-                new CategoryGroupsRowMapper());
+                new CategoryGroupRowMapper());
     }
 
     public void deleteById(long id) {
         namedParameterJdbcTemplate.update(
                 sqlDeleteById,
-                new MapSqlParameterSource("catGroupID", id));
+                new MapSqlParameterSource("categoryGroupId", id));
     }
 
-    public void update(CategoryGroups categoryGroups) {
+    public void update(CategoryGroup categoryGroup) {
         namedParameterJdbcTemplate.update(
                 sqlUpdate,
                 new MapSqlParameterSource()
-                        .addValue("id", categoryGroups.getId())
-                        .addValue("catalogId", categoryGroups.getCatalogId())
-                        .addValue("name", categoryGroups.getName())
+                        .addValue("id", categoryGroup.getId())
+                        .addValue("catalogId", categoryGroup.getCatalogId())
+                        .addValue("name", categoryGroup.getName())
         );
     }
 
-    public void create(CategoryGroups newCategoryGroups) {
+    public void create(CategoryGroup newCategoryGroup) {
         simpleJdbcInsert.execute(
                 new MapSqlParameterSource()
-                        .addValue("catalogId", newCategoryGroups.getCatalogId())
-                        .addValue("name", newCategoryGroups.getName())
+                        .addValue("catalogId", newCategoryGroup.getCatalogId())
+                        .addValue("name", newCategoryGroup.getName())
         );
     }
 
-    public List<CategoryGroups> loadByCategoryGroupsId(long catalogId) {
+    public List<CategoryGroup> loadByCategoryGroupsId(long catalogId) {
         return namedParameterJdbcTemplate.query(
-                sqlLoadByCategoryGroupsId,
+                sqlLoadByCategoryGroupId,
                 new MapSqlParameterSource("catalogId", catalogId),
-                new CategoryGroupsRowMapper()
+                new CategoryGroupRowMapper()
         );
     }
 }

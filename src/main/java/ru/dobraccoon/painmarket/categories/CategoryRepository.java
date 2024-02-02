@@ -9,21 +9,20 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
-public class CategoriesRepository {
+public class CategoryRepository {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
 
-    private static final String sqlLoadAll = "SELECT * FROM categories;";
-    private static final String sqlLoadById = "SELECT * FROM categories WHERE id = :hui;";
+    private static final String sqlLoadById = "SELECT * FROM categories WHERE id = :categoryId;";
 
-    private static final String sqlDeleteById = "DELETE FROM categories WHERE id = :catId;";
+    private static final String sqlDeleteById = "DELETE FROM categories WHERE id = :categoryId;";
 
     private static final String sqlUpdate = "UPDATE categories" +
             " SET category_group_id = :categoryGroupId," +
             "name = :name WHERE id = :id;";
 
     private static final String sqlLoadByGroupId = "SELECT * FROM categories " +
-            "WHERE category_group_id = :categoryGroupsId;";
+            "WHERE category_group_id = :categoryGroupId;";
 
     private static final String sqlLoadByCatalogId = """
             SELECT  c.* FROM categories c
@@ -32,60 +31,56 @@ public class CategoriesRepository {
             """;
 
 
-    public CategoriesRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
+    public CategoryRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("categories")
                 .usingGeneratedKeyColumns("id");
     }
 
-    public List<Categories> loadAll() {
-        return namedParameterJdbcTemplate.query(sqlLoadAll, new CategoriesRowMapper());
-    }
-
-    public Categories loadById(long categoriesId) {
+    public Category loadById(long categoryId) {
         return namedParameterJdbcTemplate.queryForObject(
                 sqlLoadById,
-                new MapSqlParameterSource("hui", categoriesId),
-                new CategoriesRowMapper());
+                new MapSqlParameterSource("categoryId", categoryId),
+                new CategoryRowMapper());
     }
 
     public void deleteById(long id) {
         namedParameterJdbcTemplate.update(
                 sqlDeleteById,
-                new MapSqlParameterSource("catId", id));
+                new MapSqlParameterSource("categoryId", id));
     }
 
-    public void update(Categories categories) {
+    public void update(Category category) {
         namedParameterJdbcTemplate.update(
                 sqlUpdate,
                 new MapSqlParameterSource()
-                        .addValue("id", categories.getId())
-                        .addValue("categoryGroupId", categories.getCategoryGroupId())
-                        .addValue("name", categories.getName())
+                        .addValue("id", category.getId())
+                        .addValue("categoryGroupId", category.getCategoryGroupId())
+                        .addValue("name", category.getName())
         );
     }
 
-    public void create(Categories newCategories) {
+    public void create(Category newCategory) {
         simpleJdbcInsert.execute(
                 new MapSqlParameterSource()
-                        .addValue("categoryGroupId", newCategories.getCategoryGroupId())
-                        .addValue("name", newCategories.getName())
+                        .addValue("categoryGroupId", newCategory.getCategoryGroupId())
+                        .addValue("name", newCategory.getName())
         );
     }
 
-    public List<Categories> loadByGroupId(long categoryGroupsId) {
+    public List<Category> loadByGroupId(long categoryGroupId) {
         return namedParameterJdbcTemplate.query(
                 sqlLoadByGroupId,
-                new MapSqlParameterSource("categoryGroupsId", categoryGroupsId),
-                new CategoriesRowMapper()
+                new MapSqlParameterSource("categoryGroupId", categoryGroupId),
+                new CategoryRowMapper()
         );
     }
 
-    public List<Categories> loadByCatalogId(long catalogId) {
+    public List<Category> loadByCatalogId(long catalogId) {
         return namedParameterJdbcTemplate.query(
                 sqlLoadByCatalogId,
                 new MapSqlParameterSource("catalogId", catalogId),
-                new CategoriesRowMapper());
+                new CategoryRowMapper());
     }
 }

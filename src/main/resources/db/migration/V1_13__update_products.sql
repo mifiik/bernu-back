@@ -1,5 +1,5 @@
 ALTER TABLE products
-    ADD category_id BIGINT REFERENCES categories (id) NOT NULL;
+    ADD COLUMN category_id BIGINT REFERENCES categories (id) NOT NULL DEFAULT 1;
 
 INSERT INTO products (primary_price, current_price, discount, new_product, image_url, description, min_delivery_days,
                       max_delivery_days, rating, review_count, category_id)

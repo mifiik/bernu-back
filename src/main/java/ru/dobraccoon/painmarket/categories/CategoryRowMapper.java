@@ -5,10 +5,10 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CategoriesRowMapper implements RowMapper<Categories> {
+public class CategoryRowMapper implements RowMapper<Category> {
     @Override
-    public Categories mapRow(ResultSet rs, int RowNum) throws SQLException {
-        return new Categories(
+    public Category mapRow(ResultSet rs, int RowNum) throws SQLException {
+        return new Category(
                 rs.getLong("id"),
                 rs.getLong("category_group_id"),
                 rs.getString("name")

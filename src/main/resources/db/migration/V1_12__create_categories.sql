@@ -1,7 +1,7 @@
 CREATE TABLE categories
 (
     id                BIGSERIAL primary key,
-    category_group_id BIGINT REFERENCES category_groups (id) NOT NULL,
+    category_group_id BIGINT REFERENCES category_groups (id) NOT NULL DEFAULT 1,
     name              VARCHAR(128)                           NOT NULL
 );
 

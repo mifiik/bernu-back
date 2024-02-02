@@ -1,12 +1,12 @@
-package ru.dobraccoon.painmarket.categories;
+package ru.dobraccoon.painmarket.categoryGroups;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Categories {
+public class CategoryGroup {
     private Long id;
-    private long categoryGroupId;
+    private long catalogId;
     private String name;
 }
