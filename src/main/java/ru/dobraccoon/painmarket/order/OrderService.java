@@ -13,8 +13,8 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public void create(Order order) {
-        orderRepository.create(order);
+    public Order create(Order newOrder) {
+        return orderRepository.create(newOrder);
     }
 
     public void deleteById(long id) {

@@ -22,11 +22,11 @@ public class CategoryGroupService {
         categoryGroupRepository.update(categoryGroup);
     }
 
-    public void create(CategoryGroup newCategoryGroup) {
-        categoryGroupRepository.create(newCategoryGroup);
+    public CategoryGroup create(CategoryGroup newCategoryGroup) {
+        return categoryGroupRepository.create(newCategoryGroup);
     }
 
-    public List<CategoryGroup> loadByCategoryGroupsId(long catalogId) {
-        return categoryGroupRepository.loadByCategoryGroupsId(catalogId);
+    public List<CategoryGroup> loadByCategoryGroupId(long catalogId) {
+        return categoryGroupRepository.loadByCategoryGroupId(catalogId);
     }
 }

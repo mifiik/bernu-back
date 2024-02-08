@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public void create(@RequestBody Order order) {
-        orderService.create(order);
+    public Order create(@RequestBody Order newOrder) {
+        return orderService.create(newOrder);
     }
 
     @GetMapping("/history-by-customer-id/{customerId}")

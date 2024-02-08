@@ -13,8 +13,8 @@ public class FeedbackController {
     FeedbackService feedbackService;
 
     @PostMapping
-    public void create(@RequestBody Feedback feedback) {
-        feedbackService.create(feedback);
+    public Feedback create(@RequestBody Feedback newFeedback) {
+        return feedbackService.create(newFeedback);
     }
 
     @GetMapping("/load-by-productId/{productId}")

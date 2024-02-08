@@ -55,15 +55,19 @@ public class CategoryGroupRepository {
         );
     }
 
-    public void create(CategoryGroup newCategoryGroup) {
-        simpleJdbcInsert.execute(
+    public CategoryGroup create(CategoryGroup newCategoryGroup) {
+        long newCategoryGroupId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
                         .addValue("catalogId", newCategoryGroup.getCatalogId())
                         .addValue("name", newCategoryGroup.getName())
-        );
+        ).longValue();
+
+        newCategoryGroup.setId(newCategoryGroupId);
+
+        return newCategoryGroup;
     }
 
-    public List<CategoryGroup> loadByCategoryGroupsId(long catalogId) {
+    public List<CategoryGroup> loadByCategoryGroupId(long catalogId) {
         return namedParameterJdbcTemplate.query(
                 sqlLoadByCategoryGroupId,
                 new MapSqlParameterSource("catalogId", catalogId),

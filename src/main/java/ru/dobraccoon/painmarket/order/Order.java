@@ -1,10 +1,12 @@
 package ru.dobraccoon.painmarket.order;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Order {
-    private final Long id;
+    @Setter
+    private Long id;
     private final long customerId;
     private final long statusId;
     private long price;

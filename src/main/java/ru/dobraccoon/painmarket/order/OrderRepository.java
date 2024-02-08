@@ -28,12 +28,16 @@ public class OrderRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    public void create(Order order) {
-        simpleJdbcInsert.execute(
+    public Order create(Order newOrder) {
+        long newOrderId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
-                        .addValue("customerId", order.getCustomerId())
-                        .addValue("price", order.getPrice())
-        );
+                        .addValue("customerId", newOrder.getCustomerId())
+                        .addValue("price", newOrder.getPrice())
+        ).longValue();
+
+        newOrder.setId(newOrderId);
+
+        return newOrder;
     }
 
     public void deleteById(long id) {

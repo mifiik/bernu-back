@@ -27,8 +27,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void create(@RequestBody Category newCategory) {
-        categoryService.create(newCategory);
+    public Category create(@RequestBody Category newCategory) {
+        return categoryService.create(newCategory);
     }
 
     @GetMapping("/load-by-group-id/{categoryGroupId}")

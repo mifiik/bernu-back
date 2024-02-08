@@ -62,8 +62,8 @@ public class ProductRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    public void create(Product newProduct) {
-        simpleJdbcInsert.execute(
+    public Product create(Product newProduct) {
+        long newProductId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
                         .addValue("primaryPrice", newProduct.getPrimaryPrice())
                         .addValue("currentPrice", newProduct.getCurrentPrice())
@@ -75,7 +75,11 @@ public class ProductRepository {
                         .addValue("maxDeliveryDays", newProduct.getMaxDeliveryDays())
                         .addValue("rating", newProduct.getRating())
                         .addValue("reviewCount", newProduct.getReviewCount())
-        );
+        ).longValue();
+
+        newProduct.setId(newProductId);
+
+        return newProduct;
     }
 
     public void update(Product product) {

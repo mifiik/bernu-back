@@ -34,7 +34,7 @@ public class CustomerRepository {
     }
 
     public Customer create(Customer newCustomer) {
-        Long newCustomerId = simpleJdbcInsert.executeAndReturnKey(
+        long newCustomerId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
                         .addValue("imageUrl", newCustomer.getImageUrl())
                         .addValue("lawEntity", newCustomer.isLawEntity())

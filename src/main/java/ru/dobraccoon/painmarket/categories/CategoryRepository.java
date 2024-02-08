@@ -61,12 +61,18 @@ public class CategoryRepository {
         );
     }
 
-    public void create(Category newCategory) {
-        simpleJdbcInsert.execute(
+    public Category create(Category newCategory) {
+        long newCategoryId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
                         .addValue("categoryGroupId", newCategory.getCategoryGroupId())
                         .addValue("name", newCategory.getName())
-        );
+        ).longValue();
+
+
+        newCategory.setId(newCategoryId);
+
+        return newCategory;
+
     }
 
     public List<Category> loadByGroupId(long categoryGroupId) {

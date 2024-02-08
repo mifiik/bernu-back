@@ -27,12 +27,12 @@ public class CategoryGroupController {
     }
 
     @PostMapping
-    public void create(@RequestBody CategoryGroup newCategoryGroup) {
-        categoryGroupService.create(newCategoryGroup);
+    public CategoryGroup create(@RequestBody CategoryGroup newCategoryGroups) {
+        return categoryGroupService.create(newCategoryGroups);
     }
 
     @GetMapping("/load-by-catalog-id/{catalogId}")
-    public List<CategoryGroup> loadByCategoryGroupsId(@PathVariable long catalogId) {
-        return categoryGroupService.loadByCategoryGroupsId(catalogId);
+    public List<CategoryGroup> loadByCategoryGroupId(@PathVariable long catalogId) {
+        return categoryGroupService.loadByCategoryGroupId(catalogId);
     }
 }

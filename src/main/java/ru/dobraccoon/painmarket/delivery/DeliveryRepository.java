@@ -52,18 +52,22 @@ public class DeliveryRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    public void create(Delivery delivery) {
-        simpleJdbcInsert.execute(
+    public Delivery create(Delivery newDelivery) {
+        long newDeliveryId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
-                        .addValue("orderId", delivery.getOrderId())
-                        .addValue("city", delivery.getCity())
-                        .addValue("street", delivery.getStreet())
-                        .addValue("postcode", delivery.getPostcode())
-                        .addValue("informationForCourier", delivery.getInformationForCourier())
-                        .addValue("deliveryPrice", delivery.getDeliveryPrice())
-                        .addValue("discount", delivery.getDiscount())
-                        .addValue("totalAmount", delivery.getTotalAmount())
-        );
+                        .addValue("orderId", newDelivery.getOrderId())
+                        .addValue("city", newDelivery.getCity())
+                        .addValue("street", newDelivery.getStreet())
+                        .addValue("postcode", newDelivery.getPostcode())
+                        .addValue("informationForCourier", newDelivery.getInformationForCourier())
+                        .addValue("deliveryPrice", newDelivery.getDeliveryPrice())
+                        .addValue("discount", newDelivery.getDiscount())
+                        .addValue("totalAmount", newDelivery.getTotalAmount())
+        ).longValue();
+
+        newDelivery.setId(newDeliveryId);
+
+        return newDelivery;
     }
 
     public void deleteById(long id) {

@@ -10,9 +10,10 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public Category loadById(long categoriesId) {
-        return categoryRepository.loadById(categoriesId);
+    public Category loadById(long categoryId) {
+        return categoryRepository.loadById(categoryId);
     }
+
 
     public void deleteById(long id) {
         categoryRepository.deleteById(id);
@@ -22,8 +23,8 @@ public class CategoryService {
         categoryRepository.update(category);
     }
 
-    public void create(Category newCategory) {
-        categoryRepository.create(newCategory);
+    public Category create(Category newCategory) {
+        return categoryRepository.create(newCategory);
     }
 
     public List<Category> loadByGroupId(long categoryGroupId) {

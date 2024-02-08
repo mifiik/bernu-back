@@ -22,15 +22,19 @@ public class FeedbackRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    public void create(Feedback feedback) {
-        simpleJdbcInsert.execute(
+    public Feedback create(Feedback newFeedback) {
+        long newFeedbackId = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
-                        .addValue("customerId", feedback.getCustomerId())
-                        .addValue("productId", feedback.getProductId())
-                        .addValue("caption", feedback.getCaption())
-                        .addValue("feedbackText", feedback.getFeedbackText())
-                        .addValue("rating", feedback.getRating())
-        );
+                        .addValue("customerId", newFeedback.getCustomerId())
+                        .addValue("productId", newFeedback.getProductId())
+                        .addValue("caption", newFeedback.getCaption())
+                        .addValue("feedbackText", newFeedback.getFeedbackText())
+                        .addValue("rating", newFeedback.getRating())
+        ).longValue();
+
+        newFeedback.setId(newFeedbackId);
+
+        return newFeedback;
     }
 
     public List<Feedback> loadByProductId(long productId) {
