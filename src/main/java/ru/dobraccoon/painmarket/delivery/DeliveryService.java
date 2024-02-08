@@ -6,7 +6,7 @@ import java.util.List;
 
 @Service
 public class DeliveryService {
-    private DeliveryRepository deliveryRepository;
+    private final DeliveryRepository deliveryRepository;
 
     public DeliveryService(DeliveryRepository deliveryRepository) {
         this.deliveryRepository = deliveryRepository;

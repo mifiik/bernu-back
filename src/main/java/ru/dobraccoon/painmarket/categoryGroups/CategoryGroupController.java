@@ -1,6 +1,5 @@
 package ru.dobraccoon.painmarket.categoryGroups;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

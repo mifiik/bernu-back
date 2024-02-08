@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public class OrderRepository {
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private SimpleJdbcInsert simpleJdbcInsert;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
     private static final String sqlDeleteById = "DELETE FROM orders WHERE id = :id;";
     private static final String sqlDeleteByCustomerId = "DELETE FROM orders WHERE customer_id = :customerId";

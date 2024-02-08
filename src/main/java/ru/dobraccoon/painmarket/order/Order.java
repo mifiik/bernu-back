@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 public class Order {
     @Setter
-    private Long id;
-    private long customerId;
-    private long statusId;
-    private long price;
+    private final Long id;
+    private final long customerId;
+    private final long statusId;
+    private final long price;
 
     public Order(Long id, long customerId, long statusId, long price) {
         this.id = id;

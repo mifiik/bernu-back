@@ -38,7 +38,6 @@ public class CategoryRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-
     public Category loadById(long categoryId) {
         return namedParameterJdbcTemplate.queryForObject(
                 sqlLoadById,

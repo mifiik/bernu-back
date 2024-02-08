@@ -19,6 +19,7 @@ public class Product {
     private int maxDeliveryDays;
     private float rating;
     private int reviewCount;
+    private long categoryId;
 
 }
 

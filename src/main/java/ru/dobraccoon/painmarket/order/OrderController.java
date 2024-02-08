@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("orders")
 public class OrderController {
 
-    private OrderService orderService;
-    private OrderHistoryService orderHistoryService;
-    private OrderDetailService orderDetailService;
+    private final OrderService orderService;
+    private final OrderHistoryService orderHistoryService;
+    private final OrderDetailService orderDetailService;
 
     public OrderController(OrderService orderService, OrderHistoryService orderHistoryService,
                            OrderDetailService orderDetailService) {

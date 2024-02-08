@@ -12,4 +12,3 @@ public class CategoryGroup {
     private long catalogId;
     private String name;
 }
-
