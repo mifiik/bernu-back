@@ -1,17 +1,17 @@
 package ru.dobraccoon.painmarket.order;
 
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OrderService {
 
-    private final OrderRepository orderRepository;
-
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+    private OrderRepository orderRepository;
 
     public Order create(Order newOrder) {
         return orderRepository.create(newOrder);
@@ -39,5 +39,11 @@ public class OrderService {
 
     public List<Order> loadByCustomerId(long customerId) {
         return orderRepository.loadByCustomerId(customerId);
+    }
+
+    public float countPriceByCurrencyAndDiscount(Order order, float currency, int discount) {
+        float price = order.getPrice();
+
+        return (price-(price/100*discount))/currency;
     }
 }

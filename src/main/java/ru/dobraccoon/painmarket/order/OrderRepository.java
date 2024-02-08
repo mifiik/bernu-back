@@ -33,6 +33,7 @@ public class OrderRepository {
                 new MapSqlParameterSource()
                         .addValue("customerId", newOrder.getCustomerId())
                         .addValue("price", newOrder.getPrice())
+                        .addValue("status_id", newOrder.getStatusId())
         ).longValue();
 
         newOrder.setId(newOrderId);
