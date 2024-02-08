@@ -11,8 +11,8 @@ import java.util.Objects;
 
 @Repository
 public class ProductRepository {
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private SimpleJdbcInsert simpleJdbcInsert;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
     private static final String sqlUpdate = "UPDATE products SET primary_price = :primaryPrice, current_price = :currentPrice," +
             " discount = :discount, new_product = :new_product, image_url = :imageUrl,  description = :description," +
@@ -34,6 +34,25 @@ public class ProductRepository {
                                        JOIN products p ON p.id = x.product_id
                                        WHERE o.id = :orderId;
                                        
+            """;
+
+    private static final String sqlLoadByCategoryGroupId = """
+            SELECT p.* FROM products p
+            JOIN categories c ON p.category_id = c.id
+            WHERE c.category_group_id = :categoryGroupId;
+            """;
+
+
+    private static final String sqlLoadByCatalogId = """
+            SELECT p.* FROM products p
+                                JOIN categories c ON c.id = p.category_id
+                                JOIN category_groups cg ON cg.id = c.category_group_id
+            WHERE cg.catalog_id = :catalogId;
+            """;
+
+    private static final String sqlLoadByCategoryId = """
+            SELECT * FROM products
+            WHERE category_id = :categoryId;
             """;
 
     public ProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSourcet) {
@@ -134,4 +153,27 @@ public class ProductRepository {
                 new MapSqlParameterSource("orderId", orderId),
                 new ProductRowMapper());
     }
+
+    public List<Product> loadByCategoryGroupId(long categoryGroupId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCategoryGroupId,
+                new MapSqlParameterSource("categoryGroupId", categoryGroupId),
+                new ProductRowMapper());
+    }
+
+    public List<Product> loadByCatalogId(long catalogId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCatalogId,
+                new MapSqlParameterSource("catalogId", catalogId),
+                new ProductRowMapper());
+    }
+
+    public List<Product> loadByCategoryId(long categoryId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCategoryId,
+                new MapSqlParameterSource("categoryId", categoryId),
+                new ProductRowMapper());
+
+    }
+
 }

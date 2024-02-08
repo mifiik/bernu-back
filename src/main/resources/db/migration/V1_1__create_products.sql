@@ -1,16 +1,16 @@
 CREATE TABLE products
 (
     id                BIGSERIAL PRIMARY KEY,
-    primary_price     NUMERIC      NOT NULL,
-    current_price     NUMERIC      NOT NULL,
-    discount          NUMERIC      NOT NULL,
+    primary_price     NUMERIC       NOT NULL,
+    current_price     NUMERIC       NOT NULL,
+    discount          NUMERIC       NOT NULL,
     new_product       BOOLEAN,
-    image_url         VARCHAR(128) NOT NULL,
-    description       VARCHAR(128) NOT NULL,
-    min_delivery_days NUMERIC      NOT NULL,
-    max_delivery_days NUMERIC      NOT NULL,
-    rating            NUMERIC      NOT NULL,
-    review_count      NUMERIC      NOT NULL
+    image_url         VARCHAR(128)  NOT NULL,
+    description       VARCHAR(1024) NOT NULL,
+    min_delivery_days NUMERIC       NOT NULL,
+    max_delivery_days NUMERIC       NOT NULL,
+    rating            NUMERIC       NOT NULL,
+    review_count      NUMERIC       NOT NULL
 );
 
 ALTER SEQUENCE products_id_seq RESTART WITH 300;

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public class FeedbackRepository {
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private SimpleJdbcInsert simpleJdbcInsert;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
     private static final String sqlLoadByProductId = "SELECT * FROM feedbacks WHERE product_id = :productId";
 

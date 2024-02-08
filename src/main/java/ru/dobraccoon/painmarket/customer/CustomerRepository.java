@@ -23,8 +23,8 @@ public class CustomerRepository {
     private static final String sqlLoadById = "SELECT * FROM customers WHERE id = :customerId;";
     private static final String sqlLoadAll = "SELECT * FROM customers;";
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private SimpleJdbcInsert simpleJdbcInsert;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
     public CustomerRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
