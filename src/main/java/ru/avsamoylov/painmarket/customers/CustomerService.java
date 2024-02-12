@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
     private final CustomerRepository repository;
 
-    public Customer saveCustomer(Customer customer) {
+    public Long saveCustomer(Customer customer) {
         return repository.saveCustomer(customer);
     }
 
+    public Customer findByCustomerId(long id) {
+        return repository.findById(id);
+    }
 }
