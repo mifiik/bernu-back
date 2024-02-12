@@ -14,8 +14,8 @@ import ru.dobraccoon.painmarket.order.OrderService;
 public class OrderTest {
 
     private Order testOrder;
-    Customer testCustomer;
-    Order createdOrder;
+    private Customer testCustomer;
+    private Order createdOrder;
     private final long price = 1000;
 
     @Autowired

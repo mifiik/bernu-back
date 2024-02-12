@@ -32,7 +32,7 @@ public class CatalogController {
     }
 
     @PostMapping
-    public void create(@RequestBody Catalog newCatalog) {
-        catalogService.create(newCatalog);
+    public Catalog create(@RequestBody Catalog newCatalog) {
+        return catalogService.create(newCatalog);
     }
 }

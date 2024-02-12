@@ -26,7 +26,7 @@ public class CatalogService {
         catalogRepository.update(catalog);
     }
 
-    public void create(Catalog newCatalog) {
-        catalogRepository.update(newCatalog);
+    public Catalog create(Catalog newCatalog) {
+        return catalogRepository.create(newCatalog);
     }
 }

@@ -5,6 +5,10 @@ public enum DeliveryStatus {
     DELIVERY(2),
     COMPLETED(3);
 
+    public long getStatusId() {
+        return statusId;
+    }
+
     private long statusId;
 
     DeliveryStatus(long id) {

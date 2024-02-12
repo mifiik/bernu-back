@@ -15,11 +15,16 @@ public class FeedbackRepository {
 
     private static final String sqlLoadByProductId = "SELECT * FROM feedbacks WHERE product_id = :productId";
 
+    private static final String sqlDeleteById = "DELETE FROM feedbacks WHERE id = :id;";
+
+    private static final String sqlLoadById = "SELECT * FROM feedbacks WHERE id = :feedbackId";
+
     public FeedbackRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("feedbacks")
-                .usingGeneratedKeyColumns("id");
+                .usingGeneratedKeyColumns("id")
+                .usingColumns("customer_id", "product_id", "caption", "feedback_text", "rating");
     }
 
     public Feedback create(Feedback newFeedback) {
@@ -35,6 +40,19 @@ public class FeedbackRepository {
         newFeedback.setId(newFeedbackId);
 
         return newFeedback;
+    }
+
+    public void deleteById(long id) {
+        namedParameterJdbcTemplate.update(
+                sqlDeleteById,
+                new MapSqlParameterSource("id", id));
+    }
+
+    public Feedback loadById(long feedbackId) {
+        return namedParameterJdbcTemplate.queryForObject(
+                sqlLoadById,
+                new MapSqlParameterSource("feedbackId", feedbackId),
+                new FeedbackRowMapper());
     }
 
     public List<Feedback> loadByProductId(long productId) {
