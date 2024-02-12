@@ -75,6 +75,7 @@ public class ProductRepository {
                         .addValue("maxDeliveryDays", newProduct.getMaxDeliveryDays())
                         .addValue("rating", newProduct.getRating())
                         .addValue("reviewCount", newProduct.getReviewCount())
+                        .addValue("categoryId", newProduct.getCategoryId())
         ).longValue();
 
         newProduct.setId(newProductId);

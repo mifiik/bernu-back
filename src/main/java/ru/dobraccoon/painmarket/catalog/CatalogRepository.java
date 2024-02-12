@@ -54,10 +54,14 @@ public class CatalogRepository {
         );
     }
 
-    public void create(Catalog newCatalog) {
-        simpleJdbcInsert.execute(
+    public Catalog create(Catalog newCatalog) {
+        long id = simpleJdbcInsert.executeAndReturnKey(
                 new MapSqlParameterSource()
                         .addValue("name", newCatalog.getName())
-        );
+        ).longValue();
+
+        newCatalog.setId(id);
+
+        return newCatalog;
     }
 }

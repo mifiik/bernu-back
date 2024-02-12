@@ -14,6 +14,14 @@ public class FeedbackService {
         return feedbackRepository.create(newFeedback);
     }
 
+    public void deleteById(long id) {
+        feedbackRepository.deleteById(id);
+    }
+
+    public Feedback loadById(long feedbackId) {
+        return feedbackRepository.loadById(feedbackId);
+    }
+
     public List<Feedback> loadByProductId(long productId) {
         return feedbackRepository.loadByProductId(productId);
     }

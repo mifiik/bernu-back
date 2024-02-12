@@ -63,6 +63,7 @@ public class DeliveryRepository {
                         .addValue("deliveryPrice", newDelivery.getDeliveryPrice())
                         .addValue("discount", newDelivery.getDiscount())
                         .addValue("totalAmount", newDelivery.getTotalAmount())
+                        .addValue("statusId", DeliveryStatus.CREATED.getStatusId())
         ).longValue();
 
         newDelivery.setId(newDeliveryId);
