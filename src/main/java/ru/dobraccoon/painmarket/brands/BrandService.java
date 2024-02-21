@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class BrandService {
-    BrandRepository brandRepository;
+   private final BrandRepository brandRepository;
 
     public Brand create(Brand newBrand) {
         return brandRepository.create(newBrand);

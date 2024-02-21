@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public class BrandRepository {
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    SimpleJdbcInsert simpleJdbcInsert;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
     private static final String sqlLoadById = "SELECT * FROM brands WHERE id = :brandId;";
     private static final String sqlDeleteById = "DELETE FROM brands WHERE id = :brandId;";
     private static final String sqlUpdate = "UPDATE brands SET image_url = :imageUrl, name = :name " +
