@@ -1,8 +1,6 @@
 package ru.dobraccoon.painmarket.order;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +42,6 @@ public class OrderService {
     public float countPriceByCurrencyAndDiscount(Order order, float currency, int discount) {
         float price = order.getPrice();
 
-        return (price-(price/100*discount))/currency;
+        return (price - (price / 100 * discount)) / currency;
     }
 }
