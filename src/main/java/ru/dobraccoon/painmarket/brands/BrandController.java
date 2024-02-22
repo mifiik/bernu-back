@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("brand")
 public class BrandController {
- private final BrandService brandService;
+    private final BrandService brandService;
 
     @PostMapping
     public Brand create(@RequestBody Brand newBrand) {

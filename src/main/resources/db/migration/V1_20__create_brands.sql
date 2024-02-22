@@ -13,23 +13,3 @@ VALUES ('image_url_1', 'Nike'),
        ('image_url_5', 'Adinol'),
        ('image_url_6', 'Beadi'),
        ('image_url_7', 'Nutrilon');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
