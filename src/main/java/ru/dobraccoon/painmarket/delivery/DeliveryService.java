@@ -6,26 +6,26 @@ import java.util.List;
 
 @Service
 public class DeliveryService {
-    private DeliveryRepository deliveryRepository;
+    private final DeliveryRepository deliveryRepository;
 
     public DeliveryService(DeliveryRepository deliveryRepository) {
         this.deliveryRepository = deliveryRepository;
     }
 
-    public void create(Delivery delivery) {
-        deliveryRepository.create(delivery);
+    public Delivery create(Delivery newDelivery) {
+        return deliveryRepository.create(newDelivery);
     }
 
     public void deleteById(long id) {
         deliveryRepository.deleteById(id);
     }
 
-    public void deleteByOrderIdAndCustomerId(long orderId, long customerId) {
-        deliveryRepository.deleteByOrderIdAndCustomerId(orderId, customerId);
+    public void deleteByOrderId(long orderId) {
+        deliveryRepository.deleteByOrderId(orderId);
     }
 
-    public void deleteByAddress(String address) {
-        deliveryRepository.deleteByAddress(address);
+    public void deleteByPostcode(int postcode) {
+        deliveryRepository.deleteByPostcode(postcode);
     }
 
     public void update(Delivery delivery) {
@@ -40,8 +40,12 @@ public class DeliveryService {
         return deliveryRepository.loadAll();
     }
 
-    public List<Delivery> loadByAddress(String address) {
-        return deliveryRepository.loadByAddress(address);
+    public List<Delivery> loadByStatusId(long statusId) {
+        return deliveryRepository.loadByStatusId(statusId);
+    }
+
+    public List<Delivery> loadByPostcode(int postcode) {
+        return deliveryRepository.loadByPostcode(postcode);
     }
 }
 

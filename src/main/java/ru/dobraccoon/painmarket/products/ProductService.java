@@ -50,4 +50,20 @@ public class ProductService {
         return productRepository.loadByDiscount(discount);
     }
 
+    public List<Product> loadByOrderId(long orderId) {
+        return productRepository.loadByOrderId(orderId);
+    }
+
+    public List<Product> loadByCategoryGroupId(long categoryGroupId) {
+        return productRepository.loadByCategoryGroupId(categoryGroupId);
+    }
+
+    public List<Product> loadByCatalogId(long catalogId) {
+        return productRepository.loadByCatalogId(catalogId);
+    }
+
+    public List<Product> loadByCategoryId(long categoryId) {
+        return productRepository.loadByCategoryId(categoryId);
+    }
+
 }

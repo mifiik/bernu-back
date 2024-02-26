@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("orders")
 public class OrderController {
 
-    private OrderService orderService;
-    private OrderHistoryService orderHistoryService;
-    private OrderDetailService orderDetailService;
+    private final OrderService orderService;
+    private final OrderHistoryService orderHistoryService;
+    private final OrderDetailService orderDetailService;
 
     public OrderController(OrderService orderService, OrderHistoryService orderHistoryService,
                            OrderDetailService orderDetailService) {
@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public void create(@RequestBody Order order) {
-        orderService.create(order);
+    public Order create(@RequestBody Order newOrder) {
+        return orderService.create(newOrder);
     }
 
     @GetMapping("/history-by-customer-id/{customerId}")
@@ -47,11 +47,6 @@ public class OrderController {
     @DeleteMapping("/delete-by-price/{price}")
     public void deleteByPrice(@PathVariable long price) {
         orderService.deleteByPrice(price);
-    }
-
-    @PutMapping
-    public void update(@RequestBody Order order) {
-        orderService.update(order);
     }
 
     @GetMapping("/{orderId}")

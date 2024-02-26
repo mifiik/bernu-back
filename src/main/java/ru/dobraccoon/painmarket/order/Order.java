@@ -1,24 +1,27 @@
 package ru.dobraccoon.painmarket.order;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Order {
-    private long id;
-    private long productId;
-    private long customerId;
+    @Setter
+    private Long id;
+    private final long customerId;
+    private final long statusId;
     private long price;
 
-    public Order(Long id, Long productId, Long customerId, long price) {
+    public Order(Long id, long customerId, long statusId, long price) {
         this.id = id;
-        this.productId = productId;
         this.customerId = customerId;
+        this.statusId = statusId;
         if (price > 0) {
             this.price = price;
         } else {
             throwValidationException("Price", Float.toString(price));
         }
     }
+
 
     private void throwValidationException(String valueName, String value) {
         try {

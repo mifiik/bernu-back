@@ -1,21 +1,23 @@
 package ru.dobraccoon.painmarket.delivery;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.dobraccoon.painmarket.delivery.history.DeliveryDTO;
+import ru.dobraccoon.painmarket.delivery.history.DeliveryDTOService;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("delivery")
 public class DeliveryController {
     private DeliveryService deliveryService;
+    private DeliveryDTOService deliveryDTOService;
 
-    public DeliveryController(DeliveryService deliveryService) {
-        this.deliveryService = deliveryService;
-    }
 
     @PostMapping
-    public void create(@RequestBody Delivery delivery) {
-        deliveryService.create(delivery);
+    public Delivery create(@RequestBody Delivery newDelivery) {
+        return deliveryService.create(newDelivery);
     }
 
     @DeleteMapping("{id}")
@@ -24,13 +26,13 @@ public class DeliveryController {
     }
 
     @DeleteMapping("{orderId}/{customerId}")
-    public void deleteByOrderIdAndCustomerId(@PathVariable long orderId, @PathVariable long customerId) {
-        deliveryService.deleteByOrderIdAndCustomerId(orderId, customerId);
+    public void deleteByOrderId(@PathVariable long orderId) {
+        deliveryService.deleteByOrderId(orderId);
     }
 
-    @DeleteMapping("/by-address/{address}")
-    public void deleteByAddress(@PathVariable String address) {
-        deliveryService.deleteByAddress(address);
+    @DeleteMapping("/by-postcode/{postcode}")
+    public void deleteByPostcode(@PathVariable int postcode) {
+        deliveryService.deleteByPostcode(postcode);
     }
 
 
@@ -49,8 +51,18 @@ public class DeliveryController {
         return deliveryService.loadAll();
     }
 
-    @GetMapping("/load-by-address/{address}")
-    public List<Delivery> loadByAddress(@PathVariable String address) {
-        return deliveryService.loadByAddress(address);
+    @GetMapping("/load-by-status-id/{statusId}")
+    public List<Delivery> loadByStatusId(@PathVariable long statusId) {
+        return deliveryService.loadByStatusId(statusId);
+    }
+
+    @GetMapping("/load-by-postcode/{postcode}")
+    public List<Delivery> loadByPostcode(@PathVariable int postcode) {
+        return deliveryService.loadByPostcode(postcode);
+    }
+
+    @GetMapping("/dto-by-id/{deliveryId}")
+    public DeliveryDTO loadDeliveryDTOById(@PathVariable long deliveryId) {
+        return deliveryDTOService.loadDeliveryDTOById(deliveryId);
     }
 }

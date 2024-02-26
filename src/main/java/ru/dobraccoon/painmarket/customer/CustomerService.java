@@ -25,7 +25,7 @@ public class CustomerService {
     }
 
     public void update(Customer customer) {
-        customerRepository.Update(customer);
+        customerRepository.update(customer);
     }
 
     public Customer loadById(long customerId) {

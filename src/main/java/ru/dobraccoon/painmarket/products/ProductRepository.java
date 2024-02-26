@@ -1,38 +1,86 @@
 package ru.dobraccoon.painmarket.products;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
 public class ProductRepository {
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
-    public ProductRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    private static final String sqlUpdate = "UPDATE products SET primary_price = :primaryPrice, current_price = :currentPrice," +
+            " discount = :discount, new_product = :new_product, image_url = :imageUrl,  description = :description," +
+            "min_delivery_days = :minDeliveryDays, max_delivery_days = :maxDeliveryDays," +
+            "rating = :rating, review_count = :reviewCount" +
+            " WHERE id = :id;";
+    private static final String sqlDeleteById = "DELETE FROM products WHERE id = :productId;";
+    private static final String sqlDeleteByPrimaryPrice = "DELETE FROM products WHERE primary_price = :primaryPrice;";
+    private static final String sqlDeleteByDescription = "DELETE FROM products WHERE description = :description;";
+    private static final String sqlLoadById = "SELECT * FROM products WHERE id = :productId;";
+
+    private static final String sqlLoadByCurrentPrice = "SELECT * FROM products WHERE current_price = :currentPrice;";
+    private static final String sqlLoadByDiscount = "SELECT * FROM products WHERE discount = :discount;";
+
+    private static final String sqlLoadByOrderId = """
+                                       SELECT p.*
+                                       FROM orders o
+                                       JOIN xref_order_2_products x ON x.order_id = o.id
+                                       JOIN products p ON p.id = x.product_id
+                                       WHERE o.id = :orderId;
+                                       
+            """;
+
+    private static final String sqlLoadByCategoryGroupId = """
+            SELECT p.* FROM products p
+            JOIN categories c ON p.category_id = c.id
+            WHERE c.category_group_id = :categoryGroupId;
+            """;
+
+
+    private static final String sqlLoadByCatalogId = """
+            SELECT p.* FROM products p
+                                JOIN categories c ON c.id = p.category_id
+                                JOIN category_groups cg ON cg.id = c.category_group_id
+            WHERE cg.catalog_id = :catalogId;
+            """;
+
+    private static final String sqlLoadByCategoryId = """
+            SELECT * FROM products
+            WHERE category_id = :categoryId;
+            """;
+
+    public ProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSourcet) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        simpleJdbcInsert = new SimpleJdbcInsert(dataSourcet)
+                .withTableName("products")
+                .usingGeneratedKeyColumns("id");
     }
 
     public Product create(Product newProduct) {
-        String sqlInsert = String.format("INSERT INTO products(id, primary_price," +
-                        " current_price,discount, is_new, image_url, description," +
-                        "min_delivery_days, max_delivery_days, rating, review_count) VALUES (%s,%s,%s,%s,%s,'%s'," +
-                        "'%s',%s,%s,%s,%s);",
-                "nextval('products_sequence')",
-                newProduct.getPrimaryPrice(),
-                newProduct.getCurrentPrice(),
-                newProduct.getDiscount(),
-                newProduct.isNea(),
-                newProduct.getImageUrl(),
-                newProduct.getDescription(),
-                newProduct.getMinDeliveryDays(),
-                newProduct.getMaxDeliveryDays(),
-                newProduct.getRating(),
-                newProduct.getReviewCount());
+        long newProductId = simpleJdbcInsert.executeAndReturnKey(
+                new MapSqlParameterSource()
+                        .addValue("primaryPrice", newProduct.getPrimaryPrice())
+                        .addValue("currentPrice", newProduct.getCurrentPrice())
+                        .addValue("discount", newProduct.getDiscount())
+                        .addValue("new_product", newProduct.isNewProduct())
+                        .addValue("imageUrl", newProduct.getImageUrl())
+                        .addValue("description", newProduct.getDescription())
+                        .addValue("minDeliveryDays", newProduct.getMinDeliveryDays())
+                        .addValue("maxDeliveryDays", newProduct.getMaxDeliveryDays())
+                        .addValue("rating", newProduct.getRating())
+                        .addValue("reviewCount", newProduct.getReviewCount())
+                        .addValue("categoryId", newProduct.getCategoryId())
+        ).longValue();
 
-        jdbcTemplate.execute(sqlInsert);
-        return null;
+        newProduct.setId(newProductId);
+
+        return newProduct;
     }
 
     public void update(Product product) {
@@ -43,73 +91,94 @@ public class ProductRepository {
 
         loadById(product.getId());
 
-        String sqlUpdate = String.format(
-                """
-                        UPDATE products
-                        SET primary_price = %s,
-                            current_price = %s,
-                            discount = %s,
-                            is_new = %s,
-                            image_url = '%s',
-                            description = '%s',
-                            min_delivery_days = %s,
-                            max_delivery_days = %s,
-                            rating = %s,
-                            review_count = %s
-                        WHERE id = %s;""",
-                product.getPrimaryPrice(),
-                product.getCurrentPrice(),
-                product.getDiscount(),
-                product.isNea(),
-                product.getImageUrl(),
-                product.getDescription(),
-                product.getMinDeliveryDays(),
-                product.getMaxDeliveryDays(),
-                product.getRating(),
-                product.getReviewCount(),
-                product.getId()
+        namedParameterJdbcTemplate.update(
+                sqlUpdate,
+                new MapSqlParameterSource()
+                        .addValue("primaryPrice", product.getPrimaryPrice())
+                        .addValue("currentPrice", product.getCurrentPrice())
+                        .addValue("discount", product.getDiscount())
+                        .addValue("new_product", product.isNewProduct())
+                        .addValue("imageUrl", product.getImageUrl())
+                        .addValue("description", product.getDescription())
+                        .addValue("minDeliveryDays", product.getMinDeliveryDays())
+                        .addValue("maxDeliveryDays", product.getMaxDeliveryDays())
+                        .addValue("rating", product.getRating())
+                        .addValue("reviewCount", product.getReviewCount())
         );
-
-        jdbcTemplate.update(sqlUpdate);
     }
 
     public void deleteById(long productId) {
-        String sqlDeleteById = String.format("DELETE FROM products WHERE id = %s;", productId);
-        jdbcTemplate.execute(sqlDeleteById);
+        namedParameterJdbcTemplate.update(
+                sqlDeleteById,
+                new MapSqlParameterSource("productId", productId));
     }
 
     public void deleteByPrimaryPrice(float primaryPrice) {
-        String sqlDeleteByPrimaryPrice = String.format("DELETE FROM products WHERE primary_price = %s;", primaryPrice);
-        jdbcTemplate.execute(sqlDeleteByPrimaryPrice);
+        namedParameterJdbcTemplate.update(
+                sqlDeleteByPrimaryPrice,
+                new MapSqlParameterSource("primaryPrice", primaryPrice));
     }
 
     public void deleteByDescription(String description) {
-        String sqlDeleteByDescription = String.format("DELETE FROM products WHERE description = '%s';", description);
-        jdbcTemplate.execute(sqlDeleteByDescription);
+        namedParameterJdbcTemplate.update(
+                sqlDeleteByDescription,
+                new MapSqlParameterSource("description", description));
     }
 
     public Product loadById(long productId) {
-        String sqlLoadById = String.format("SELECT * FROM products WHERE id = %s;", productId);
-
-        return jdbcTemplate.queryForObject(sqlLoadById, new ProductRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(
+                sqlLoadById,
+                new MapSqlParameterSource("productId", productId),
+                new ProductRowMapper());
     }
 
     public List<Product> loadAll() {
         String sqlLoadAll = "SELECT * FROM products;";
 
-        return jdbcTemplate.query(sqlLoadAll, new ProductRowMapper());
+        return namedParameterJdbcTemplate.query(sqlLoadAll, new ProductRowMapper());
     }
 
     public List<Product> loadByCurrentPrice(float currentPrice) {
-        String sqlLoadByCurrentPrice = String.format("SELECT * FROM products WHERE current_price = %s;", currentPrice);
-
-        return jdbcTemplate.query(sqlLoadByCurrentPrice, new ProductRowMapper());
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCurrentPrice,
+                new MapSqlParameterSource("currentPrice", currentPrice),
+                new ProductRowMapper());
     }
 
     public List<Product> loadByDiscount(int discount) {
-        String sqlLoadByDiscount = String.format("SELECT * FROM products WHERE discount = %s;", discount);
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByDiscount,
+                new MapSqlParameterSource("discount", discount),
+                new ProductRowMapper());
+    }
 
-        return jdbcTemplate.query(sqlLoadByDiscount, new ProductRowMapper());
+    public List<Product> loadByOrderId(long orderId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByOrderId,
+                new MapSqlParameterSource("orderId", orderId),
+                new ProductRowMapper());
+    }
+
+    public List<Product> loadByCategoryGroupId(long categoryGroupId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCategoryGroupId,
+                new MapSqlParameterSource("categoryGroupId", categoryGroupId),
+                new ProductRowMapper());
+    }
+
+    public List<Product> loadByCatalogId(long catalogId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCatalogId,
+                new MapSqlParameterSource("catalogId", catalogId),
+                new ProductRowMapper());
+    }
+
+    public List<Product> loadByCategoryId(long categoryId) {
+        return namedParameterJdbcTemplate.query(
+                sqlLoadByCategoryId,
+                new MapSqlParameterSource("categoryId", categoryId),
+                new ProductRowMapper());
+
     }
 
 }

@@ -1,20 +1,18 @@
 package ru.dobraccoon.painmarket.order;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OrderService {
 
     private OrderRepository orderRepository;
 
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
-
-    public void create(Order order) {
-        orderRepository.create(order);
+    public Order create(Order newOrder) {
+        return orderRepository.create(newOrder);
     }
 
     public void deleteById(long id) {
@@ -29,10 +27,6 @@ public class OrderService {
         orderRepository.deleteByPrice(price);
     }
 
-    public void update(Order order) {
-        orderRepository.update(order);
-    }
-
     public Order loadById(long orderId) {
         return orderRepository.loadById(orderId);
     }
@@ -43,5 +37,11 @@ public class OrderService {
 
     public List<Order> loadByCustomerId(long customerId) {
         return orderRepository.loadByCustomerId(customerId);
+    }
+
+    public float countPriceByCurrencyAndDiscount(Order order, float currency, int discount) {
+        float price = order.getPrice();
+
+        return (price - (price / 100 * discount)) / currency;
     }
 }
